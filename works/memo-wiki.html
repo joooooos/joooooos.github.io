@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta name="release-version" content="2026.10">
+<link rel="canonical" href="https://joooooos.github.io/works/memo-wiki.html">
+<meta property="og:url" content="https://joooooos.github.io/works/memo-wiki.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Memo · 你只管读和问，它替你记账 · 郭江硕</title>
+<meta property="og:title" content="Smart Memo · 你只管读和问，它替你记账 · 郭江硕">
+<meta property="og:description" content="Smart Memo：一本由 AI 维护、越用越厚的个人记忆维基。概念作品。">
+<meta property="og:image" content="../assets/icons/og.jpg">
+<meta name="description" content="Smart Memo：一本由 AI 维护、越用越厚的个人记忆维基。概念作品。">
+<link rel="icon" href="../assets/icons/favicon-32.png?v=50">
+<link rel="stylesheet" href="./assets/kit/kit.css?v=45">
+<style>
+@font-face{font-family:"Sucai Shehui";src:url(../assets/fonts/sucai.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"WenKai Sheet";src:url(../assets/fonts/wenkai-sheet.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Fira Code";src:url(../assets/fonts/fira-code-400.woff2) format("woff2")}
+@font-face{font-family:"Caveat";font-weight:500;src:url(../assets/fonts/caveat-500.woff2) format("woff2")}
+:root{--on:#141312;--paper:#FFF8EE;--cream:#F5EDE4;--sheet:#F3EBDA;--ink:#141312;--c:#FF6B6B;--ver:#FF4D00;--lime:#CDFF00;--amber:#E8A838;--cobalt:#2E4BFF;
+  --poster:"Sucai Shehui","PingFang SC","Noto Sans CJK SC",sans-serif;--sans:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;--mono:"Fira Code","PingFang SC",monospace;--hand:"WenKai Sheet","Kaiti SC",serif;
+  --pad:clamp(20px,6vw,96px);--sh:4px 5px 0 var(--ink)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 16px/1.75 var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .33 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23p)'/%3E%3C/svg%3E")}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.paper{background:var(--paper);border:1.5px solid var(--ink);box-shadow:var(--sh)}
+.tape{position:absolute;width:62px;height:18px;background:rgba(232,168,56,.55);transform:rotate(-6deg);clip-path:polygon(3% 0,97% 6%,100% 94%,0 100%)}
+.k{display:inline-block;font:400 12px/1 var(--mono);letter-spacing:.14em;color:rgba(20,19,18,.55)}
+h2{margin:12px 0 0;font:400 clamp(30px,4vw,52px)/1.12 var(--poster)}
+h2 span{color:var(--c);filter:saturate(1.2) brightness(.92)}
+.lead{max-width:640px;margin:16px 0 0;font-size:16px;color:rgba(20,19,18,.68)}
+section{padding:clamp(72px,10vw,128px) 0}
+
+/* 顶栏 */
+.top{position:sticky;top:0;z-index:20;background:rgba(245,237,228,.88);backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.top a{text-decoration:none;font:400 13px/1 var(--sans)}
+.top .brand{display:flex;align-items:center;gap:10px;font:400 18px/1 var(--poster)}
+.top .brand i{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 1.5px var(--ink)}
+.top nav{display:flex;gap:18px}
+.top nav a{color:rgba(20,19,18,.6)}.top nav a:hover{color:var(--ink)}
+@media (max-width:760px){.top nav{display:none}}
+
+/* 首屏 */
+.hero{padding:clamp(48px,7vw,96px) 0 clamp(64px,8vw,110px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,72px);align-items:center}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;font:400 12px/1 var(--sans);transform:rotate(-1.2deg)}
+.badge b{padding:5px 8px;background:var(--ink);color:var(--paper);font:400 11px/1 var(--mono);letter-spacing:.1em}
+.badge a{color:rgba(20,19,18,.7)}
+h1{margin:26px 0 0;font:400 clamp(44px,6.4vw,88px)/1.04 var(--poster);letter-spacing:-.01em}
+h1 mark{background:linear-gradient(transparent 58%,var(--c) 58% 90%,transparent 90%);color:inherit;padding:0 .04em}
+.hero .lead{font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:12px;padding:14px 20px;background:var(--c);border:1.5px solid var(--ink);box-shadow:var(--sh);font:600 15px/1 var(--sans);transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translate(-1px,-2px);box-shadow:6px 8px 0 var(--ink)}
+.btn:active{transform:translate(4px,5px);box-shadow:0 0 0 var(--ink)}
+.btn.ghost{background:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+.stats{display:flex;gap:26px;margin-top:34px;font:400 12px/1.4 var(--mono);color:rgba(20,19,18,.55)}
+.stats b{display:block;font:400 30px/1 var(--poster);color:var(--ink)}
+/* 首屏右侧：三层纸 */
+.stack{position:relative;height:440px;perspective:1200px}
+.layer{position:absolute;left:8%;right:4%;height:220px;padding:18px 20px;transition:transform .5s cubic-bezier(.2,1.4,.4,1);cursor:pointer}
+.layer h4{margin:0;font:400 20px/1.2 var(--poster)}
+.layer small{display:block;margin-top:4px;font:400 11px/1.3 var(--mono);letter-spacing:.08em;color:rgba(20,19,18,.55)}
+.layer p{margin:10px 0 0;font-size:13px;line-height:1.65;color:rgba(20,19,18,.72);max-width:300px}
+.layer .who{position:absolute;right:16px;top:16px;padding:4px 8px;border:1.5px solid var(--ink);font:400 11px/1 var(--sans);background:var(--paper)}
+.l-raw{top:210px;transform:rotate(2.2deg);background:#EFE3CC}
+.l-wiki{top:110px;transform:rotate(-1.4deg);background:var(--paper)}
+.l-rule{top:10px;transform:rotate(1deg);background:#FFE9E4}
+.layer:hover,.layer.up{transform:translateY(-18px) rotate(0)!important;z-index:5}
+.scrap{position:absolute;padding:3px 7px;border:1.2px solid var(--ink);background:#fff;font:400 10px/1.3 var(--mono);box-shadow:2px 2px 0 var(--ink)}
+.l-raw .scrap:nth-of-type(1){right:22px;bottom:40px;transform:rotate(-5deg)}
+.l-raw .scrap:nth-of-type(2){right:120px;bottom:22px;transform:rotate(4deg)}
+.l-raw .scrap:nth-of-type(3){right:60px;bottom:78px;transform:rotate(9deg)}
+.l-wiki svg{position:absolute;right:18px;bottom:16px;width:150px;height:100px}
+.hand{font:400 15px/1.4 var(--hand);color:var(--ver)}
+.stack .hand{position:absolute;left:-4%;bottom:-6px;transform:rotate(-4deg)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.stack{height:420px;margin-top:20px}}
+
+/* 对比：两种记忆 */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+.lane{position:relative;padding:22px 22px 18px}
+.lane h3{margin:0;font:400 22px/1.2 var(--poster)}
+.lane h3 small{display:block;margin-top:6px;font:400 12px/1.4 var(--sans);color:rgba(20,19,18,.55)}
+.lane canvas{display:block;width:100%;height:170px;margin-top:16px}
+.lane .say{margin-top:10px;font-size:13px;color:rgba(20,19,18,.7);min-height:44px}
+.lane.b{background:#FFF1EC}
+.slider{display:flex;align-items:center;gap:18px;margin-top:26px;padding:16px 20px}
+.slider label{font:400 13px/1 var(--sans);white-space:nowrap}
+.slider input{flex:1;accent-color:var(--ink)}
+.slider output{min-width:84px;text-align:right;font:400 22px/1 var(--poster)}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+
+/* 控制台：投喂 / 提问 / 体检 */
+.console{margin-top:40px;display:grid;grid-template-columns:260px 1fr 280px;min-height:560px}
+.console>*{padding:18px}
+.tabs{display:flex;gap:8px;margin-top:34px}
+.tab{all:unset;cursor:pointer;padding:12px 18px;border:1.5px solid var(--ink);background:var(--sheet);font:600 14px/1 var(--sans);transform:translateY(4px);transition:transform .2s,background .2s}
+.tab small{margin-left:6px;font:400 11px/1 var(--mono);opacity:.6}
+.tab[aria-selected="true"]{background:var(--paper);transform:none;box-shadow:3px -3px 0 var(--ink)}
+.tab:focus-visible{outline:2px solid var(--cobalt)}
+.side{border-right:1.5px solid var(--ink);background:var(--sheet)}
+.side h5,.logp h5{margin:0 0 12px;font:400 11px/1 var(--mono);letter-spacing:.14em;color:rgba(20,19,18,.55)}
+.pane{display:none}.pane.on{display:block;animation:in .35s both}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.src{all:unset;box-sizing:border-box;position:relative;display:block;width:100%;margin-bottom:12px;padding:12px 12px 12px 14px;background:#fff;border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform .18s,box-shadow .18s}
+.src:nth-child(2){transform:rotate(-1deg)}.src:nth-child(3){transform:rotate(.8deg)}.src:nth-child(4){transform:rotate(-.6deg)}
+.src:hover{transform:translate(-1px,-2px) rotate(0);box-shadow:5px 6px 0 var(--ink)}
+.src b{display:block;font:600 13.5px/1.4 var(--sans)}
+.src span{display:block;margin-top:4px;font:400 11px/1.3 var(--mono);color:rgba(20,19,18,.5)}
+.src.done{cursor:default;opacity:.55;box-shadow:1px 1px 0 var(--ink);transform:none}
+.src.done::after{content:"已编入";position:absolute;right:8px;top:8px;padding:3px 6px;border:1.5px solid var(--ver);color:var(--ver);font:600 11px/1 var(--sans);transform:rotate(8deg)}
+.src.fly{animation:fly .7s cubic-bezier(.5,0,.6,1) forwards}
+@keyframes fly{60%{transform:translate(120px,-20px) rotate(8deg) scale(.8);opacity:1}100%{transform:translate(260px,30px) rotate(14deg) scale(.3);opacity:0}}
+.q{all:unset;box-sizing:border-box;display:block;width:100%;margin-bottom:10px;padding:11px 12px;border:1.5px solid var(--ink);background:#fff;font:400 13.5px/1.45 var(--sans);cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .18s}
+.q:hover{transform:translate(-1px,-2px)}
+.q.on{background:var(--c)}
+.tip{margin-top:14px;font-size:12px;line-height:1.6;color:rgba(20,19,18,.55)}
+.mid{position:relative;background:var(--paper);overflow:hidden}
+.mid svg{display:block;width:100%;height:100%;min-height:440px}
+.status{position:absolute;left:18px;top:14px;font:400 12px/1 var(--mono);color:rgba(20,19,18,.6)}
+.status b{color:var(--ink)}
+.meter{position:absolute;right:18px;top:12px;display:flex;gap:14px;font:400 11px/1 var(--mono);color:rgba(20,19,18,.55)}
+.meter b{font:400 18px/1 var(--poster);color:var(--ink);margin-right:3px}
+.n rect{fill:#fff;stroke:var(--ink);stroke-width:1.5}
+.n text{font:500 11px var(--sans);fill:var(--ink);pointer-events:none}
+.n.hub rect{fill:var(--ink)}.n.hub text{fill:var(--paper)}
+.n.sum rect{fill:#FFF1EC}
+.n.new rect{fill:var(--lime)}
+.n.orphan rect{fill:#F3EBDA;stroke-dasharray:3 3}
+.n.stale rect{fill:#EEE;stroke:#999}.n.stale text{fill:#888;text-decoration:line-through}
+.n.ghost rect{fill:none;stroke:var(--ver);stroke-dasharray:4 3}.n.ghost text{fill:var(--ver)}
+.n.hot rect{stroke:var(--ver);stroke-width:3}
+.n.bad rect{fill:#FFD9D0;stroke:var(--ver);stroke-width:2.5}
+.n.cite rect{fill:var(--c)}
+.n .pop{transform-box:fill-box;transform-origin:center;animation:pop .45s cubic-bezier(.3,1.8,.5,1) both}
+@keyframes pop{from{transform:scale(0)}}
+.n.shake{animation:shk .5s 2}
+@keyframes shk{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.e{stroke:var(--ink);stroke-width:1.2;opacity:.35;fill:none}
+.e.fresh{stroke:var(--ver);opacity:1;stroke-width:2;stroke-dasharray:240;stroke-dashoffset:240;animation:draw .6s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.badge2{font:600 10px var(--mono);fill:var(--ver)}
+.sweep{fill:url(#sw);opacity:0}
+.sweep.go{animation:sweep 1.6s ease-in-out}
+@keyframes sweep{0%{opacity:1;transform:translateX(-200px)}100%{opacity:1;transform:translateX(700px)}}
+.decide{position:absolute;left:18px;right:18px;bottom:16px;padding:14px 16px;background:#fff;border:1.5px solid var(--ver);box-shadow:4px 5px 0 var(--ver);transform:translateY(140%);transition:transform .45s cubic-bezier(.2,1.4,.4,1)}
+.decide.on{transform:none}
+.decide h6{margin:0;font:600 13px/1.4 var(--sans);color:var(--ver)}
+.decide p{margin:6px 0 0;font-size:13px;line-height:1.55}
+.decide p s{color:rgba(20,19,18,.45)}
+.decide .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.decide button{all:unset;cursor:pointer;padding:8px 12px;border:1.5px solid var(--ink);background:var(--paper);font:400 12.5px/1 var(--sans);box-shadow:2px 2px 0 var(--ink)}
+.decide button:first-child{background:var(--ink);color:var(--paper)}
+.decide button:hover{transform:translate(-1px,-1px)}
+.answer{position:absolute;left:18px;right:18px;bottom:16px;padding:14px 16px;background:#fff;border:1.5px solid var(--ink);box-shadow:var(--sh);font-size:13.5px;line-height:1.7;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,1.4,.4,1)}
+.answer.on{transform:none}
+.answer u{text-decoration:none;padding:0 4px;border:1px solid var(--ink);background:var(--c);font:400 11.5px/1.5 var(--mono);white-space:nowrap}
+.answer .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px}
+.answer small{color:rgba(20,19,18,.5);font-size:11.5px}
+.answer button{all:unset;cursor:pointer;padding:8px 12px;border:1.5px solid var(--ink);background:var(--lime);font:600 12.5px/1 var(--sans);box-shadow:2px 2px 0 var(--ink)}
+.answer button[disabled]{background:var(--sheet);cursor:default;opacity:.6}
+.logp{border-left:1.5px solid var(--ink);background:#1B1A18;color:#EDE4D1;font:400 11.5px/1.65 var(--mono)}
+.logp h5{color:rgba(237,228,209,.5)}
+.logp ol{list-style:none;margin:0;padding:0;max-height:250px;overflow:auto}
+.logp li{padding:6px 0;border-bottom:1px dashed rgba(237,228,209,.15)}
+.logp li.newl{animation:in .4s both;color:var(--lime)}
+.logp li i{font-style:normal;color:#FF8F70}
+.logp .idx{margin-top:18px}
+.logp .idx li{border:0;padding:2px 0;color:rgba(237,228,209,.75)}
+.lint{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;padding:13px;text-align:center;background:var(--c);border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font:600 14px/1 var(--sans)}
+.lint:hover{transform:translate(-1px,-2px)}
+.score{display:flex;align-items:baseline;gap:8px;margin:16px 0 8px}
+.score b{font:400 44px/1 var(--poster)}
+.score span{font-size:12px;color:rgba(20,19,18,.55)}
+.issues{list-style:none;margin:0;padding:0}
+.issues li{margin-top:9px;padding:10px 11px;background:#fff;border:1.5px solid var(--ink);font-size:12.5px;line-height:1.5;animation:in .35s both}
+.issues li em{display:block;margin-bottom:3px;font:600 11px/1 var(--mono);font-style:normal;color:var(--ver)}
+.issues li button{all:unset;cursor:pointer;margin-top:7px;padding:5px 9px;border:1.5px solid var(--ink);background:var(--lime);font:600 11.5px/1 var(--sans)}
+.issues li.fixed{opacity:.5}.issues li.fixed button{display:none}
+.issues li.fixed em::after{content:" · 已修好";color:#2B8A3E}
+@media (max-width:1000px){.console{grid-template-columns:1fr}.side{border-right:0;border-bottom:1.5px solid var(--ink)}.logp{border-left:0;border-top:1.5px solid var(--ink)}.mid svg{min-height:380px}}
+
+/* 能用在哪 */
+.uses{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40px}
+.use{position:relative;padding:20px 16px 18px;transition:transform .3s cubic-bezier(.2,1.5,.4,1)}
+.use:nth-child(odd){transform:rotate(-1.2deg)}.use:nth-child(even){transform:rotate(1deg)}
+.use:hover{transform:translateY(-6px) rotate(0)}
+.use i{display:block;font:400 30px/1 var(--poster);color:var(--c)}
+.use b{display:block;margin-top:12px;font:600 15px/1.3 var(--sans)}
+.use p{margin:8px 0 0;font-size:12.5px;line-height:1.65;color:rgba(20,19,18,.66)}
+.use small{display:block;margin-top:10px;font:400 10.5px/1.5 var(--mono);color:rgba(20,19,18,.45)}
+@media (max-width:1000px){.uses{grid-template-columns:repeat(2,1fr)}}
+
+/* 理念 */
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 22px;margin-top:40px}
+.rule{display:grid;grid-template-columns:54px 1fr;gap:14px;padding:20px}
+.rule i{font:400 40px/1 var(--poster);font-style:normal;color:var(--c)}
+.rule b{display:block;font:600 17px/1.35 var(--sans)}
+.rule p{margin:6px 0 0;font-size:13.5px;line-height:1.7;color:rgba(20,19,18,.68)}
+@media (max-width:760px){.rules{grid-template-columns:1fr}}
+table.cmp{width:100%;margin-top:34px;border-collapse:collapse;background:var(--paper);border:1.5px solid var(--ink);box-shadow:var(--sh);font-size:14px}
+.cmp th,.cmp td{padding:12px 16px;border-bottom:1px solid rgba(20,19,18,.14);text-align:left;vertical-align:top}
+.cmp thead th{background:var(--ink);color:var(--paper);font:400 12px/1 var(--mono);letter-spacing:.1em}
+.cmp td:first-child{font:400 12px/1.6 var(--mono);color:rgba(20,19,18,.55);white-space:nowrap}
+.cmp td:last-child{font-weight:600}
+
+/* 收尾 */
+.close{padding-bottom:80px}
+.close .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-top:36px}
+.close .paper{padding:24px}
+.close dl{margin:0;display:grid;grid-template-columns:88px 1fr;gap:12px 14px;font-size:14px}
+.close dt{font:400 12px/1.7 var(--mono);color:rgba(20,19,18,.5)}
+.close dd{margin:0}
+.next{display:flex;flex-direction:column;justify-content:space-between;background:var(--ink)!important;color:var(--paper);text-decoration:none}
+.next small{font:400 12px/1 var(--mono);opacity:.6}
+.next b{display:block;margin-top:14px;font:400 30px/1.1 var(--poster)}
+.next span{margin-top:22px;font-size:13px;opacity:.75}
+.next:hover b{text-decoration:underline;text-underline-offset:6px}
+@media (max-width:760px){.close .grid{grid-template-columns:1fr}}
+footer{padding:26px 0 40px;border-top:1.5px solid var(--ink);font:400 12px/1.6 var(--mono);color:rgba(20,19,18,.5)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s cubic-bezier(.2,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><i></i>Smart Memo</a>
+  <nav><a href="#vs">为什么</a><a href="#try">亲手试</a><a href="#uses">能用在哪</a><a href="#why">设计理念</a></nav>
+  <a class="back" href="../index.html#back" data-back>← 回到个人网站</a>
+</div></header>
+
+<section class="hero hx" id="top"><div class="wrap">
+  <div class="hx-top">
+    <span class="badge paper"><b>概念作品 · 04</b>灵感来自 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Andrej Karpathy《LLM Wiki》</a></span>
+    <h1>你只管读和问，<br><mark>它替你记账。</mark></h1>
+  </div>
+  <div class="hx-l">
+    <p class="lead">读过的文章、开过的会、问过 AI 的问题，AI 帮你编进一本<b>属于你的维基</b>：每读一份更新十几页，每问一次多一页。</p>
+    <ol class="hx-do" aria-label="这一页可以做的事"><li><a href="#try"><i>01</i><span>丢一份资料进去，看十几页维基一起更新</span></a></li><li><a href="#try"><i>02</i><span>问一个问题，把好答案存回维基</span></a></li><li><a href="#vs"><i>03</i><span>看它和普通 AI 问答有什么不同</span></a></li></ol>
+    <div class="stats"><span><b id="hsPages">12</b>维基页</span><span><b id="hsLinks">17</b>条链接</span><span><b id="hsLog">0</b>条日志</span></div>
+  </div>
+  <div class="stack" aria-label="三层结构示意">
+    <div class="layer l-rule paper" tabindex="0"><span class="who">你 + AI 一起改</span><h4>规则本</h4><small>SCHEMA · 怎么记、怎么查、怎么体检</small><p>告诉 AI 这本维基怎么组织：哪些是人物页、哪些是概念页，读到新资料要做哪几步。用得越久，规则越贴你。</p></div>
+    <div class="layer l-wiki paper" tabindex="0"><span class="who">AI 来写</span><h4>维基</h4><small>WIKI · 摘要 · 概念 · 人物 · 综合</small><p>一堆互相链接的 markdown 页面。你只读，不用动手；交叉引用、矛盾标注、索引和日志都由 AI 维护。</p>
+      <svg viewBox="0 0 150 100" aria-hidden="true"><g stroke="#141312" stroke-width="1.2" fill="none" opacity=".5"><path d="M75 50L25 20M75 50L130 22M75 50L30 82M75 50L122 80M25 20L30 82M130 22L122 80"/></g><g stroke="#141312" stroke-width="1.4"><rect x="62" y="42" width="26" height="16" fill="#141312"/><rect x="12" y="13" width="26" height="14" fill="#fff"/><rect x="117" y="15" width="26" height="14" fill="#FF6B6B"/><rect x="17" y="75" width="26" height="14" fill="#fff"/><rect x="109" y="73" width="26" height="14" fill="#CDFF00"/></g></svg></div>
+    <div class="layer l-raw paper" tabindex="0"><span class="who">你来放，只读</span><h4>原始资料</h4><small>RAW · 文章 · 会议 · 笔记 · 图片</small><p>真相的源头。AI 只读不改，维基里每一句都能倒查回这里。</p><span class="scrap">article.md</span><span class="scrap">周会_1003.txt</span><span class="scrap">IMG_2041.jpg</span></div>
+    <span class="hand">↖ 点一下，抽出来看</span>
+  </div>
+</div></section>
+
+<section id="vs" style="background:var(--paper);border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)"><div class="wrap">
+  <span class="k rv">01 · 为什么</span>
+  <h2 class="rv">同一个问题问第 20 次，<br><span>它应该比第 1 次更懂你。</span></h2>
+  <p class="lead rv">大多数「上传文件问 AI」的产品，每次提问都从原文重新找碎片，问完就散，什么都没攒下。拖一下滑块，看两种记忆的差别。</p>
+  <div class="vs">
+    <div class="lane paper rv"><h3>每次从头翻<small>常见做法：上传 → 检索 → 回答 → 散掉</small></h3><canvas id="cvA" aria-label="每次重找的积累曲线"></canvas><p class="say" id="sayA"></p></div>
+    <div class="lane b paper rv"><h3>越用越厚 · Smart Memo<small>读一次就编进维基，下次直接站在上一次的肩膀上</small></h3><canvas id="cvB" aria-label="越用越厚的积累曲线"></canvas><p class="say" id="sayB"></p></div>
+  </div>
+  <div class="slider paper rv"><label for="rg">你已经喂给它</label><input id="rg" type="range" min="1" max="20" value="1"><output id="rgo">1 份资料</output></div>
+</div></section>
+
+<section id="try"><div class="wrap">
+  <span class="k rv">02 · 亲手试</span>
+  <h2 class="rv">三个动作：<span>投喂、提问、体检。</span></h2>
+  <p class="lead rv">左边选一份资料丢进去，看中间的维基怎么一次动十几页；再去「提问」试试：没喂过的资料，它答不出来，喂过了就能答。</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-p="ingest">投喂<small>INGEST</small></button>
+    <button class="tab" role="tab" aria-selected="false" data-p="query">提问<small>QUERY</small></button>
+    <button class="tab" role="tab" aria-selected="false" data-p="lint">体检<small>LINT</small></button>
+  </div>
+  <div class="console paper">
+    <div class="side">
+      <div class="pane on" id="p-ingest"><h5>资料托盘 · 点一份丢进维基</h5>
+        <button class="src" data-s="0"><b>文章 ·《睡眠如何巩固记忆》</b><span>网页剪藏 · 2,400 字</span></button>
+        <button class="src" data-s="1"><b>会议记录 · 10/03 周会</b><span>会议转写 · 38 分钟</span></button>
+        <button class="src" data-s="2"><b>读书笔记 ·《思考，快与慢》第 3 章</b><span>手写笔记拍照 · 4 页</span></button>
+        <p class="tip">一份资料通常会动到 5～15 页：写摘要、改相关页、补链接、更新索引、记一笔日志。<b>和旧结论冲突的地方，不会被悄悄覆盖。</b></p>
+      </div>
+      <div class="pane" id="p-query"><h5>问它点什么</h5>
+        <button class="q" data-q="0">我午睡到底有没有用？</button>
+        <button class="q" data-q="1">项目 A 为什么延期了？</button>
+        <button class="q" data-q="2">我做决定时最常犯的错是什么？</button>
+        <p class="tip">回答会标出引用了哪几页。好的回答可以<b>存回维基</b>，下次直接用，不会沉进聊天记录。</p>
+      </div>
+      <div class="pane" id="p-lint"><h5>给维基做一次体检</h5>
+        <button class="lint" id="lintGo">开始体检</button>
+        <div class="score"><b id="score">—</b><span>健康分</span></div>
+        <ul class="issues" id="issues"></ul>
+      </div>
+    </div>
+    <div class="mid">
+      <div class="status" id="status">维基 · <b>待命</b></div>
+      <div class="meter"><span><b id="mPages">12</b>页</span><span><b id="mLinks">17</b>链接</span></div>
+      <svg id="g" viewBox="0 0 680 470" role="img" aria-label="个人维基的页面关系图">
+        <defs><linearGradient id="sw" x1="0" x2="1"><stop offset="0" stop-color="#CDFF00" stop-opacity="0"/><stop offset=".5" stop-color="#CDFF00" stop-opacity=".55"/><stop offset="1" stop-color="#CDFF00" stop-opacity="0"/></linearGradient></defs>
+        <g id="ge"></g><g id="gn"></g><rect class="sweep" id="sweep" x="0" y="0" width="160" height="470"/>
+      </svg>
+      <div class="decide" id="decide" role="alertdialog" aria-live="polite"><h6 id="dH">发现矛盾：要你来定</h6><p id="dP"></p><div class="row"><button data-d="0">以新资料为准</button><button data-d="1">两种都记，写清条件</button><button data-d="2">先保留旧的</button></div></div>
+      <div class="answer" id="answer" aria-live="polite"><div id="aT"></div><div class="row"><small id="aS"></small><button id="aSave">存回维基</button></div></div>
+    </div>
+    <div class="logp"><h5>log.md · 只增不改</h5><ol id="log"><li><i>##</i> [2026-09-28] init | 建立维基 · 12 页</li></ol>
+      <div class="idx"><h5>index.md · 目录</h5><ol id="idx"></ol></div></div>
+  </div>
+</div></section>
+
+<section id="uses" style="background:var(--paper);border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)"><div class="wrap">
+  <span class="k rv">03 · 能用在哪</span>
+  <h2 class="rv">只要你在<span>持续攒东西，</span><br>它就有用。</h2>
+  <div class="uses">
+    <div class="use paper rv"><i>01</i><b>认识自己</b><p>日记、体检、运动和情绪记录，慢慢拼出一张关于你的结构图。</p><small>页面：睡眠 · 习惯 · 情绪 · 目标</small></div>
+    <div class="use paper rv"><i>02</i><b>深挖一个课题</b><p>几周读几十篇论文，观点一路被修正，最后得到一份会自己更新的综述。</p><small>页面：论文摘要 · 争议 · 当前结论</small></div>
+    <div class="use paper rv"><i>03</i><b>陪你读一本书</b><p>每读一章编一次：人物、主题、伏笔自动连起来，读完手里多了一本伴读维基。</p><small>页面：人物 · 主题 · 章节线索</small></div>
+    <div class="use paper rv"><i>04</i><b>团队的共同记忆</b><p>会议、群聊、客户电话编进同一本维基，没人愿意做的整理交给 AI。</p><small>页面：项目 · 决策日志 · 风险</small></div>
+    <div class="use paper rv"><i>05</i><b>规划与比较</b><p>旅行、买房、竞品分析、尽调：资料越攒越多，也不会越来越乱。</p><small>页面：候选 · 对比表 · 待核实</small></div>
+  </div>
+</div></section>
+
+<section id="why"><div class="wrap">
+  <span class="k rv">04 · 设计理念</span>
+  <h2 class="rv">整理的苦活交给 AI，<br><span>判断留给你。</span></h2>
+  <p class="lead rv">人放弃维护知识库，往往不是因为不爱读、不爱想，是因为记账太累：改交叉引用、更新摘要、发现新旧矛盾。AI 不会烦，也不会忘，一次改 15 页也不嫌多。</p>
+  <div class="rules">
+    <div class="rule paper rv"><i>1</i><div><b>资料只读，真相有源头</b><p>原始资料 AI 一个字都不改。维基里每一句话都能点回出处，出错了能倒查。</p></div></div>
+    <div class="rule paper rv"><i>2</i><div><b>AI 记账，人做判断</b><p>摘要、链接、索引全由 AI 写；读什么、问什么、信哪个结论，由你决定。</p></div></div>
+    <div class="rule paper rv"><i>3</i><div><b>矛盾不悄悄覆盖</b><p>新资料推翻旧结论时，AI 把两边摆到你面前，你来裁决，并记下为什么。</p></div></div>
+    <div class="rule paper rv"><i>4</i><div><b>好答案不沉进聊天记录</b><p>一次好的比较、一个新发现，都可以存成新页面，和读过的资料一样一起变厚。</p></div></div>
+    <div class="rule paper rv"><i>5</i><div><b>一切都是纯文本</b><p>维基就是一个装满 markdown 的文件夹：能用 Obsidian 看，能用 git 管版本，换哪个 AI 都带得走。</p></div></div>
+    <div class="rule paper rv"><i>6</i><div><b>定期体检，越长越健康</b><p>找矛盾、找过期结论、找没人链接的孤立页、找被提到却没有页面的概念，还会建议你下一步该读什么。</p></div></div>
+  </div>
+  <table class="cmp rv"><thead><tr><th>　</th><th>常见做法：每次从头翻</th><th>Smart Memo：越用越厚</th></tr></thead><tbody>
+    <tr><td>知识存在哪</td><td>原始文件里，每次临时找</td><td>编好的维基里，随时可读</td></tr>
+    <tr><td>跨资料的问题</td><td>每次重新拼五份资料的碎片</td><td>综合页早就写好，直接引用</td></tr>
+    <tr><td>新旧矛盾</td><td>没人发现，答案时好时坏</td><td>读进来时就标出，交给你裁决</td></tr>
+    <tr><td>好的回答</td><td>沉进聊天记录</td><td>存回维基，变成新页面</td></tr>
+    <tr><td>谁来维护</td><td>没人，所以总会荒掉</td><td>AI 记账，成本接近于零</td></tr>
+  </tbody></table>
+</div></section>
+
+<section class="close" style="background:var(--paper);border-top:1.5px solid var(--ink)"><div class="wrap">
+  <span class="k rv">05 · 关于这个作品</span>
+  <h2 class="rv">一个概念，<span>和已经跑起来的底座。</span></h2>
+  <div class="grid">
+    <div class="paper rv"><dl>
+      <dt>定位</dt><dd>个人记忆系统：AI 维护、越用越厚的个人维基。这一页是概念演示，数据为示意。</dd>
+      <dt>我负责</dt><dd>定三层结构（资料只读 / 维基 AI 写 / 规则本人和 AI 共改），设计投喂、提问、体检三个动作，以及「矛盾交给人裁决」的交互。</dd>
+      <dt>现在到哪</dt><dd>Obsidian 底座（双链、图谱、检索）已在自己的笔记库里跑通；投喂流程、体检与矛盾裁决界面在做。</dd>
+      <dt>致谢</dt><dd>模式来自 Andrej Karpathy 的 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">LLM Wiki</a>；我在上面加的是「人做裁决」这一层。</dd>
+    </dl><div class="endbar"><a class="btn ink" href="../index.html#back" data-back>← 回到个人网站</a></div></div>
+    <a class="next paper rv" href="forked-cut.html"><small>下一个作品 · 05 · 概念作品</small><b>念动下一帧 →</b><span>停在喜欢的那一秒，说一句话，改写接下来发生的事。</span></a>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>Smart Memo · 概念作品 · 郭江硕</span><a href="../index.html#back" data-back>← 回到个人网站</a></div></footer>
+
+<script>
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const NS = "http://www.w3.org/2000/svg";
+
+/* 首屏三层纸：点一下抽出来 */
+$$(".layer").forEach((l) => { const t = () => { const on = !l.classList.contains("up"); $$(".layer").forEach((x) => x.classList.remove("up")); l.classList.toggle("up", on); }; l.addEventListener("click", t); l.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+
+/* 滚动出现 */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
+$$(".rv").forEach((el) => io.observe(el));
+
+/* 01 两种记忆：滑块 */
+function lane(cv, n, mode) {
+  const r = cv.getBoundingClientRect(), d = devicePixelRatio || 1; cv.width = r.width * d; cv.height = r.height * d;
+  const c = cv.getContext("2d"); c.scale(d, d); const W = r.width, H = r.height, pad = 14, step = (W - pad * 2) / 20;
+  c.strokeStyle = "rgba(20,19,18,.15)"; c.lineWidth = 1; c.beginPath(); c.moveTo(pad, H - 18); c.lineTo(W - pad, H - 18); c.stroke();
+  c.font = "10px 'Fira Code',monospace"; c.fillStyle = "rgba(20,19,18,.45)"; c.fillText("攒下来的知识", pad, 12);
+  for (let i = 0; i < 20; i++) {
+    const x = pad + i * step + 2, on = i < n, h = mode ? (H - 40) * Math.pow((i + 1) / 20, 0.8) : (H - 40) * 0.16;
+    c.fillStyle = on ? (mode ? "#FF6B6B" : "#D6CCBA") : "rgba(20,19,18,.05)"; c.strokeStyle = on ? "#141312" : "transparent"; c.lineWidth = 1.3;
+    c.beginPath(); c.rect(x, H - 18 - h, step - 4, h); c.fill(); c.stroke();
+    if (!mode && on && i < n - 1) { c.fillStyle = "rgba(20,19,18,.35)"; c.fillText("散", x + step / 2 - 6, H - 22 - h); }
+  }
+}
+const rg = $("#rg");
+function vs() {
+  const n = +rg.value; $("#rgo").textContent = `${n} 份资料`;
+  lane($("#cvA"), n, 0); lane($("#cvB"), n, 1);
+  $("#sayA").textContent = n < 3 ? "第一次问，表现不错。" : n < 10 ? `第 ${n} 次，它还是从原文重新找碎片，前面 ${n - 1} 次的整理全散了。` : `第 ${n} 次，跨五份资料的问题它要重新拼，矛盾也没人发现。`;
+  $("#sayB").textContent = n < 3 ? "第一次，它写下摘要页、建好索引。" : n < 10 ? `第 ${n} 次，${n * 9} 页维基已经互相连好，新资料只需要补进去。` : `第 ${n} 次，综合页早就写好，矛盾在读进来时已经标出并由你裁决过。`;
+}
+rg.addEventListener("input", vs); addEventListener("resize", vs); vs();
+
+/* 02 控制台：维基图 */
+const N = {
+  idx: { t: "首页 index", x: 340, y: 235, k: "hub" },
+  health: { t: "健康总览", x: 150, y: 120 }, sleep: { t: "睡眠", x: 80, y: 235 }, habit: { t: "习惯", x: 165, y: 345 },
+  memory: { t: "记忆", x: 255, y: 70 }, books: { t: "书单", x: 430, y: 70 }, week: { t: "本周回顾", x: 240, y: 250 },
+  projA: { t: "项目 A", x: 540, y: 125 }, wang: { t: "人物 · 王工", x: 610, y: 225 }, risk: { t: "风险清单", x: 545, y: 335 },
+  dlog: { t: "决策日志", x: 420, y: 360 }, bias: { t: "我的偏差", x: 300, y: 420 },
+  plan: { t: "项目 A · 9 月计划", x: 600, y: 45, k: "stale" },
+  o1: { t: "随手存的链接", x: 70, y: 430, k: "orphan" }, o2: { t: "旧旅行清单", x: 620, y: 430, k: "orphan" },
+};
+const E = [["idx", "health"], ["idx", "projA"], ["idx", "dlog"], ["idx", "books"], ["idx", "week"], ["health", "sleep"], ["health", "habit"], ["sleep", "memory"], ["memory", "books"], ["projA", "wang"], ["projA", "risk"], ["projA", "plan"], ["dlog", "bias"], ["bias", "books"], ["week", "habit"], ["week", "dlog"], ["dlog", "projA"]];
+const ge = $("#ge"), gn = $("#gn"), EL = {};
+function wOf(t) { return Math.max(56, [...t].reduce((a, ch) => a + (ch.charCodeAt(0) > 255 ? 12 : 7), 0) + 18); }
+function addNode(id, cls = "", pop = false) {
+  const n = N[id], g = document.createElementNS(NS, "g"), w = wOf(n.t);
+  g.setAttribute("class", `n ${n.k || ""} ${cls}`); g.setAttribute("transform", `translate(${n.x},${n.y})`);
+  g.innerHTML = `<g class="${pop ? "pop" : ""}"><rect x="${-w / 2}" y="-13" width="${w}" height="26" rx="2"/><text text-anchor="middle" dy="4">${n.t}</text></g>`;
+  gn.appendChild(g); n.el = g; return g;
+}
+function addEdge(a, b, fresh = false) {
+  const A = N[a], B = N[b], p = document.createElementNS(NS, "path"), mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2 - 14;
+  p.setAttribute("d", `M${A.x} ${A.y}Q${mx} ${my} ${B.x} ${B.y}`); p.setAttribute("class", fresh ? "e fresh" : "e");
+  ge.appendChild(p); EL[a + "|" + b] = p;
+  if (fresh) setTimeout(() => p.setAttribute("class", "e"), 2600);
+}
+for (const id in N) addNode(id); E.forEach(([a, b]) => addEdge(a, b));
+const cnt = { pages: 12, links: 17, log: 0 };
+function bump(p = 0, l = 0) { cnt.pages += p; cnt.links += l; $("#mPages").textContent = $("#hsPages").textContent = cnt.pages; $("#mLinks").textContent = $("#hsLinks").textContent = cnt.links; }
+function log(s, kind) { const li = document.createElement("li"); li.className = "newl"; li.innerHTML = `<i>##</i> [2026-10-05] ${kind} | ${s}`; $("#log").prepend(li); cnt.log++; $("#hsLog").textContent = cnt.log; }
+const IDX = ["概念 · 睡眠、记忆、习惯", "项目 · 项目 A、风险清单", "人物 · 王工", "日志 · 决策日志、本周回顾", "书 · 书单"];
+function idx(add) { if (add) IDX.unshift(add); $("#idx").innerHTML = IDX.slice(0, 7).map((t, i) => `<li style="${add && i === 0 ? "color:#CDFF00" : ""}">- ${t}</li>`).join(""); }
+idx();
+function status(s) { $("#status").innerHTML = `维基 · <b>${s}</b>`; }
+function flash(id, cls = "hot", ms = 900) { const el = N[id] && N[id].el; if (!el) return; el.classList.add(cls); setTimeout(() => el.classList.remove(cls), ms); }
+function plus(id, txt) { const n = N[id]; const t = document.createElementNS(NS, "text"); t.setAttribute("class", "badge2"); t.setAttribute("x", n.x + wOf(n.t) / 2 - 4); t.setAttribute("y", n.y - 16); t.textContent = txt; gn.appendChild(t); t.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }, { opacity: 1 }, { opacity: 0 }], { duration: 1800, fill: "forwards" }).onfinish = () => t.remove(); }
+
+/* 投喂 */
+const SRC = [
+  { t: "《睡眠如何巩固记忆》", sum: { id: "s0", t: "摘要 · 睡眠与记忆", x: 70, y: 150 }, touch: ["sleep", "memory", "health", "habit", "week"], add: "摘要 · 睡眠与记忆（新）", pages: 9,
+    clash: { node: "health", h: "「健康总览」和新资料说法不一样", old: "健康总览：午睡没什么用，晚上睡够就行。", neu: "新文章：20 分钟以内的午睡，能帮记忆巩固。" } },
+  { t: "10/03 周会", sum: { id: "s1", t: "摘要 · 10/03 周会", x: 470, y: 205 }, touch: ["projA", "wang", "risk", "dlog"], add: "摘要 · 10/03 周会（新）", pages: 11,
+    clash: { node: "projA", h: "「项目 A」的上线日期对不上", old: "项目 A：10/20 上线。", neu: "周会：等合规审核，推迟到 11/03。" } },
+  { t: "《思考，快与慢》第 3 章", sum: { id: "s2", t: "摘要 · 快与慢 Ch.3", x: 520, y: 405 }, extra: { id: "anchor", t: "新概念 · 锚定效应", x: 420, y: 445 }, touch: ["books", "bias", "dlog"], add: "概念 · 锚定效应（新）", pages: 7 },
+];
+const fed = [false, false, false]; let busy = false;
+$$(".src").forEach((b) => b.addEventListener("click", async () => {
+  const i = +b.dataset.s; if (fed[i] || busy) return; busy = true; const S = SRC[i];
+  b.classList.add("fly"); status(`在读 ${S.t}…`); await wait(650); b.classList.remove("fly"); b.classList.add("done");
+  N[S.sum.id] = { t: S.sum.t, x: S.sum.x, y: S.sum.y, k: "sum" }; addNode(S.sum.id, "", true); addEdge(S.sum.id, "idx", true); bump(1, 1); status("写摘要页"); await wait(600);
+  if (S.extra) { N[S.extra.id] = { t: S.extra.t, x: S.extra.x, y: S.extra.y, k: "new" }; addNode(S.extra.id, "", true); addEdge(S.sum.id, S.extra.id, true); addEdge(S.extra.id, "bias", true); bump(1, 2); status("发现一个新概念，单独建一页"); await wait(700); }
+  for (const id of S.touch) { addEdge(S.sum.id, id, true); flash(id); plus(id, `+${1 + (id.length % 3)} 段`); bump(0, 1); status(`更新「${N[id].t}」`); await wait(340); }
+  idx(S.add); status("更新索引");
+  await wait(400);
+  if (S.clash) {
+    const C = S.clash, el = N[C.node].el; el.classList.add("bad", "shake"); status("发现矛盾，停下来等你");
+    $("#dH").textContent = `发现矛盾：${C.h}`; $("#dP").innerHTML = `<s>${C.old}</s><br>${C.neu}`; $("#decide").classList.add("on");
+    const pick = await new Promise((r) => $$("#decide button").forEach((x) => (x.onclick = () => r(+x.dataset.d))));
+    $("#decide").classList.remove("on"); el.classList.remove("bad", "shake"); flash(C.node, "new", 1400);
+    const how = ["以新资料为准，旧说法留在历史里", "两种都记，写清各自条件", "先保留旧的，新资料标为待核实"][pick];
+    log(`你裁决「${N[C.node].t}」：${how}`, "decide");
+  }
+  log(`${S.t} · 动了 ${S.pages} 页`, "ingest"); fed[i] = true; status(`读完了 · 这份资料动了 ${S.pages} 页`); busy = false;
+  if (fed.every(Boolean)) status("三份都编进去了 · 去「提问」试试");
+}));
+
+/* 提问 */
+const Q = [
+  { need: 0, cite: ["s0", "sleep", "health"], a: "有用，但要短。你 10/05 读的那篇文章说，<b>20 分钟以内</b>的午睡能帮记忆巩固；你的「健康总览」已按你的裁决更新。结合「睡眠」页的记录，你午睡超过 40 分钟的那几天，下午反而更困。", cites: "摘要 · 睡眠与记忆、睡眠、健康总览", save: { id: "a0", t: "问答 · 午睡怎么睡", x: 160, y: 200 } },
+  { need: 1, cite: ["s1", "projA", "risk", "wang"], a: "因为<b>合规审核</b>。10/03 周会上王工提出数据出境要过审，上线从 10/20 推到 11/03；「风险清单」已加一条，「项目 A · 9 月计划」里的旧日期现在过期了，体检会抓到它。", cites: "摘要 · 10/03 周会、项目 A、风险清单、人物 · 王工", save: { id: "a1", t: "问答 · 项目 A 延期", x: 600, y: 300 } },
+  { need: 2, cite: ["anchor", "bias", "dlog"], a: "是<b>锚定效应</b>。「决策日志」里 7 次定价判断，有 5 次被第一个听到的数字带着走；《思考，快与慢》第 3 章刚好讲这个。建议：做判断前先写下自己的数，再看别人的。", cites: "新概念 · 锚定效应、我的偏差、决策日志", save: { id: "a2", t: "问答 · 我的决策偏差", x: 200, y: 395 } },
+];
+const NOFED = ["维基里还没有这方面的资料。我可以去原文里临时翻一遍，但答完就散了。<b>先去「投喂」那篇睡眠文章</b>，再来问我。", "维基里关于项目 A 的最新记录停在 9 月，我答不准。<b>先去「投喂」10/03 的周会记录</b>，再来问我。", "「决策日志」里只有零散记录，还没有能解释它们的概念页。<b>先去「投喂」那份读书笔记</b>，再来问我。"];
+let curQ = -1;
+$$(".q").forEach((b) => b.addEventListener("click", async () => {
+  const i = +b.dataset.q, q = Q[i]; curQ = i; $$(".q").forEach((x) => x.classList.toggle("on", x === b));
+  const A = $("#answer"); A.classList.remove("on"); await wait(250);
+  if (!fed[q.need]) { $("#aT").innerHTML = NOFED[i]; $("#aS").textContent = "没有可引用的页面"; $("#aSave").disabled = true; $("#aSave").textContent = "没有可存的"; A.classList.add("on"); status("答不上来 · 维基里还没有"); return; }
+  status("查目录 → 读相关页 → 合成回答");
+  for (const id of q.cite) { flash(id, "cite", 2400); await wait(260); }
+  $("#aT").innerHTML = q.a; $("#aS").innerHTML = `引用：${q.cites.split("、").map((t) => `<u>${t}</u>`).join(" ")}`;
+  const saved = !!N[q.save.id]; $("#aSave").disabled = saved; $("#aSave").textContent = saved ? "已存为新页" : "存回维基"; A.classList.add("on"); status("回答好了 · 要不要存回维基？");
+}));
+$("#aSave").addEventListener("click", () => {
+  const q = Q[curQ]; if (!q || N[q.save.id]) return;
+  N[q.save.id] = { t: q.save.t, x: q.save.x, y: q.save.y, k: "new" }; addNode(q.save.id, "", true); q.cite.forEach((c) => addEdge(q.save.id, c, true)); bump(1, q.cite.length);
+  idx(`${q.save.t}（新）`); log(`${q.save.t} → 存为新页`, "query"); $("#aSave").disabled = true; $("#aSave").textContent = "已存为新页"; status("好答案变成了新的一页");
+});
+
+/* 体检 */
+let linted = false, score = 64;
+const ISS = [
+  { k: "过期结论", d: () => fed[1] ? "「项目 A · 9 月计划」还写着 10/20 上线，已被 10/03 周会推翻。" : "「项目 A · 9 月计划」三周没更新，里面的日期可能过期了。", fix: "标为已替代", run: () => { N.plan.el.classList.remove("stale"); N.plan.el.querySelector("text").textContent = "9 月计划（已替代）"; flash("plan", "new", 1400); } },
+  { k: "孤立页", d: () => "「随手存的链接」没有任何页面链到它，也说不出来源。", fix: "挂到「本周回顾」", run: () => { N.o1.el.classList.remove("orphan"); addEdge("o1", "week", true); bump(0, 1); } },
+  { k: "孤立页", d: () => "「旧旅行清单」没人链接，建议挂到书单的「游记」条目下。", fix: "挂到「书单」", run: () => { N.o2.el.classList.remove("orphan"); addEdge("o2", "books", true); bump(0, 1); } },
+  { k: "缺页概念", d: () => "「复盘方法」在 4 页里被提到，却没有自己的页面。", fix: "建一页", run: () => { N.ghost.el.classList.remove("ghost"); N.ghost.el.classList.add("new"); addEdge("ghost", "week", true); addEdge("ghost", "dlog", true); bump(1, 2); } },
+];
+$("#lintGo").addEventListener("click", async () => {
+  if (linted) return; linted = true; $("#lintGo").textContent = "体检中…"; status("体检：找矛盾、过期、孤立页、缺页");
+  N.ghost = { t: "复盘方法 ?", x: 340, y: 160, k: "ghost" }; const sw = $("#sweep"); sw.classList.add("go"); await wait(800); addNode("ghost", "", true); await wait(800); sw.classList.remove("go");
+  ["plan", "o1", "o2", "ghost"].forEach((id) => flash(id, "shake", 1000));
+  $("#score").textContent = score; $("#lintGo").textContent = "体检完成 · 发现 4 处";
+  $("#issues").innerHTML = ISS.map((s, i) => `<li data-i="${i}"><em>${s.k}</em>${s.d()}<br><button>${s.fix}</button></li>`).join("");
+  $$("#issues button").forEach((b) => b.addEventListener("click", () => {
+    const li = b.closest("li"), s = ISS[+li.dataset.i]; s.run(); li.classList.add("fixed"); score = Math.min(100, score + 9); $("#score").textContent = score;
+    log(`体检修复：${s.k} · ${s.fix}`, "lint");
+    if ($$("#issues li.fixed").length === ISS.length) { score = 100; $("#score").textContent = score; status("体检完成 · 维基很健康"); }
+  }));
+  log("体检 · 发现 4 处问题", "lint"); status("发现 4 处，左边一键修");
+});
+
+/* 切换 */
+$$(".tab").forEach((t) => t.addEventListener("click", () => {
+  $$(".tab").forEach((x) => x.setAttribute("aria-selected", x === t)); $$(".pane").forEach((p) => p.classList.toggle("on", p.id === "p-" + t.dataset.p));
+  $("#decide").classList.contains("on") || $("#answer").classList.remove("on");
+  if (t.dataset.p === "query") status(fed.some(Boolean) ? "问点什么？" : "还没投喂过资料 · 问问看它怎么回答");
+  if (t.dataset.p === "lint") status(linted ? "体检过了" : "点「开始体检」");
+  if (t.dataset.p === "ingest") status(fed.every(Boolean) ? "三份都编进去了" : "待命");
+}));
+</script>
+<script src="./assets/kit/kit.js"></script>
+</body>
+</html>

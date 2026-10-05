@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta name="release-version" content="2026.10">
+<link rel="canonical" href="https://joooooos.github.io/404.html">
+<meta property="og:url" content="https://joooooos.github.io/404.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>这一页还没拍 · Forma</title>
+<meta name="description" content="这一页还没拍。布景只搭了一半，主角躲在后面。">
+<meta name="robots" content="noindex">
+<style>
+html,body{margin:0;height:100%}
+body{display:grid;place-items:center;background:#F6EFE4;color:#141312;font-family:"PingFang SC","Noto Sans CJK SC",system-ui,sans-serif}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);align-items:center;gap:4vw;width:min(1180px,92vw)}
+.k{margin:0;font:400 12px/1 "Fira Code",ui-monospace,Menlo,monospace;letter-spacing:.24em;color:#8c867e}
+h1{margin:18px 0 0;font-size:clamp(40px,5.4vw,76px);font-weight:900;line-height:1.02;letter-spacing:-.03em}
+h1 i{font-style:normal;color:#FF4D00}
+p.s{margin:18px 0 0;font-size:17px;line-height:1.7;color:#5d5850}
+a.go{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:13px 22px;border-radius:999px;background:#141312;color:#FBF7F0;font-size:15px;font-weight:600;text-decoration:none;box-shadow:4px 5px 0 #FF4D00;transition:transform .3s cubic-bezier(.3,1.6,.5,1),box-shadow .3s}
+a.go:hover{transform:translate(-2px,-2px) rotate(-1.5deg);box-shadow:6px 7px 0 #FF4D00}
+figure{margin:0}
+figure img{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:sway 5.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(-.6deg)}}
+@media (max-width:760px){main{grid-template-columns:1fr;gap:20px;padding:40px 0}figure{order:-1}}
+@media (prefers-reduced-motion:reduce){figure img{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <div>
+    <p class="k">FORMA · 404 · 片场后台</p>
+    <h1>这一页<br>还没拍<i>。</i></h1>
+    <p class="s">布景只搭了一半，主角躲在后面。<br>正片在前面，我带你回去。</p>
+    <a class="go" id="go" href="./">回到片场 <span aria-hidden="true">←</span></a>
+  </div>
+  <figure><img id="art" src="assets/gen/web/D404.webp" width="1400" height="876" alt="布景板背面，句号从后面探出半个身子，比了个 OK"></figure>
+</main>
+<script>
+/* 404 可能出现在任何深度的路径下：按托管方式推出站点根目录，图和按钮都从根目录取 */
+(function () {
+  var seg = location.pathname.split("/").filter(Boolean);
+  var root = "/";
+  if (location.protocol === "file:") root = "./";
+  document.getElementById("go").href = root;
+  document.getElementById("art").src = root + "assets/gen/web/D404.webp";
+  var l = document.createElement("link"); l.rel = "icon"; l.type = "image/svg+xml"; l.href = root + "assets/icons/favicon-wake.svg?v=50"; document.head.appendChild(l);
+})();
+</script>
+</body>
+</html>

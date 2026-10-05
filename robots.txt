@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joooooos.github.io/sitemap.xml

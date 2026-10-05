@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta name="release-version" content="2026.10">
+<link rel="canonical" href="https://joooooos.github.io/works/course-case.html">
+<meta property="og:url" content="https://joooooos.github.io/works/course-case.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>课程内容生产 Agent · 先挖出一门能卖的课，再稳定地量产出来 · 郭江硕</title>
+<meta property="og:title" content="课程内容生产 Agent · 先挖出一门能卖的课，再稳定地量产出来 · 郭江硕">
+<meta property="og:description" content="课程内容生产 Agent：先从调研里挖出卖得动的课程方向（人群、任务、障碍、成果都有事实撑腰），首讲试制过人审，再按页成对生成 PPT 画面 Prompt 与数字人口播；改一页只返修一页，7 道门禁过了才发布。">
+<meta property="og:image" content="../assets/icons/og.jpg">
+<meta name="description" content="课程内容生产 Agent：先从调研里挖出卖得动的课程方向（人群、任务、障碍、成果都有事实撑腰），首讲试制过人审，再按页成对生成 PPT 画面 Prompt 与数字人口播；改一页只返修一页，7 道门禁过了才发布。">
+<link rel="icon" href="../assets/icons/favicon-32.png?v=50">
+<link rel="stylesheet" href="./assets/kit/kit.css?v=45">
+<style>
+:root{--c:#2E4BFF;--on:#FFF8EE}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.fan{position:relative;height:440px}
+.pg{position:absolute;left:50%;top:50%;width:min(420px,88%);aspect-ratio:16/9;margin:0;background:#fff;border:1.5px solid var(--ink);box-shadow:var(--sh);transform-origin:50% 120%;transition:transform .6s cubic-bezier(.2,1.4,.4,1);cursor:zoom-in}
+.pg img{display:block;width:100%;height:100%;object-fit:cover}
+.pg b{position:absolute;left:8px;top:8px;padding:3px 7px;border:1.2px solid var(--ink);background:var(--paper);font:400 10.5px/1 var(--mono)}
+.pg.blank{background:var(--sheet);display:grid;place-items:center;font:400 12px/1 var(--mono);color:rgba(20,19,18,.45)}
+.fan:hover .pg:nth-child(1){transform:translate(-50%,-50%) rotate(-14deg) translateX(-40px)!important}
+.fan:hover .pg:nth-child(2){transform:translate(-50%,-50%) rotate(-5deg) translateX(-12px)!important}
+.fan:hover .pg:nth-child(3){transform:translate(-50%,-50%) rotate(5deg) translateX(14px)!important}
+.fan:hover .pg:nth-child(4){transform:translate(-50%,-50%) rotate(13deg) translateX(40px)!important}
+.fan .hand{position:absolute;right:0;bottom:6px;transform:rotate(-3deg)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.fan{height:340px}}
+
+/* 01 · 挖方向 */
+.mine{margin-top:34px;padding:22px}
+.mine .ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.mine .ctl span{font-size:13px;color:rgba(20,19,18,.6)}
+.mine [hidden]{display:none}
+.cands{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.cand{position:relative;padding:14px 14px 22px;background:#fff;border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);transition:transform .5s cubic-bezier(.2,1.4,.4,1),opacity .4s,background .3s}
+.cand h4{margin:0 0 6px;font:600 15px/1.3 var(--sans)}
+.cand small{font:400 10.5px/1 var(--mono);color:rgba(20,19,18,.5)}
+.cand dl{display:grid;grid-template-columns:auto 1fr;gap:7px 8px;margin:12px 0 0;font-size:12.5px;line-height:1.45}
+.cand dt{font:400 10.5px/1.75 var(--mono);color:rgba(20,19,18,.55)}
+.cand dd{position:relative;margin:0;padding-right:18px;transition:color .3s}
+.cand dd::after{position:absolute;right:0;top:0;font:700 13px/1.4 var(--sans)}
+.cand dd.ok::after{content:"✓";color:var(--ok)}
+.cand dd.no{color:rgba(20,19,18,.45);text-decoration:line-through;text-decoration-color:var(--ver)}
+.cand dd.no::after{content:"✗";color:var(--ver)}
+.cand .why{position:absolute;left:10px;right:10px;bottom:-13px;padding:4px 8px;border:1.5px solid var(--ver);background:var(--paper);color:var(--ver);font:600 12px/1.3 var(--sans);text-align:center;opacity:0;transform:rotate(-2deg) scale(.6);transition:.35s cubic-bezier(.3,1.6,.5,1)}
+.cand.scan{background:#EAF0FF}
+.cand.out{background:var(--sheet);opacity:.75;transform:translateY(6px) rotate(-1deg)}
+.cand.out .why{opacity:1;transform:rotate(-2deg)}
+.cand.keep{outline:2.5px solid var(--c);outline-offset:3px;transform:translateY(-6px)}
+.catalog{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;min-height:62px;margin-top:34px;padding:14px 16px;border:1.5px dashed rgba(20,19,18,.35)}
+.catalog h5{margin:0;font:400 11px/1.4 var(--mono);letter-spacing:.08em}
+.catalog ol{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.catalog li{padding:7px 11px;background:var(--c);color:var(--on);font:600 13px/1.2 var(--sans);box-shadow:2px 2px 0 var(--ink);animation:drop .5s cubic-bezier(.3,1.6,.5,1) both}
+.catalog li.empty{padding:0;background:none;color:rgba(20,19,18,.45);font-weight:400;box-shadow:none;animation:none}
+@keyframes drop{from{opacity:0;transform:translateY(-24px) rotate(-4deg)}}
+.pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:13px;opacity:.35;transition:opacity .5s}
+.pipe.on{opacity:1}
+.pipe span{padding:5px 10px;border:1.5px solid var(--ink);background:#fff}
+.pipe i{font-style:normal;color:rgba(20,19,18,.45)}
+.pipe a{color:var(--c);font-weight:600}
+@media (max-width:900px){.cands{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cands{grid-template-columns:1fr}.catalog{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.cand,.cand .why,.catalog li{transition:none;animation:none}}
+
+/* 02 · 同一页四份资产 */
+.view{display:grid;grid-template-columns:1.05fr .95fr;margin-top:34px}
+.view .l{padding:20px;border-right:1.5px solid var(--ink)}
+.view .r{padding:20px;background:var(--paper)}
+.ptabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.shot{position:relative;margin:0;padding:6px;background:#fff;border:1.5px solid var(--ink);box-shadow:var(--sh);transform:rotate(-.6deg);cursor:zoom-in;transition:opacity .2s}
+.shot.swap{opacity:.2}
+.shot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--ink)}
+.shot figcaption{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font:400 11px/1.4 var(--mono)}
+.idstamp{display:inline-block;padding:4px 9px;border:1.5px solid var(--c);color:var(--c);font:600 12px/1 var(--mono);transform:rotate(-2deg)}
+.atabs{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.atab{all:unset;cursor:pointer;padding:8px 11px;border:1.5px solid var(--ink);border-bottom:0;background:var(--sheet);font:600 12.5px/1 var(--sans);transform:translateY(3px)}
+.atab[aria-selected="true"]{background:#fff;transform:none}
+.atab:focus-visible{outline:2px solid var(--cobalt)}
+.abody{padding:14px;min-height:150px;background:#fff;border:1.5px solid var(--ink);font-size:14px;line-height:1.75;animation:inUp .3s both}
+.abody small{display:block;margin-bottom:6px;font:400 11px/1 var(--mono);color:rgba(20,19,18,.5)}
+.checks{margin:14px 0 0;padding:0;list-style:none}
+.checks li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;margin-top:6px;border:1.2px solid var(--ink);background:#fff;font-size:13px}
+.checks li em{font-style:normal;font:600 11px/1 var(--sans);padding:3px 7px;border:1.2px solid var(--ink)}
+.checks li.ok em{background:var(--lime)}
+.checks li.wait em{background:var(--amber)}
+.checks li button{all:unset;cursor:pointer;padding:5px 9px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);font:600 11.5px/1 var(--sans)}
+@media (max-width:900px){.view{grid-template-columns:1fr}.view .l{border-right:0;border-bottom:1.5px solid var(--ink)}}
+
+/* 03 · 改一页 */
+.redo{margin-top:34px;padding:22px}
+.redo .ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.redo .ctl span{font-size:13px;color:rgba(20,19,18,.6)}
+.strip{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:20px;perspective:800px}
+.mp{all:unset;box-sizing:border-box;cursor:pointer;position:relative;aspect-ratio:3/4;padding:6px;background:#fff;border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);font:400 10px/1.3 var(--mono);transition:transform .5s,background .3s}
+.mp i{position:absolute;left:6px;right:6px;height:3px;background:rgba(20,19,18,.15)}
+.mp i:nth-of-type(1){top:24px}.mp i:nth-of-type(2){top:32px;right:30%}.mp i:nth-of-type(3){top:40px;right:45%}
+.mp u{position:absolute;right:4px;bottom:4px;width:14px;height:14px;display:grid;place-items:center;border:1.2px solid var(--ink);border-radius:50%;background:var(--lime);text-decoration:none;font-size:9px}
+.mp.sel{outline:2.5px solid var(--c);outline-offset:2px}
+.mp.flip{animation:flip .7s both}
+@keyframes flip{50%{transform:rotateY(90deg)}}
+.mp.stale{background:var(--sheet)}.mp.stale u{background:var(--paper);border-style:dashed}
+.mp.drift{background:#FFE3D6}.mp.drift::after{content:attr(data-d);position:absolute;left:3px;right:3px;bottom:22px;padding:2px;border:1px solid var(--ver);background:#fff;color:var(--ver);font:600 8.5px/1.2 var(--sans);text-align:center}
+.mp.new{background:#EAF0FF}
+.tally{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.tally div{padding:12px;border:1.5px solid var(--ink);background:var(--sheet)}
+.tally b{display:block;font:400 28px/1 var(--poster)}
+.tally span{font-size:12px;color:rgba(20,19,18,.6)}
+.verdict{margin-top:14px;font-size:14px;min-height:24px}
+@media (max-width:760px){.strip{grid-template-columns:repeat(6,1fr)}.tally{grid-template-columns:1fr 1fr}}
+
+/* 04 · 七个阶段 + 门禁 */
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:34px}
+.sg{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:12px 10px;background:var(--paper);border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);font:600 13px/1.3 var(--sans);transition:transform .2s}
+.sg small{display:block;margin-bottom:6px;font:400 10px/1 var(--mono);color:rgba(20,19,18,.5)}
+.sg em{display:block;margin-top:6px;font:400 10.5px/1.3 var(--mono);font-style:normal;color:rgba(20,19,18,.55)}
+.sg[aria-pressed="true"]{background:var(--c);color:var(--on);transform:translateY(-6px)}
+.sg[aria-pressed="true"] small,.sg[aria-pressed="true"] em{color:rgba(255,248,238,.75)}
+.sg.key::after{content:"关键";position:absolute;right:-6px;top:-9px;padding:2px 5px;border:1.2px solid var(--ink);background:var(--amber);font:600 9.5px/1.2 var(--sans);transform:rotate(6deg)}
+.sgd{margin-top:14px;padding:18px 20px;animation:inUp .3s both}
+.sgd h4{margin:0;font:400 22px/1.2 var(--poster)}
+.sgd p{margin:8px 0 0;font-size:14px;color:rgba(20,19,18,.75)}
+.sgd .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.sgd .meta span{padding:4px 8px;border:1.2px solid var(--ink);background:#fff;font:400 12px/1.2 var(--sans)}
+@media (max-width:900px){.flow{grid-template-columns:repeat(4,1fr)}}
+.gate{display:grid;grid-template-columns:1fr 320px;margin-top:40px}
+.gate .l{padding:22px;border-right:1.5px solid var(--ink)}
+.gl{margin:16px 0 0;padding:0;list-style:none}
+.gl li{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px dashed rgba(20,19,18,.2);font-size:14px;transition:opacity .3s}
+.gl li i{flex:none;width:24px;height:24px;display:grid;place-items:center;border:1.5px solid var(--ink);border-radius:50%;background:var(--paper);font:600 11px/1 var(--mono);font-style:normal}
+.gl li.ok i{background:var(--lime)}.gl li.ok i::after{content:"✓"}
+.gl li.wait i{background:var(--amber);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+.gl li span{flex:1}
+.gl li small{font:400 11px/1.3 var(--mono);color:rgba(20,19,18,.5)}
+.gask{margin-top:12px;padding:14px;background:#fff;border:1.5px solid var(--ink);box-shadow:4px 5px 0 var(--amber);animation:inUp .3s both}
+.gask .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.gate .r{padding:22px;background:#1B1A18;color:#EDE4D1;font:400 12px/1.7 var(--mono)}
+.gate .r h5{margin:0 0 10px;font:400 11px/1 var(--mono);letter-spacing:.12em;color:rgba(237,228,209,.5)}
+.gate .r pre{margin:0;white-space:pre-wrap;min-height:220px}
+.stamp{display:inline-block;margin-top:16px;padding:8px 14px;border:3px solid var(--lime);color:var(--lime);font:400 22px/1 var(--poster);transform:rotate(-6deg);animation:pop .4s cubic-bezier(.3,1.8,.5,1) both}
+.stamp.no{border-color:#FF8F70;color:#FF8F70}
+@media (max-width:900px){.gate{grid-template-columns:1fr}.gate .l{border-right:0;border-bottom:1.5px solid var(--ink)}}
+
+/* 05 · 能力 */
+.nums{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:34px}
+.nums div{padding:14px;text-align:center}
+.nums b{display:block;font:400 34px/1 var(--poster);color:var(--c)}
+.nums span{display:block;margin-top:6px;font-size:12px;color:rgba(20,19,18,.6)}
+.caps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+.cap{padding:16px}
+.cap i{font:400 11px/1 var(--mono);font-style:normal;color:rgba(20,19,18,.5)}
+.cap b{display:block;margin-top:8px;font:600 15px/1.35 var(--sans)}
+.cap p{margin:6px 0 0;font-size:12.5px;line-height:1.6;color:rgba(20,19,18,.68)}
+.cap code{display:block;margin-top:8px;font:400 10.5px/1.4 var(--mono);color:var(--c)}
+@media (max-width:900px){.nums{grid-template-columns:repeat(3,1fr)}.caps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><i>02</i>课程内容生产 Agent</a>
+  <nav><a href="#mine">挖方向</a><a href="#page">同一页</a><a href="#redo">改一页</a><a href="#gate">门禁</a><a href="#cap">能力</a><a href="#edge">边界</a></nav>
+  <a class="back" href="../index.html#back" data-back>← 回到个人网站</a>
+</div></header>
+
+<section class="hero hx" id="top"><div class="wrap">
+  <div class="hx-top">
+    <span class="badge"><b>02 · 内容生产</b>第 02 讲 · 把复杂内容讲清楚<em>已运行</em></span>
+    <h1>先挖出一门能卖的课，<br><mark>再稳定地量产出来。</mark></h1>
+  </div>
+  <div class="hx-l">
+    <p class="lead">它先从调研里挖出<b>卖得动的方向</b>：谁、要完成什么、卡在哪、学完拿出什么，四件事都得有事实撑腰。首讲试制过了人这一关，再为每一页成对生成 <b>PPT 画面 Prompt 和数字人口播</b>。缺事实就停下来问，不猜。</p>
+    <ol class="hx-do" aria-label="这一页可以做的事"><li><a href="#mine"><i>01</i><span>筛一遍候选方向：哪门课卖得动</span></a></li><li><a href="#redo"><i>02</i><span>改一个数据：只返修那一页</span></a></li><li><a href="#gate"><i>03</i><span>看 7 道门禁怎么层层把关</span></a></li></ol>
+    <div class="stats"><span><b>9</b>讲完整运行</span><span><b>19</b>次模型调用</span><span><b>7</b>道发布门禁</span><span><b>1</b>页出错，只返修 1 页</span></div>
+  </div>
+  <div class="fan" aria-label="第 02 讲的课件页">
+    <figure class="pg blank" style="transform:translate(-50%,-50%) rotate(-8deg) translateX(-20px)">lesson02.page12</figure>
+    <figure class="pg" style="transform:translate(-50%,-50%) rotate(-3deg)" data-zoom="./assets/course/page08.jpg" data-cap="第 08 页 · 诊断页"><img src="./assets/course/page08.jpg" alt="第 08 页"><b>page08</b></figure>
+    <figure class="pg" style="transform:translate(-50%,-50%) rotate(3deg)" data-zoom="./assets/course/page04.jpg" data-cap="第 04 页 · 对照页"><img src="./assets/course/page04.jpg" alt="第 04 页"><b>page04</b></figure>
+    <figure class="pg" style="transform:translate(-50%,-50%) rotate(7deg) translateX(20px)" data-zoom="./assets/course/page01.jpg" data-cap="第 01 页 · 教学页"><img src="./assets/course/page01.jpg" alt="第 01 页"><b>page01</b></figure>
+    <span class="hand">课件图由它产出的 Prompt 渲染 ↑ 移上来摊开</span>
+  </div>
+</div></section>
+
+<section class="alt" id="mine"><div class="wrap">
+  <span class="k rv">01 · 挖方向</span>
+  <h2 class="rv">先挖出一门<span>卖得动的课</span>，<br>再开始生成。</h2>
+  <p class="lead rv">调研里事实和观点混在一起。它只把<b>人群、任务、障碍、成果</b>四件事都有事实撑腰、学完能练习也能验收的方向做成课。按「过筛」，看四个候选方向谁能留下。</p>
+  <div class="mine paper rv">
+    <div class="ctl"><button class="btn" id="mGo">过筛 ▶</button><button class="chip" id="mReset" hidden>重来</button><span>候选方向为演示编写，筛选规则与真实系统一致。</span></div>
+    <div class="cands" id="cands"></div>
+    <div class="catalog"><h5>能卖的<br>课程目录</h5><ol id="catalog"><li class="empty">还没有。先过一遍筛。</li></ol></div>
+    <div class="pipe" id="pipe"><span>课程目录</span><i>→</i><span>首讲试制</span><i>→</i><span>人确认 GO</span><i>→</i><span>整门课按页量产</span><i>·</i><a href="#page">看量产怎么不走样 ↓</a></div>
+  </div>
+</div></section>
+
+<section id="page"><div class="wrap">
+  <span class="k rv">02 · 同一页，四份资产</span>
+  <h2 class="rv">四份东西挂在<span>同一个 page_id</span> 上，<br>所以不会各说各话。</h2>
+  <p class="lead rv">教学目标、画面 Prompt、口播、学员动作，都从这一页的职责出发。换一页看看；有一项待确认，需要你来点。</p>
+  <div class="view paper rv">
+    <div class="l"><div class="ptabs" id="ptabs"></div>
+      <figure class="shot" id="shot"><img id="pimg" alt=""><figcaption><span id="ptitle"></span><span id="ptype"></span></figcaption></figure></div>
+    <div class="r"><span class="idstamp" id="pid"></span>
+      <div class="atabs" role="tablist" id="atabs"></div><div class="abody" id="abody"></div>
+      <ul class="checks" id="checks"></ul></div>
+  </div>
+</div></section>
+
+<section class="alt" id="redo"><div class="wrap">
+  <span class="k rv">03 · 改一页</span>
+  <h2 class="rv">一个数据要改，<br><span>你愿意重做几页？</span></h2>
+  <p class="lead rv">点一页，再按「改一个数据」。分别用两种做法各试一次：一次性生成整讲 vs 每页身份锁定、按页返修。</p>
+  <div class="redo paper rv">
+    <div class="ctl"><button class="chip" data-m="page" aria-pressed="true">按页返修（page_id 锁定）</button><button class="chip" data-m="all" aria-pressed="false">一次性生成整讲</button><span>·</span><button class="btn" id="edit">改第 <b id="selN">04</b> 页的一个数据</button></div>
+    <div class="strip" id="strip"></div>
+    <div class="tally"><div><b id="tCalls">0</b><span>额外模型调用</span></div><div><b id="tPages">0</b><span>要重新审的页</span></div><div><b id="tKeep">12</b><span>校验仍然有效</span></div><div><b id="tDrift">0</b><span>漂移风险（课名、页码、事实）</span></div></div>
+    <p class="verdict" id="verdict">先选一种做法，再改一次。</p>
+  </div>
+</div></section>
+
+<section id="gate"><div class="wrap">
+  <span class="k rv">04 · 流程与门禁</span>
+  <h2 class="rv">先锁定怎么教，<br><span>再决定怎么做。</span></h2>
+  <p class="lead rv">七个阶段各有一份唯一的产物。页面身份锁定之前，不生成任何画面和口播，避免视觉反过来改写课程。点任一阶段看细节。</p>
+  <div class="flow" id="flow"></div>
+  <div class="sgd paper" id="sgd"></div>
+  <div class="gate paper rv">
+    <div class="l"><h3 style="margin:0;font:400 24px/1.2 var(--poster)">送审第 02 讲：7 道门禁</h3><p class="lead" style="margin-top:6px;font-size:14px">任何一道没过，它就停下，保留状态和恢复命令，不会交一份「看起来完成」的结果。</p>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="gGo">送审 ▶</button><button class="chip" id="gForce">跳过门禁，直接发布</button></div>
+      <ul class="gl" id="gl"></ul><div id="gAsk"></div></div>
+    <div class="r"><h5>release.log</h5><pre id="glog">$ runner validate lesson02 --gates 7
+等待送审…</pre><div id="gStamp"></div></div>
+  </div>
+</div></section>
+
+<section class="alt" id="cap"><div class="wrap">
+  <span class="k rv">05 · 能力</span>
+  <h2 class="rv">它会跑流程，<span>也会停下来。</span></h2>
+  <p class="lead rv">模型负责生成；这套系统负责让每一次交付都有来源、有状态、失败时有恢复路线。</p>
+  <div class="nums"><div class="paper rv"><b>9–12</b><span>讲，可配置</span></div><div class="paper rv"><b>9–12</b><span>页 / 讲</span></div><div class="paper rv"><b>7</b><span>道发布门禁</span></div><div class="paper rv"><b>68</b><span>条运行条件</span></div><div class="paper rv"><b>144</b><span>类失败路线</span></div><div class="paper rv"><b>19</b><span>次调用跑完 9 讲</span></div></div>
+  <div class="caps">
+    <div class="cap paper rv"><i>01</i><b>判断能不能开始</b><p>读取请求和输入快照，识别输入类型，选择运行模式。</p><code>intent.py · input_extract.py</code></div>
+    <div class="cap paper rv"><i>02</i><b>课程与页面分开建模</b><p>目录、契约、教学计划、页面清单各管一件事，Prompt 不能反向改课程。</p><code>runner.py · schemas</code></div>
+    <div class="cap paper rv"><i>03</i><b>按页成对生成</b><p>同一 page_id 下生成口播和画面 Prompt，润色后装配成制作文档。</p><code>narration · ppt-prompt</code></div>
+    <div class="cap paper rv"><i>04</i><b>每份产物可追溯</b><p>登记父工件和内容哈希，逐项执行页面、旁白、事实和发布门禁。</p><code>artifact registry</code></div>
+    <div class="cap paper rv"><i>05</i><b>失败时停下，不伪造成功</b><p>事件日志、checkpoint、回滚与重做、成本上限和路径保护。</p><code>steps.py · stability.py</code></div>
+  </div>
+</div></section>
+
+<section id="edge"><div class="wrap">
+  <span class="k rv">06 · 边界</span>
+  <h2 class="rv">它负责「这一讲该怎么做」，<br><span>不负责渲染成最终视频。</span></h2>
+  <div class="bound">
+    <div class="paper rv"><h4>它交出的</h4><ul><li>课程结构、课程契约与每讲的教学计划</li><li>锁定的页面清单，每页一个 page_id</li><li>逐页 PPT 画面 Prompt 与数字人口播</li><li>制作文档、审计报告与发布清单</li></ul></div>
+    <div class="paper todo rv"><h4>留给下游制作的</h4><ul><li>最终 PPT 图片或 PPTX 渲染</li><li>TTS 音频合成</li><li>数字人视频驱动与合成</li><li>在线课程发布与学习反馈</li></ul></div>
+  </div>
+  <p class="note rv">下一步验证：用一门真实的 9 讲课程跑完整链路，核对 19 次模型调用、逐页身份同步、人工确认次数，以及单页返修是否真的不需要重跑整讲。本页课件图由这个 Agent 产出的 Prompt 渲染；运行内容为一次真实输出的静态回放。</p>
+  <div class="rules">
+    <div class="rule paper rv"><i>1</i><b>先定什么算事实</b><p>只有大纲和已确认的调研能当来源。画面上的字不能扩展课程事实。</p></div>
+    <div class="rule paper rv"><i>2</i><b>每页先有职责，再有画面</b><p>没有教学目的的页不进下一步；口播讲关系，不朗读标题。</p></div>
+    <div class="rule paper rv"><i>3</i><b>宁可停下，不交假完成</b><p>缺事实就问，门禁没过就停，留下恢复命令，交给人接着做。</p></div>
+  </div>
+</div></section>
+
+<section class="close"><div class="wrap">
+  <span class="k rv">07 · 关于这个作品</span>
+  <h2 class="rv">我把「做一门课」拆成两步：<br><span>先挖方向，再上生产线。</span></h2>
+  <div class="grid">
+    <div class="paper rv"><dl>
+      <dt>我负责</dt><dd>定选课方法（人群 · 任务 · 障碍 · 成果）与课程契约，设计首讲试制、page_id 锁定和 7 道发布门禁。</dd>
+      <dt>跑通了</dt><dd>9 讲完整运行 · 19 次模型调用 · 改一页只返修一页。</dd>
+      <dt>一句话</dt><dd>先验证这门课卖得动，再把什么算事实、每页负责什么、什么状态才能交付写进系统，让模型照着生成。</dd>
+    </dl><div class="endbar"><a class="btn ink" href="../index.html#back" data-back>← 回到个人网站</a></div></div>
+    <a class="next paper rv" href="lab.html"><small>下一个作品 · 03</small><b>个人产品实验场 →</b><span>你正在看的这个网站，是怎么一版版长出来的。</span></a>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>课程内容生产 Agent · 郭江硕</span><a data-back href="../index.html#back">← 回到个人网站</a></div></footer>
+
+<script src="./assets/kit/kit.js"></script>
+<script>
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)], wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* 01 · 挖方向：四项都有事实撑腰才留下，留下的进课程目录 */
+const MINE = [
+  { t: "AI 时代的沟通之道", src: "调研原话 · 观点", r: [["人群", "所有想提升沟通的人", 0], ["任务", "—", 0], ["障碍", "“沟通越来越重要”", 0], ["成果", "—", 0]], why: "只有观点，说不出谁要完成什么" },
+  { t: "把复杂内容讲清楚", src: "用户访谈 · 事实", r: [["人群", "要给非专业同事讲方案的业务骨干", 1], ["任务", "十分钟讲清一个复杂方案", 1], ["障碍", "事实、判断、建议混在一句话里", 1], ["成果", "一段拆清三者的讲稿，能当场批改", 1]] },
+  { t: "沟通心理学 30 讲", src: "竞品课程 · 观点", r: [["人群", "职场人（太宽）", 0], ["任务", "了解沟通背后的心理机制", 0], ["障碍", "不懂对方在想什么", 1], ["成果", "—", 0]], why: "学完拿不出成果，卖不动" },
+  { t: "周报结论先行", src: "问卷 · 事实", r: [["人群", "每周要向上汇报的职场新人", 1], ["任务", "把一周进展写成一页周报", 1], ["障碍", "按时间顺序写，结论埋在最后", 1], ["成果", "一份结论先行的周报", 1]] },
+];
+const mineRM = matchMedia("(prefers-reduced-motion: reduce)").matches, mt = (ms) => wait(mineRM ? 0 : ms);
+const mineEmpty = $("#catalog").innerHTML;
+function mineDraw() {
+  $("#cands").innerHTML = MINE.map((m) => `<article class="cand"><h4>${m.t}</h4><small>来源：${m.src}</small><dl>${m.r.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${m.why ? `<span class="why">${m.why}</span>` : ""}</article>`).join("");
+  $("#catalog").innerHTML = mineEmpty; $("#pipe").classList.remove("on");
+}
+let mining = false;
+$("#mGo").addEventListener("click", async () => {
+  if (mining) return; mining = true; mineDraw(); $("#mGo").disabled = true; $("#mReset").hidden = true;
+  const cards = $$("#cands .cand"); let first = true;
+  for (let i = 0; i < MINE.length; i++) {
+    const c = cards[i], dds = c.querySelectorAll("dd"); c.classList.add("scan");
+    for (let j = 0; j < dds.length; j++) { await mt(170); dds[j].classList.add(MINE[i].r[j][2] ? "ok" : "no"); }
+    await mt(260); c.classList.remove("scan");
+    const ok = MINE[i].r.every((x) => x[2]); c.classList.add(ok ? "keep" : "out");
+    if (ok) { if (first) { $("#catalog").innerHTML = ""; first = false; } const li = document.createElement("li"); li.textContent = MINE[i].t; $("#catalog").appendChild(li); }
+    await mt(220);
+  }
+  $("#pipe").classList.add("on"); $("#mGo").disabled = false; $("#mGo").textContent = "再筛一遍 ▶"; $("#mReset").hidden = false; mining = false;
+});
+$("#mReset").addEventListener("click", () => { if (mining) return; mineDraw(); $("#mGo").textContent = "过筛 ▶"; $("#mReset").hidden = true; });
+mineDraw();
+
+/* 02 · 同一页四份资产 */
+const P = [
+  { n: 1, id: "lesson02.page01", title: "从过程里抓重点：压缩成 30 秒表达", type: "教学页 teaching-frame", img: "./assets/course/page01.jpg",
+    goal: "让学员把一段完整过程提炼成结论、依据、风险和行动。",
+    prompt: "以课程教学页的方式展示「过程 → 重点 → 结构化表达」的转换。左侧是结论、依据、风险、行动四个清晰节点，右侧保留它们之间的支撑关系，底部呈现原始过程记录到 30 秒表达成果的资产交付路径。深墨绿色底、暖米白字、低饱和黄绿色节点、细线连接，信息密度高但阅读方向单一，右下角留出数字人口播叠加空间。",
+    narr: "这一页展示的不是如何把过程讲得更长，而是如何从过程里抓出真正需要被记住的重点。先找到结论，再补上能够支持结论的依据，接着说清楚风险，最后给出下一步行动。这样，原本很长的一段过程就能被压缩成一条有判断、有证据、有出口的表达。",
+    act: "找一段最近的工作过程，写出结论、依据、风险和行动。", checks: [["page_id 与 PageManifest 对齐", "ok"], ["旁白解释页面关系而非朗读标题", "ok"]] },
+  { n: 4, id: "lesson02.page04", title: "事实、判断、建议不是一回事", type: "对照页 comparison", img: "./assets/course/page04.jpg",
+    goal: "让学员把同一段表达拆成可验证的事实、基于事实的判断和下一步建议。",
+    prompt: "以「原始表述 → 清晰标记」的左右对照页呈现三种信息性质。左侧保留三条未经整理的句子，中央用共同比较轴连接右侧；右侧分别标记事实、基于事实的判断、下一步建议，并在底部提供逐句改写动作。深墨绿色背景，米白标题，黄绿色标签和细线连接，保持同一视觉系统，不使用无意义装饰。",
+    narr: "事实、判断和建议经常被写在同一句话里，听的人就很难知道哪一部分可以验证，哪一部分只是你的解释，下一步又应该做什么。这一页先把三种性质拆开：事实回答发生了什么，判断回答这意味着什么，建议回答接下来做什么。请把你刚才写下的内容逐句标记，必要时重新改写。",
+    act: "给一段真实表达逐句标记事实、判断或建议，并改写一处混淆。", checks: [["Prompt 页面类型与教学职责一致", "ok"], ["视觉文本不扩展课程事实边界", "ok"], ["右下角数字人安全区已保留", "wait"]] },
+  { n: 8, id: "lesson02.page08", title: "为什么按时间顺序讲，重点反而消失", type: "诊断页 diagnosis", img: "./assets/course/page08.jpg",
+    goal: "让学员发现时间顺序与听众理解顺序并不相同，并重排一段表达。",
+    prompt: "以问题诊断页展示「发生顺序」和「沟通顺序」的两条不同轨道。左侧列出听众负担和重点消失的症状，中部用两条时间/沟通轨道对照，右侧给出结论先行、筛选理由、保留证据、过程可选的援救路径，底部放四步修复动作。深墨绿色背景、黄绿色轨道和节点、米白标题，结构清晰并为数字人预留右下角自然留白。",
+    narr: "按时间顺序讲述，听起来最完整，却不一定最容易理解。因为发生顺序把听众带进了你的过程，而沟通顺序要先让听众知道结论，再决定哪些理由和证据值得继续听。修复时先找到最晚出现的结论，把它移到最前面；然后筛选理由，保留直接支撑判断的证据，其他过程细节放到后面或暂时不讲。",
+    act: "把一段按时间写下的过程重排成结论先行的四步表达。", checks: [["旁白包含学员动作和交接资产", "ok"], ["页面字段与输出资产可追溯", "ok"]] },
+];
+const AT = [["goal", "教学目标", "TeachingPlan · 这一页负责什么"], ["prompt", "画面 Prompt", "生图用 · 同一套视觉系统"], ["narr", "数字人口播", "约 30 秒 · 讲关系，不念标题"], ["act", "学员动作", "看完要做的事"]];
+let cp = 0, ca = 0;
+$("#ptabs").innerHTML = P.map((p, i) => `<button class="chip" data-p="${i}">第 ${String(p.n).padStart(2, "0")} 页</button>`).join("");
+$("#atabs").innerHTML = AT.map((a, i) => `<button class="atab" role="tab" data-a="${i}">${a[1]}</button>`).join("");
+function showA() { const p = P[cp], a = AT[ca]; $$(".atab").forEach((b, i) => b.setAttribute("aria-selected", i === ca)); $("#abody").outerHTML = `<div class="abody" id="abody"><small>${p.id} · ${a[2]}</small>${p[a[0]]}</div>`; }
+function showP(i) {
+  cp = i; const p = P[i]; $$("#ptabs .chip").forEach((b, k) => b.setAttribute("aria-pressed", k === i));
+  const s = $("#shot"); s.classList.add("swap"); setTimeout(() => { $("#pimg").src = p.img; $("#pimg").alt = p.title; s.dataset.zoom = p.img; s.dataset.cap = p.title; s.classList.remove("swap"); }, 180);
+  $("#ptitle").textContent = p.title; $("#ptype").textContent = p.type; $("#pid").textContent = p.id; showA();
+  $("#checks").innerHTML = p.checks.map((c, k) => `<li class="${c[1]}"><span>${c[0]}</span>${c[1] === "wait" ? `<button data-k="${k}">我来确认</button>` : "<em>通过</em>"}</li>`).join("");
+  $$("#checks button").forEach((b) => b.addEventListener("click", () => { p.checks[+b.dataset.k][1] = "ok"; showP(cp); }));
+}
+$$("#ptabs .chip").forEach((b) => b.addEventListener("click", () => showP(+b.dataset.p)));
+$$(".atab").forEach((b) => b.addEventListener("click", () => { ca = +b.dataset.a; showA(); }));
+showP(0);
+
+/* 03 · 改一页 */
+let mode = "page", sel = 4, busy = false; const tot = { calls: 0, pages: 0, drift: 0 };
+$("#strip").innerHTML = Array.from({ length: 12 }, (_, i) => `<button class="mp${i + 1 === sel ? " sel" : ""}" data-n="${i + 1}" aria-label="第 ${i + 1} 页">p${String(i + 1).padStart(2, "0")}<i></i><i></i><i></i><u>✓</u></button>`).join("");
+const mps = $$(".mp");
+mps.forEach((m) => m.addEventListener("click", () => { if (busy) return; sel = +m.dataset.n; mps.forEach((x) => x.classList.toggle("sel", x === m)); $("#selN").textContent = String(sel).padStart(2, "0"); }));
+$$("[data-m]").forEach((b) => b.addEventListener("click", () => { if (busy) return; mode = b.dataset.m; $$("[data-m]").forEach((x) => x.setAttribute("aria-pressed", x === b)); }));
+function reset() { mps.forEach((m) => { m.classList.remove("flip", "stale", "drift", "new"); m.querySelector("u").textContent = "✓"; }); }
+$("#edit").addEventListener("click", async () => {
+  if (busy) return; busy = true; reset(); const DR = ["课名漂移", "页码错位", "事实越界"];
+  if (mode === "page") {
+    const m = mps[sel - 1]; m.classList.add("flip"); await wait(350); m.classList.add("new"); await wait(450); m.classList.remove("flip");
+    Object.assign(tot, { calls: 2, pages: 1, drift: 0 }); $("#tKeep").textContent = 11;
+    $("#verdict").innerHTML = `只重新生成第 ${String(sel).padStart(2, "0")} 页的画面 Prompt、口播和交接说明；<b>其余 11 页不动</b>，校验结果和哈希照旧有效。`;
+  } else {
+    for (const m of mps) { m.classList.add("flip", "stale"); m.querySelector("u").textContent = ""; await wait(70); }
+    await wait(500); const pick = [2, 6, 10].map((k) => (k + sel) % 12);
+    pick.forEach((k, j) => { mps[k].classList.add("drift"); mps[k].dataset.d = DR[j]; });
+    Object.assign(tot, { calls: 24, pages: 12, drift: 3 }); $("#tKeep").textContent = 0;
+    $("#verdict").innerHTML = `没有页面身份，改第 ${String(sel).padStart(2, "0")} 页的一个数据也要<b>整讲重来</b>；其余 11 页已经审过的内容要再审一遍，还冒出 3 处漂移。`;
+  }
+  $("#tCalls").textContent = tot.calls; $("#tPages").textContent = tot.pages; $("#tDrift").textContent = tot.drift; busy = false;
+});
+
+/* 04 · 七个阶段 */
+const SG = [
+  ["课程事实", "MRD / 调研材料", "Course Catalog", "能不能开始：缺事实、目标不清就停在入口", "先复述意图，区分哪些输入是权威来源。只有主题没有材料、给了材料目录、给了已锁定讲次，走的是三条不同的路线。"],
+  ["课程契约", "Course Blueprint", "CourseContract", "边界写清：之后每一步都按它校验", "课程讲几讲（9–12 讲可配置）、每讲几页（9–12 页）、交付到哪一层，都在这里定死。后面的阶段只能引用，不能改。"],
+  ["教学计划", "TeachingPlan", "逐页旁白要点 / 学员动作", "每页有职责：没有教学目的的页不进下一步", "例如第 04 页的职责是「把一段表达拆成事实、判断、建议」，学员动作是「给一段真实表达逐句标记」。画面和口播都要为这件事服务。"],
+  ["锁定页面", "PageManifest", "页数 / 页序 / page_id", "人工审查教学，确认后才锁定", "整条链路的关键一步。身份锁定后，后面所有资产都挂在 page_id 上；改一页只动这一页，不会牵连整讲。", 1],
+  ["画面 Prompt", "compile", "Prompt JSON", "不越界：画面文字不能扩展课程事实", "页面类型（教学页、对照页、诊断页）决定版式；右下角固定给数字人留出口播位置。"],
+  ["装配交接", "assemble", "制作文档 / 纯净旁白", "口播讲关系，不朗读标题", "口播解释页面里的关系，而不是把画面上的字念一遍；每页结尾交代学员动作和下一页的衔接。"],
+  ["校验发布", "Validation / Release", "审计报告 / release manifest", "7 道门禁：存疑项交给人确认", "任何一道没过，运行就停下并保留状态、checkpoint 和恢复命令，而不是交出一份「看起来完成」的结果。"],
+];
+$("#flow").innerHTML = SG.map((s, i) => `<button class="sg${s[5] ? " key" : ""}" data-s="${i}"><small>0${i + 1}</small>${s[0]}<em>${s[1]}</em></button>`).join("");
+function showSG(i) { $$(".sg").forEach((b, k) => b.setAttribute("aria-pressed", k === i)); const s = SG[i]; $("#sgd").outerHTML = `<div class="sgd paper" id="sgd"><h4>0${i + 1} · ${s[0]}</h4><p>${s[4]}</p><div class="meta"><span>交出：${s[2]}</span><span>过关：${s[3]}</span></div></div>`; }
+$$(".sg").forEach((b) => b.addEventListener("click", () => showSG(+b.dataset.s))); showSG(3);
+
+/* 04 · 门禁 */
+const G = [["页面同步", "12 页 page_id 与 PageManifest 一一对应"], ["事实边界", "画面与口播没有超出大纲的事实"], ["旁白规范", "口播讲关系，结尾交代学员动作"], ["版式与安全区", "右下角数字人安全区已保留"], ["来源可追溯", "每份产物登记了父工件"], ["内容哈希", "交付文件与登记哈希一致"], ["发布资格", "生成 release manifest"]];
+const gl = $("#gl"), glog = $("#glog"); let gBusy = false;
+function gReset() { gl.innerHTML = G.map((g, i) => `<li><i>${i + 1}</i><span>${g[0]}</span><small>${g[1]}</small></li>`).join(""); $("#gAsk").innerHTML = ""; $("#gStamp").innerHTML = ""; }
+gReset();
+function L(s) { glog.textContent += "\n" + s; }
+$("#gGo").addEventListener("click", async () => {
+  if (gBusy) return; gBusy = true; gReset(); glog.textContent = "$ runner validate lesson02 --gates 7"; const li = $$("#gl li");
+  for (let i = 0; i < G.length; i++) {
+    li[i].classList.add("wait"); await wait(520);
+    if (i === 3) {
+      L(`[gate 4] 版式与安全区 · page04 待人工确认 → 暂停`); L(`checkpoint saved · lesson02@validate#4`);
+      $("#gAsk").innerHTML = `<div class="gask"><b>第 04 页：右下角数字人安全区是否保留？</b><p style="margin:6px 0 0;font-size:13px">对照页信息多，模型判断「可能挤到」，交给人看一眼。</p><div class="row"><button class="btn" id="gOk">看过了，保留了</button><button class="chip" id="gNo">没留够，退回第 05 阶段</button></div></div>`;
+      const ok = await new Promise((r) => { $("#gOk").onclick = () => r(1); $("#gNo").onclick = () => r(0); });
+      $("#gAsk").innerHTML = "";
+      if (!ok) { li[i].classList.remove("wait"); L(`[gate 4] 人工退回 → 只重做 page04 的画面 Prompt`); L(`resume: runner resume lesson02 --from compile --pages 04`); await wait(900); L(`[compile] page04 重新生成 · 其余 11 页不动`); await wait(700); li[i].classList.add("wait"); await wait(400); L(`[gate 4] 复检 · 安全区已留出 · pass`); }
+      else L(`[gate 4] 人工确认通过`);
+    }
+    li[i].classList.remove("wait"); li[i].classList.add("ok"); if (i !== 3) L(`[gate ${i + 1}] ${G[i][0]} · pass`);
+  }
+  L("release manifest → lesson02/release.json"); $("#gStamp").innerHTML = '<span class="stamp">可以发布</span>'; gBusy = false;
+});
+$("#gForce").addEventListener("click", () => {
+  if (gBusy) return; glog.textContent = "$ runner release lesson02 --skip-gates\n✗ 拒绝：发布资格只来自 7 道门禁\n  它不会交出一份「看起来完成」的结果\n  先跑：runner validate lesson02"; $("#gStamp").innerHTML = '<span class="stamp no">不予发布</span>';
+});
+</script>
+</body>
+</html>

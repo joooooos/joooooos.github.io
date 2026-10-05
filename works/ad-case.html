@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta name="release-version" content="2026.10">
+<link rel="canonical" href="https://joooooos.github.io/works/ad-case.html">
+<meta property="og:url" content="https://joooooos.github.io/works/ad-case.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>广告营销 Agent · 一份简报进去，一套能投的广告出来 · 郭江硕</title>
+<meta property="og:title" content="广告营销 Agent · 一份简报进去，一套能投的广告出来 · 郭江硕">
+<meta property="og:description" content="广告营销 Agent：8 个阶段、21 个技能分工，关键节点停下来等人确认。以漾野气泡水春季新品为例，亲手当一次投放负责人。">
+<meta property="og:image" content="../assets/icons/og.jpg">
+<meta name="description" content="广告营销 Agent：8 个阶段、21 个技能分工，关键节点停下来等人确认。以漾野气泡水春季新品为例，亲手当一次投放负责人。">
+<link rel="icon" type="image/svg+xml" href="./assets/ad-mark.svg">
+<link rel="stylesheet" href="./assets/kit/kit.css?v=45">
+<style>
+:root{--c:#FF4D00;--on:#FFF8EE}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero h1{font-size:clamp(38px,4.6vw,66px)}
+.now{position:relative;display:flex;align-items:center;gap:14px;max-width:440px;margin-top:26px;padding:12px 16px 12px 12px;background:var(--paper);border:1.5px solid var(--ink);box-shadow:var(--sh);transform:rotate(-1deg)}
+.now .tape{left:auto;right:28px;top:-10px;transform:rotate(5deg)}
+.now .n{flex:none;display:grid;place-items:center;width:64px;height:56px;background:var(--ink);color:var(--paper);font:400 12px/1 var(--mono)}
+.now .n b{display:block;font:400 28px/1 var(--poster);color:var(--c);font-weight:400}
+.now strong{display:block;font:600 15px/1.35 var(--sans)}
+.now small{display:block;margin-top:3px;font-size:12.5px;line-height:1.5;color:rgba(20,19,18,.62)}
+.now.flip{animation:nowflip .45s cubic-bezier(.3,1.5,.5,1)}
+@keyframes nowflip{0%{transform:rotate(-1deg) rotateX(70deg)}100%{transform:rotate(-1deg)}}
+.now.wait .n{background:var(--amber);color:var(--ink)}.now.wait .n b{color:var(--ink)}
+
+/* 回放机：纸板外框里的一块深色屏 */
+.dev{position:relative;padding:10px;background:var(--kraft);border:1.5px solid var(--ink);border-radius:18px;box-shadow:6px 7px 0 var(--ink);transform:rotate(-.6deg)}
+.dev>.tape{top:-11px}.dev>.tape.l{left:34px;transform:rotate(-6deg)}.dev>.tape.r{left:auto;right:40px;transform:rotate(5deg)}
+.con{--lnk:rgba(255,248,238,.14);--mut:rgba(255,248,238,.5);display:flex;flex-direction:column;height:clamp(520px,76vh,700px);background:#161513;color:#F3EBDA;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;font-size:14.5px;line-height:1.7}
+.c-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--lnk)}
+.c-head img{width:26px;height:26px;border-radius:7px;background:#F3EBDA;padding:3px}
+.c-head strong{font:600 15px/1 var(--sans);color:#FFF8EE}.c-head span{font-size:12.5px;color:var(--mut)}
+.c-stat{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,248,238,.78);white-space:nowrap}
+.c-stat i{width:8px;height:8px;border-radius:50%;background:rgba(255,248,238,.35)}
+.con[data-s="run"] .c-stat i{background:var(--lime);box-shadow:0 0 0 0 rgba(205,255,0,.6);animation:ping 1.6s infinite}
+.con[data-s="wait"] .c-stat i{background:var(--amber);animation:ping 1s infinite}
+.con[data-s="done"] .c-stat i{background:var(--lime)}
+@keyframes ping{70%{box-shadow:0 0 0 7px rgba(205,255,0,0)}100%{box-shadow:0 0 0 0 rgba(205,255,0,0)}}
+.c-seg{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;padding:12px 18px 0;border-bottom:1px solid var(--lnk)}
+.c-seg button{all:unset;cursor:pointer;padding:6px 0 12px;font-size:13px;color:var(--mut);transition:color .2s}
+.c-seg button span::after{content:"";display:none;width:6px;height:6px;margin-left:6px;border-radius:50%;background:var(--amber);vertical-align:2px}
+.c-seg button.g span::after{display:inline-block}
+.c-seg button b{display:block;height:3px;margin-top:8px;border-radius:2px;background:var(--lnk);overflow:hidden}
+.c-seg button b i{display:block;height:100%;width:0;background:#FFF8EE;transition:width .45s ease}
+.c-seg button.on{color:#FFF8EE}.c-seg button.on b i{background:var(--lime)}.c-seg button.dn{color:rgba(255,248,238,.85)}
+.c-seg button:hover{color:#FFF8EE}.c-seg button:focus-visible{outline:1.5px solid var(--lime);outline-offset:2px}
+.c-log{position:relative;flex:1;overflow:auto;padding:18px 22px 26px;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(255,248,238,.2) transparent}
+.c-log>*{animation:cin .38s cubic-bezier(.2,.8,.3,1) both}
+@keyframes cin{from{opacity:0;transform:translateY(8px)}}
+.c-log>*+*{margin-top:12px}
+.c-mark{display:flex;align-items:center;gap:10px;margin:22px 0 4px!important;font:400 11px/1 var(--mono);letter-spacing:.12em;color:var(--mut)}
+.c-mark::after{content:"";flex:1;height:1px;background:var(--lnk)}
+.c-brief{position:relative;max-width:340px;padding:14px 16px 12px;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);box-shadow:3px 4px 0 #000;transform:rotate(-1deg);font-size:12.5px;line-height:1.65}
+.c-brief h4{display:flex;justify-content:space-between;margin:0 0 6px;padding-bottom:6px;border-bottom:1.5px solid var(--ink);font:600 13.5px/1 var(--sans)}
+.c-brief h4 span{font:400 10px/1 var(--mono);color:rgba(20,19,18,.5)}
+.c-brief dl{display:grid;grid-template-columns:auto 1fr;gap:1px 10px;margin:0}.c-brief dt{color:rgba(20,19,18,.5)}.c-brief dd{margin:0}
+.c-brief .no dd{color:var(--ver);text-decoration:line-through}
+.c-you{width:fit-content;margin-left:auto!important;padding:8px 14px;border-radius:14px 14px 4px 14px;background:var(--lime);color:var(--ink);font-weight:600}
+.c-tool{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--lnk);border-radius:9px;font:400 12.5px/1.4 var(--mono);color:var(--mut)}
+.c-tool code{color:#FFF8EE;font:inherit}.c-tool .d{font-family:var(--sans);font-size:13px}
+.c-tool .t{margin-left:auto;white-space:nowrap}.c-tool .t::after{content:" ✓";color:var(--lime)}
+.c-tool.busy .t::after{content:"";display:inline-block;width:10px;height:10px;margin-left:6px;border:1.5px solid var(--mut);border-top-color:var(--lime);border-radius:50%;vertical-align:-1px;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.c-say{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.75;color:#FFF8EE}
+.c-say>img{flex:none;width:26px;height:26px;margin-top:1px;border-radius:7px;background:#F3EBDA;padding:3px}
+.c-say p{margin:0}.c-say b{color:var(--lime);font-weight:600}
+.c-say .cur::after{content:"";display:inline-block;width:7px;height:15px;margin-left:2px;background:var(--lime);vertical-align:-2px;animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.c-card{padding:14px 16px;border:1px solid var(--lnk);border-radius:12px;background:rgba(255,248,238,.04)}
+.c-card h6{margin:0 0 10px;font:400 12px/1 var(--sans);color:var(--mut)}
+.c-opts div{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:8px}
+.c-opts div+div{margin-top:4px}.c-opts div.a{background:rgba(205,255,0,.1);box-shadow:inset 0 0 0 1px rgba(205,255,0,.4)}
+.c-opts i{font:400 11px/1 var(--mono);font-style:normal;color:var(--mut)}.c-opts small{display:block;font-size:12px;color:var(--mut)}
+.c-opts em{font:400 20px/1 var(--poster);font-style:normal;color:#FFF8EE}.c-opts div.a em{color:var(--lime)}
+.c-card .foot{margin:10px 0 0;font-size:13px;color:rgba(255,248,238,.72)}
+.c-shots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.c-shots div{padding:9px;border-radius:8px;background:rgba(255,248,238,.06);font-size:12.5px;line-height:1.55;transition:background .4s}
+.c-shots div b{display:block;margin-bottom:3px;font:400 11px/1 var(--mono);color:var(--mut)}
+.c-shots div.re{background:rgba(205,255,0,.12);box-shadow:inset 0 0 0 1px rgba(205,255,0,.45)}.c-shots div.re b{color:var(--lime)}
+.c-imgs{display:flex;gap:8px;height:clamp(130px,19vh,180px)}
+.c-imgs button{all:unset;cursor:zoom-in;position:relative;flex:var(--a) 1 0;min-width:0;border-radius:8px;overflow:hidden}
+.c-imgs img{width:100%;height:100%;object-fit:cover;display:block;animation:dev 1.1s ease both;transition:transform .5s}
+.c-imgs button:hover img{transform:scale(1.05)}
+@keyframes dev{from{filter:blur(10px) brightness(1.6) saturate(0)}}
+.c-imgs small{position:absolute;left:8px;bottom:8px;padding:2px 9px;border-radius:999px;background:rgba(20,19,18,.72);font-size:11.5px;color:#FFF8EE}
+.c-check{margin:0;padding:0;list-style:none}.c-check li{position:relative;padding:4px 0 4px 22px;font-size:13.5px}
+.c-check li::before{content:"✓";position:absolute;left:2px;color:var(--lime)}.c-check li.w::before{content:"!";color:var(--amber);font-weight:700}
+.c-check s{color:#FF8F70}.c-check u{text-decoration:none;color:var(--lime)}
+.c-split div{display:grid;grid-template-columns:62px 1fr 70px;gap:10px;align-items:center;font-size:13px;padding:3px 0}
+.c-split b{height:8px;border-radius:4px;background:var(--lnk);overflow:hidden}.c-split b i{display:block;height:100%;background:#FFF8EE;width:0;transition:width 1s cubic-bezier(.2,.8,.3,1)}
+.c-split span:last-child{font:400 12px/1 var(--mono);text-align:right;color:var(--mut)}
+.c-roas{display:flex;align-items:baseline;gap:12px}.c-roas em{font:400 44px/1 var(--poster);font-style:normal;color:#FFF8EE}.c-roas span{font-size:13px;color:var(--mut)}
+.c-gauge{position:relative;height:8px;margin:12px 0 4px;border-radius:4px;background:var(--lnk)}
+.c-gauge i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--amber);width:0;transition:width 1.2s cubic-bezier(.2,.8,.3,1)}
+.c-gauge u{position:absolute;left:66.6%;top:-5px;bottom:-5px;width:2px;background:#FFF8EE}
+.c-gauge u::after{content:"目标 2.0×";position:absolute;left:6px;top:-3px;font:400 10.5px/1 var(--mono);white-space:nowrap;color:var(--mut)}
+.c-ask{padding:14px 16px;border:1px solid rgba(232,168,56,.55);border-radius:12px;background:rgba(232,168,56,.08)}
+.c-ask h6{display:flex;align-items:center;gap:8px;margin:0;font:600 13px/1 var(--sans);color:var(--amber)}
+.c-ask h6::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.c-ask p{margin:6px 0 0;font-size:13.5px;color:rgba(255,248,238,.78)}
+.c-ask .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.c-ask button{all:unset;cursor:pointer;padding:7px 14px;border-radius:999px;font-size:13px;border:1px solid rgba(255,248,238,.3);color:#FFF8EE;transition:background .2s,transform .15s}
+.c-ask button.sug{background:var(--amber);border-color:var(--amber);color:var(--ink);font-weight:600}
+.c-ask button:hover{transform:translateY(-1px)}.c-ask button:focus-visible{outline:1.5px solid var(--lime);outline-offset:2px}
+.c-ask .ring{display:flex;align-items:center;gap:8px;margin-left:auto;font-size:12px;color:var(--mut)}
+.c-ask .ring svg{width:22px;height:22px;transform:rotate(-90deg)}.c-ask .ring circle{fill:none;stroke-width:3}
+.c-ask .ring .bg{stroke:var(--lnk)}.c-ask .ring .fg{stroke:var(--amber);stroke-dasharray:56.5;stroke-dashoffset:0}
+.c-ask.done .row{display:none}
+.c-ask .res{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(232,168,56,.35);font-size:13.5px;color:#FFF8EE}
+.c-ask.done .res{display:block}.c-ask .res b{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:rgba(232,168,56,.2);color:var(--amber);font-weight:600;font-size:12px}
+.c-ask .res ul{margin:6px 0 0;padding-left:18px}.c-ask .res li{margin:2px 0}
+.c-next{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.c-next a{display:flex;justify-content:space-between;padding:10px 12px;border-radius:9px;border:1px solid var(--lnk);color:#FFF8EE;text-decoration:none;font-size:13.5px;transition:background .2s}
+.c-next a:hover{background:rgba(255,248,238,.08)}
+.c-follow{position:sticky;bottom:0;display:none;width:fit-content;margin:10px auto 0!important;padding:6px 14px;border-radius:999px;background:#FFF8EE;color:var(--ink);font-size:12.5px;cursor:pointer;border:0;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.con.away .c-follow{display:block}
+.c-foot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--lnk)}
+.c-foot button{all:unset;cursor:pointer;min-width:18px;text-align:center;padding:7px 13px;border-radius:999px;border:1px solid rgba(255,248,238,.28);font-size:13px;color:#FFF8EE;transition:background .2s}
+.c-foot button:hover{background:rgba(255,248,238,.1)}.c-foot button:focus-visible{outline:1.5px solid var(--lime);outline-offset:2px}
+.c-foot button.pri{background:#FFF8EE;color:var(--ink);font-weight:600}
+.c-foot small{margin-left:auto;font-size:11.5px;color:var(--mut);text-align:right}
+@media (max-width:980px){.hero .wrap{grid-template-columns:1fr}.con{height:min(78vh,640px)}}
+@media (max-width:620px){.c-seg{gap:4px;padding:10px 10px 0}.c-seg button{font-size:11.5px;text-align:center}.c-seg button span::after{width:5px;height:5px;margin-left:2px}.c-log{padding:14px 14px 22px}.c-shots{grid-template-columns:1fr 1fr}.c-foot{flex-wrap:wrap}.c-foot small{width:100%;margin:2px 0 0;text-align:left}.c-head span{display:none}.c-next{grid-template-columns:1fr}.dev{transform:none;padding:7px}}
+@media (prefers-reduced-motion:reduce){.c-log>*,.c-imgs img,.now.flip{animation:none}}
+
+/* 02 交付墙 */
+.wall{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:36px;align-items:start}
+.pin{position:relative;margin:0;padding:8px 8px 10px;background:#fff;border:1.5px solid var(--ink);box-shadow:var(--sh);cursor:zoom-in;transition:transform .3s cubic-bezier(.2,1.5,.4,1)}
+.pin:hover{transform:translateY(-6px) rotate(0)!important}
+.pin img{display:block;width:100%;border:1px solid var(--ink)}
+.pin figcaption{margin-top:6px;font:400 11px/1.4 var(--mono)}
+.pin .tape{left:50%;top:-9px;margin-left:-32px}
+.files{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.file{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:block;padding:16px 16px 14px;background:var(--kraft);border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
+.file::before{content:"";position:absolute;left:-1.5px;top:-12px;width:70px;height:12px;background:var(--kraft);border:1.5px solid var(--ink);border-bottom:0}
+.file:hover{transform:translate(-1px,-2px)}
+.file b{display:block;font:600 15px/1.3 var(--sans)}
+.file span{display:block;margin-top:4px;font-size:12.5px;color:rgba(20,19,18,.62)}
+.file ul{display:none;margin:10px 0 0;padding:10px 0 0;list-style:none;border-top:1px dashed rgba(20,19,18,.3);font-size:12.5px;line-height:1.6}
+.file ul li{padding:2px 0}
+.file[aria-expanded="true"]{background:#fff}
+.file[aria-expanded="true"] ul{display:block;animation:inUp .3s both}
+@media (max-width:860px){.wall{grid-template-columns:repeat(6,1fr)}.files{grid-template-columns:1fr}}
+
+/* 03 技能板 */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.col{padding:14px;background:var(--paper);border:1.5px solid var(--ink)}
+.col h5{margin:0 0 8px;font:400 11px/1 var(--mono);letter-spacing:.1em;color:rgba(20,19,18,.55)}
+.sk{display:block;margin-top:6px;padding:7px 9px;background:#fff;border:1.2px solid var(--ink);font-size:13px;line-height:1.3}
+.sk code{display:block;margin-top:2px;font:400 10.5px/1 var(--mono);color:rgba(20,19,18,.5)}
+.col.all{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--ink);color:var(--paper)}
+.col.all h5{grid-column:1/-1;color:rgba(255,248,238,.55)}
+.col.all .sk{background:transparent;border-color:rgba(255,248,238,.5);color:var(--paper)}.col.all .sk code{color:rgba(255,248,238,.55)}
+.col.all .sk p{margin:4px 0 0;font-size:12px;color:rgba(255,248,238,.7)}
+@media (max-width:860px){.board{grid-template-columns:1fr 1fr}.col.all{grid-template-columns:1fr}}
+.scan{display:grid;grid-template-columns:1fr 1fr;margin-top:30px}
+.scan>div{padding:20px}
+.scan .in{border-right:1.5px solid var(--ink)}
+.scan textarea{width:100%;min-height:96px;padding:12px;border:1.5px solid var(--ink);background:#fff;font:400 15px/1.6 var(--sans);resize:vertical}
+.scan .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.scan .res p{margin:0;font-size:15px;line-height:1.9}
+.scan mark{padding:1px 3px;border:1.2px solid var(--ink)}
+.scan mark.hi{background:#FFC9B8}.scan mark.mid{background:#FFE7A8}.scan mark.lo{background:#E4F5B0}
+.scan .verdict{margin-top:12px;padding:10px 12px;border:1.5px solid var(--ink);font-size:13px;line-height:1.6;background:var(--sheet)}
+.scan .fix{margin-top:10px;font-size:14px}
+.scan .fix b{color:var(--ok)}
+@media (max-width:860px){.scan{grid-template-columns:1fr}.scan .in{border-right:0;border-bottom:1.5px solid var(--ink)}}
+
+/* 04 结果 */
+.res{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:36px}
+.res>div{padding:22px}
+.big{font:400 72px/1 var(--poster)}
+.big small{font:400 14px/1 var(--sans);margin-left:10px;color:rgba(20,19,18,.6)}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.kpi div{padding:10px;border:1.5px solid var(--ink);background:var(--sheet)}
+.kpi b{display:block;font:400 22px/1 var(--poster)}
+.kpi span{font-size:12px;color:rgba(20,19,18,.6)}
+.ch{width:100%;border-collapse:collapse;font-size:14px}
+.ch td,.ch th{padding:9px 6px;border-bottom:1px dashed rgba(20,19,18,.2);text-align:left}
+.ch th{font:400 11px/1 var(--mono);color:rgba(20,19,18,.5)}
+.ch .bar{height:10px;border:1.2px solid var(--ink);background:var(--c);width:0;transition:width 1s}
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.act{padding:16px}
+.act b{display:inline-block;padding:3px 8px;border:1.5px solid var(--ink);font:600 13px/1.3 var(--sans)}
+.act:nth-child(1) b{background:var(--lime)}.act:nth-child(2) b{background:var(--amber)}.act:nth-child(3) b{background:#FFC9B8}.act:nth-child(4) b{background:var(--paper)}
+.act p{margin:10px 0 0;font-size:13.5px;line-height:1.65}
+@media (max-width:900px){.res{grid-template-columns:1fr}.acts{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><i>01</i>广告营销 Agent</a>
+  <nav><a href="#top">回放</a><a href="#out">交付</a><a href="#skills">技能</a><a href="#result">结果</a><a href="#edge">边界</a></nav>
+  <a class="back" href="../index.html#back" data-back>← 回到个人网站</a>
+</div></header>
+
+<section class="hero hx" id="top"><div class="wrap">
+  <div class="hx-top">
+    <span class="badge"><b>01 · 复杂业务</b>漾野气泡水 · 春季新品<em>投放效果为仿真</em></span>
+    <h1>一份简报进去，<br><mark>一套能投的广告出来。</mark></h1>
+  </div>
+  <div class="hx-l">
+    <p class="lead">我做的广告营销 Agent：一次投放拆成 <b>8 个阶段</b>、<b>21 个技能</b>分工，在 <b>3 个关键节点</b>停下来等人拍板。这是完整一轮的回放，黄色节点可以由你来拍板。</p>
+    <div class="now" id="now"><span class="tape"></span><span class="n"><b id="nowN">00</b>/ 08</span><div><strong id="nowT">简报已就位</strong><small id="nowD">回放会自己一步步往下走，约 40 秒跑完。</small></div></div>
+    <ol class="hx-do" aria-label="这一页可以做的事"><li><a href="#con"><i>01</i><span>看它为一款气泡水跑完一整轮</span></a></li><li><a href="#con"><i>02</i><span>点开 8 个阶段，看每段交出了什么</span></a></li><li><a href="#out"><i>03</i><span>翻 8 张素材和 6 份交付文件</span></a></li><li><a href="ad-workflow.html" target="_blank"><i>04</i><span>打开 85 节点的完整画布 ↗</span></a></li></ol>
+    <div class="stats"><span><b>8</b>个阶段</span><span><b>21</b>个技能</span><span><b>3</b>处等人拍板</span><span><b>≈40s</b>跑完一轮</span></div>
+  </div>
+  <div class="dev"><span class="tape l"></span><span class="tape r"></span>
+    <div class="con" id="con" data-s="ready" aria-label="Agent 运行回放：漾野春季首发">
+      <div class="c-head"><img src="./assets/ad-mark.svg" alt=""><strong>广告营销 Agent</strong><span>漾野春季首发 · 固定案例回放</span><div class="c-stat"><i></i><b id="cStat">准备回放 · 共 8 步</b></div></div>
+      <div class="c-seg" id="cSeg" role="group" aria-label="8 个阶段，点击跳到对应步骤"></div>
+      <div class="c-log" id="cLog" role="log" aria-live="polite"><button class="c-follow" id="cFollow" type="button">↓ 跟到最新</button></div>
+      <div class="c-foot"><button class="pri" id="cPlay" type="button">▶ 开始</button><button id="cPrev" type="button" aria-label="上一步">‹</button><button id="cNext" type="button" aria-label="下一步">›</button><button id="cSpd" type="button" aria-label="播放速度">1×</button><button id="cEnd" type="button">跳到结果</button><button id="cRe" type="button">重播</button><small>固定案例回放 · 素材由 AI 生成 · 投放数据为仿真</small></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="out"><div class="wrap">
+  <span class="k rv">02 · 交付</span>
+  <h2 class="rv">它交回了这些：<span>8 张素材、6 份文件。</span></h2>
+  <p class="lead rv">2 支视频分镜，每个平台一套独立构图和提示词。点图看大图，点文件夹看里面写了什么。</p>
+  <div class="wall">
+    <figure class="pin rv" style="grid-column:span 3;transform:rotate(-1.5deg)" data-zoom="./assets/campaign/web/yy-douyin-cover-01.jpg" data-cap="抖音 9:16"><span class="tape"></span><img src="./assets/campaign/web/yy-douyin-cover-01.jpg" alt="抖音 9:16"><figcaption>抖音 · 9:16</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 2;transform:rotate(1.2deg)" data-zoom="./assets/campaign/web/yy-xhs-cover-01.jpg" data-cap="小红书 · 封面"><img src="./assets/campaign/web/yy-xhs-cover-01.jpg" alt="小红书封面"><figcaption>小红书 3:4 · 封面</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 2;transform:rotate(-.8deg);margin-top:30px" data-zoom="./assets/campaign/web/yy-xhs-flavors-02.jpg" data-cap="小红书 · 双口味"><img src="./assets/campaign/web/yy-xhs-flavors-02.jpg" alt="小红书双口味"><figcaption>小红书 · 双口味</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 2;transform:rotate(1.6deg)" data-zoom="./assets/campaign/web/yy-xhs-open-can-03.jpg" data-cap="小红书 · 开罐"><img src="./assets/campaign/web/yy-xhs-open-can-03.jpg" alt="小红书开罐"><figcaption>小红书 · 开罐</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 3;transform:rotate(-1deg);margin-top:16px" data-zoom="./assets/campaign/web/yy-retarget-square-01.jpg" data-cap="重定向 1:1"><span class="tape"></span><img src="./assets/campaign/web/yy-retarget-square-01.jpg" alt="重定向 1:1"><figcaption>重定向 · 1:1</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 2;transform:rotate(.8deg)" data-zoom="./assets/campaign/web/yy-xhs-bag-04.jpg" data-cap="小红书 · 随身"><img src="./assets/campaign/web/yy-xhs-bag-04.jpg" alt="小红书随身"><figcaption>小红书 · 随身</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 2;transform:rotate(-1.4deg)" data-zoom="./assets/campaign/web/yy-xhs-facts-05.jpg" data-cap="小红书 · 产品事实"><img src="./assets/campaign/web/yy-xhs-facts-05.jpg" alt="小红书产品事实"><figcaption>小红书 · 产品事实</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 5;transform:rotate(.6deg);margin-top:12px" data-zoom="./assets/campaign/web/yy-wechat-cover-01.jpg" data-cap="视频号 16:9"><span class="tape"></span><img src="./assets/campaign/web/yy-wechat-cover-01.jpg" alt="视频号 16:9"><figcaption>视频号 · 16:9</figcaption></figure>
+  </div>
+  <div class="files" id="files"></div>
+</div></section>
+
+<section class="alt" id="skills"><div class="wrap">
+  <span class="k rv">03 · 技能</span>
+  <h2 class="rv">21 个技能，<span>各管一段。</span></h2>
+  <p class="lead rv">18 个技能分在 8 个阶段里干活，3 个贯穿全程负责调度、审核和成本。哪一段出问题，就只重做那一段；换生图模型，只换 <code>ad-production</code>。</p>
+  <div class="board rv" id="board"></div>
+  <h3 class="rv" style="margin:56px 0 0;font:400 26px/1.2 var(--poster)">每个技能都能单独调：试一下合规扫描</h3>
+  <p class="lead rv" style="margin-top:8px">写一句广告语，看 <code>ad-compliance-scan</code> 怎么分级处理：低风险自动改，中风险等人确认，高风险直接拦。</p>
+  <div class="scan paper rv">
+    <div class="in"><textarea id="tx" aria-label="广告语">0 糖不长胖，最健康的气泡水，100% 纯天然，喝了还能减重！</textarea>
+      <div class="row"><button class="btn" id="scanGo">扫描 ▶</button><button class="chip" data-ex="下班后，先轻一口。青柠白桃，0 糖，29.9 元 6 罐。">换一句干净的</button><button class="chip" data-ex="全网第一的气泡水，降血糖、助消化，最适合减肥人群。">换一句很危险的</button></div></div>
+    <div class="res" id="scanOut"><p style="color:rgba(20,19,18,.5)">扫描结果会出现在这里。</p></div>
+  </div>
+</div></section>
+
+<section id="result"><div class="wrap">
+  <span class="k rv">04 · 结果（仿真回放）</span>
+  <h2 class="rv">72 小时后：<span>先别加预算。</span></h2>
+  <p class="lead rv">首轮花了四分之一预算，ROAS 1.51×，没到 2.0×。它没说「效果不错，建议加投」，而是指出问题在哪、下一轮改什么。</p>
+  <div class="res">
+    <div class="paper rv"><div class="big" id="roas">0.00×<small>ROAS · 达成 76%</small></div>
+      <div class="gbar" style="margin-top:26px"><i id="rbar"></i><u style="left:66.6%"></u></div>
+      <div class="kpi"><div><b>¥12,480</b><span>已花 / 授权 ¥50,000</span></div><div><b>216</b><span>支付订单 · CPA ¥57.78</span></div><div><b>2.02%</b><span>综合点击率</span></div></div></div>
+    <div class="paper rv"><table class="ch"><thead><tr><th>渠道</th><th>花费</th><th>订单</th><th>ROAS</th><th></th></tr></thead><tbody>
+      <tr><td>抖音</td><td>¥6,480</td><td>126</td><td>1.65×</td><td style="width:30%"><div class="bar" data-w="82"></div></td></tr>
+      <tr><td>小红书</td><td>¥3,720</td><td>57</td><td>1.38×</td><td><div class="bar" data-w="69"></div></td></tr>
+      <tr><td>视频号</td><td>¥2,280</td><td>33</td><td>1.30×</td><td><div class="bar" data-w="65"></div></td></tr></tbody></table>
+      <p class="note">ROAS 达成率连续 48 小时低于 70%，自动减该渠道预算 15%；72 小时低于 60%，暂停。</p></div>
+  </div>
+  <div class="acts">
+    <div class="act paper rv"><b>继续</b><p>保留「下班后」这个情境，再加 2 个不同人物的版本。</p></div>
+    <div class="act paper rv"><b>修改</b><p>先修罐身文字和落地页首屏；小红书标题从「低负担」改成「下班后先轻一口」，去掉功效暗示。</p></div>
+    <div class="act paper rv"><b>停止</b><p>某个版本连续 3 天点击率低于 2.1%，就暂停它、退回策略池。</p></div>
+    <div class="act paper rv"><b>之后</b><p>ROAS 到 2.0× 且订单样本稳定，再按每次 20% 加预算；B、C 保留 15% 探索流量。</p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="edge"><div class="wrap">
+  <span class="k rv">05 · 边界</span>
+  <h2 class="rv">系统是真的，<span>投放效果是仿真。</span></h2>
+  <p class="lead rv">两件事分开说。</p>
+  <div class="bound">
+    <div class="paper rv"><h4>已经做出来的</h4><ul><li>8 阶段编排、会话状态和统一的数据格式</li><li>评分、视觉、合规、成本和人工审核几道检查</li><li>失败重试、超预算降级、复盘结果回流到下一轮</li><li>一张可以编辑、可以运行的 85 节点画布</li></ul></div>
+    <div class="paper todo rv"><h4>还要真实投放验证的</h4><ul><li>接入真实广告平台接口和实时数据</li><li>合规识别的准确率，以及可追溯的证据签名</li><li>跨渠道归因（目前是最后一次点击）</li><li>比 24 小时更快的预算熔断</li></ul></div>
+  </div>
+  <p class="note rv">本页素材由 AI 生成；投放数据是按固定漏斗做的 72 小时仿真回放，不是真实广告平台数据。</p>
+  <div class="rules">
+    <div class="rule paper rv"><i>1</i><b>每段只做一件事</b><p>上一段的结果是下一段的输入。出问题只重做那一段，不用整轮重来。</p></div>
+    <div class="rule paper rv"><i>2</i><b>品牌表达，人来批</b><p>故事板、AI 标识、放不放量，这三处 Agent 只给依据，不替人决定。</p></div>
+    <div class="rule paper rv"><i>3</i><b>没达标就说没达标</b><p>ROAS 1.51× 不包装成「效果不错」。复盘的价值是告诉你下一轮改什么。</p></div>
+  </div>
+</div></section>
+
+<section class="close"><div class="wrap">
+  <span class="k rv">06 · 关于这个作品</span>
+  <h2 class="rv">我负责的，<span>是哪一步不能交给模型。</span></h2>
+  <div class="grid">
+    <div class="paper rv"><dl>
+      <dt>定位</dt><dd>广告营销 Agent：从简报到 72 小时复盘的一整条链路。</dd>
+      <dt>我负责</dt><dd>定 8 阶段编排、三级质量门和人审节点，划清哪一步不能交给模型。</dd>
+      <dt>跑通了</dt><dd>仿真跑完一整轮：9/9 门控通过，单次成本 ¥20.20。</dd>
+      <dt>想看细节</dt><dd><a href="ad-workflow.html" target="_blank">打开 85 节点画布 ↗</a>：点阶段只看那一段，点「全量执行」约 40 秒跑完。</dd>
+    </dl><div class="endbar"><a class="btn ink" href="../index.html#back" data-back>← 回到个人网站</a></div></div>
+    <a class="next paper rv" href="course-case.html"><small>下一个作品 · 02</small><b>课程内容生产 Agent →</b><span>先挖出一门能卖的课，再稳定地量产出来。</span></a>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>广告营销 Agent · 郭江硕</span><a data-back href="../index.html#back">← 回到个人网站</a></div></footer>
+
+<script src="./assets/kit/kit.js"></script>
+<script>
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)], wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* 01 · 回放：一条条往下走；黄色节点倒数 4 秒，没人动就按建议，点「改为」就走另一条路 */
+const AV = '<img src="./assets/ad-mark.svg" alt="">';
+const SEGS = [
+  { n: "洞察", d: "整理品牌事实、受众和竞品，找一个没人占的表达。" },
+  { n: "策略", d: "3 个方向打分前测，最高分的进生产。" },
+  { n: "蓝图", g: 1, d: "写分镜、标题和提示词；故事板要人批准。" },
+  { n: "生产", d: "每个平台单独构图，逐张质检。" },
+  { n: "合成", d: "字幕、配乐、混音，按平台规格出片。" },
+  { n: "合规", g: 1, d: "查违禁词和画面风险；AIGC 标识放哪由人定。" },
+  { n: "投放", d: "三渠道定向、分流、出价和排期。" },
+  { n: "复盘", g: 1, d: "72 小时数据（仿真）；放不放量由人定。" },
+];
+const IMG = (f, cap, a) => `<button type="button" style="--a:${a}" data-zoom="./assets/campaign/web/${f}.jpg" data-cap="${cap}"><img src="./assets/campaign/web/${f}.jpg" alt="${cap}"><small>${cap}</small></button>`;
+const IT = [
+  { s: -1, k: "brief" },
+  { s: -1, k: "you", h: "帮我做这一轮春季首发投放。" },
+  { s: -1, k: "say", h: "收到。我会分 8 个阶段来做，其中 <b>3 处</b>在真实运行中需要人确认。" },
+  { s: 0, k: "tool", sk: ["ad-insight"], d: "整理品牌事实、受众画像和竞品表达", t: 0.9 },
+  { s: 0, k: "say", h: "“低负担”不该只是产品形容词，而是下班后不想再做选择时的一口轻松。竞品都在说清爽，没人把它落到一个能拍的瞬间。" },
+  { s: 1, k: "tool", sk: ["ad-strategy", "ad-hook", "ad-ab-test"], d: "生成 3 个方向并打分前测", t: 1.1 },
+  { s: 1, k: "card", h: `<h6>3 个方向 · 评分 ≥ 60 才进生产</h6><div class="c-opts"><div class="a"><i>A</i><span>下班后，先轻一口<small>场景钩子 · 前测 CTR 2.8% · 主版本</small></span><em>86</em></div><div><i>B</i><span>气泡把春天带走<small>产品钩子 · CTR 2.4% · A/B 变体</small></span><em>79</em></div><div><i>C</i><span>今天喝哪种轻松<small>互动钩子 · CTR 2.1% · 探索池</small></span><em>74</em></div></div><p class="foot">三条都过了 60 分。A 把产品事实和人群情绪连在一起，做主版本；B、C 留作变体继续测。</p>` },
+  { s: 2, k: "tool", sk: ["ad-blueprint", "ad-prompt-eng"], d: "写分镜、标题和生成提示词", t: 1.0 },
+  { s: 2, k: "card", h: `<h6>15 秒分镜 · 8 个标题 · 全渠道提示词包</h6><div class="c-shots"><div><b>0–3s</b>地铁出口，人群嘈杂，手从包里拿出气泡水。</div><div><b>3–6s</b>拉开拉环，开罐声盖过环境噪音。</div><div><b>6–11s</b>青柠、白桃和 0 糖的产品特写。</div><div class="s4"><b>11–15s</b>公园落座。字幕：今天不必用力，先轻一口。</div></div>` },
+  { s: 2, k: "ask", id: "board", t: "人工节点 · 故事板", p: "真实运行中，品牌表达要团队批准；AI 质检 ≥ 75 已通过。", sug: "批准故事板", alt: "第 4 镜太平，退回重写",
+    rs: "故事板通过，进入生产。", ra: "已退回。Agent 保留前三镜，只重写第 4 镜：朋友递来第二罐，两人碰罐。重新提交后通过。",
+    fa: () => { const s = log.querySelector(".s4"); if (s) { s.classList.add("re"); s.innerHTML = "<b>11–15s · 重写</b>朋友递来第二罐，两人碰罐。字幕：今天不必用力，先轻一口。"; } } },
+  { s: 3, k: "tool", sk: ["ad-production", "ad-visual-qa", "ad-aigc-mark"], d: "按分镜生成素材并逐张质检", t: 1.3 },
+  { s: 3, k: "card", h: `<h6>交出 · 每个平台单独构图</h6><div class="c-imgs">${IMG("yy-douyin-cover-01", "抖音 9:16", 0.5625)}${IMG("yy-xhs-cover-01", "小红书 3:4", 0.75)}${IMG("yy-wechat-cover-01", "视频号 16:9", 1.7778)}</div>` },
+  { s: 3, k: "say", h: "视觉质检 <b>82 / 100</b>。罐身包装文字需要人工复核，这是 AI 生成中文最容易出错的地方。" },
+  { s: 4, k: "tool", sk: ["ad-assembly"], d: "加字幕、配乐、混音，按平台规格出片", t: 0.8 },
+  { s: 4, k: "say", h: "抖音 9:16、小红书 3:4、视频号 16:9、重定向 1:1，分辨率、码率、时长逐项比对通过。" },
+  { s: 5, k: "tool", sk: ["ad-compliance", "ad-compliance-scan"], d: "查违禁词、画面风险、平台政策和版权", t: 1.0 },
+  { s: 5, k: "card", h: `<h6>逐条检查 · 1 项待确认</h6><ul class="c-check"><li>价格、口味、0 糖与简报逐字一致</li><li><s>最健康</s> 已自动改成 <u>轻一点</u></li><li>画面未出现未成年人、危险动作或敏感场景</li><li class="w">AIGC 显式标识：建议放在片尾和图文角标</li></ul>` },
+  { s: 5, k: "ask", id: "aigc", t: "人工节点 · AIGC 标识", p: "中风险项要人确认后才放行。", sug: "片尾 + 图文角标", alt: "只放片尾",
+    rs: "已放行：视频片尾、图文右下角角标各一处。", ra: "已记录。图文素材没有片尾，这一项退回合规队列，由审核人决定图文怎么标；视频先放行。" },
+  { s: 6, k: "tool", sk: ["ad-launch", "ad-audience"], d: "生成定向、分流、出价和排期", t: 0.9 },
+  { s: 6, k: "card", h: `<h6>三渠道配置 · A/B/C 按 60/25/15 分流</h6><div class="c-split"><div><span>抖音</span><b><i data-w="50%"></i></b><span>¥25,000</span></div><div><span>小红书</span><b><i data-w="30%"></i></b><span>¥15,000</span></div><div><span>视频号</span><b><i data-w="20%"></i></b><span>¥10,000</span></div></div><p class="foot">ROAS 达成率连续 48 小时低于 70%，自动减该渠道预算 15%；72 小时低于 60%，暂停。</p>` },
+  { s: 7, k: "tool", sk: ["ad-analytics", "ad-roi", "ad-fatigue"], d: "汇总 72 小时数据（仿真）", t: 1.1 },
+  { s: 7, k: "card", h: `<h6>72 小时 · 仿真回放</h6><div class="c-roas"><em>1.51×</em><span>ROAS · 目标 2.0× · 达成 76%</span></div><div class="c-gauge"><i data-w="50.3%"></i><u></u></div><p class="foot">已花 ¥12,480，216 单。没到目标，建议先别加预算：先修罐身文字和落地页首屏，保留“下班后”这个情境。</p>` },
+  { s: 7, k: "ask", id: "budget", t: "人工节点 · 放不放量", p: "Agent 只给依据，放不放量由人来定。预算还剩 ¥37,520。", sug: "暂不加投，先修素材", alt: "我要加投 ¥25,000",
+    rs: "已记录：先修罐身文字和落地页首屏，48 小时后再看。",
+    ra: "可以，由你定。它把依据摆出来：<ul><li>按现在每单 ¥57.78，约多 433 单</li><li>每单收入约 ¥87，ROAS 仍在 1.5× 左右</li><li>这 ¥25,000 按 2.0× 应带回 ¥50,000，现在约 ¥37,750，差约 ¥12,250</li></ul>建议折中：先按已花预算加 20%（约 ¥2,500）给抖音 A 版，48 小时后再看。" },
+  { s: 8, k: "end" },
+];
+const con = $("#con"), log = $("#cLog"), follow = $("#cFollow"), segEl = $("#cSeg"), nowEl = $("#now");
+segEl.innerHTML = SEGS.map((g, i) => `<button type="button"${g.g ? ' class="g"' : ""} data-s="${i}"><span>${g.n}</span><b><i></i></b></button>`).join("");
+const segB = $$("#cSeg button"), first = SEGS.map((_, s) => IT.findIndex((x) => x.s === s)), cnt = SEGS.map((_, s) => IT.filter((x) => x.s === s).length);
+let gen = 0, idx = 0, paused = true, started = false, finished = false, away = false, speed = 1, dec = {}, waitAsk = null, lastS = -2;
+const nap = (ms, g) => new Promise((r) => { let left = ms; const t = () => { if (g !== gen) return r(false); if (!paused && !away) left -= 50 * speed; if (left <= 0) r(true); else setTimeout(t, 50); }; t(); });
+const fillBars = (el) => requestAnimationFrame(() => el.querySelectorAll("[data-w]").forEach((i) => (i.style.width = i.dataset.w)));
+function add(html, cls) { const d = document.createElement("div"); d.className = cls; d.innerHTML = html; log.insertBefore(d, follow); stick(); return d; }
+function stick() { if (!con.classList.contains("away")) log.scrollTop = log.scrollHeight; }
+let lastTop = 0;
+log.addEventListener("scroll", () => { const near = log.scrollHeight - log.scrollTop - log.clientHeight < 60; if (log.scrollTop < lastTop - 4 && !near) con.classList.add("away"); if (near) con.classList.remove("away"); lastTop = log.scrollTop; });
+follow.addEventListener("click", () => { con.classList.remove("away"); log.scrollTop = log.scrollHeight; });
+const changed = () => Object.values(dec).filter((v) => v === 1).length;
+const summary = () => (changed() ? `3 处人工节点：你改了 ${changed()} 处，其余按建议` : "3 处人工节点都按建议处理");
+function ui() {
+  const it = IT[Math.min(idx, IT.length - 1)], s = finished ? 8 : Math.min(7, it.s);
+  segB.forEach((b, i) => { const p = finished || i < s ? 1 : i > s ? 0 : Math.min(1, (idx - first[i] + 0.5) / cnt[i]); b.querySelector("i").style.width = `${p * 100}%`; b.classList.toggle("on", i === s && !finished); b.classList.toggle("dn", p >= 1); });
+  con.dataset.s = finished ? "done" : waitAsk ? "wait" : !started ? "ready" : paused ? "pause" : "run";
+  $("#cStat").textContent = finished ? `回放完成 · ${summary()}` : waitAsk ? `等人确认 · ${waitAsk}` : !started ? "准备回放 · 共 8 步" : s < 0 ? "读取简报" : `${paused ? "已暂停 · " : ""}第 ${s + 1} / 8 步 · ${SEGS[s].n}`;
+  $("#cPlay").textContent = finished ? "↺ 再看一遍" : !started || paused ? "▶ " + (started ? "继续" : "开始") : "❚❚ 暂停";
+  const ns = finished ? 9 : s;
+  if (ns !== lastS || nowEl.classList.contains("wait") !== !!waitAsk) {
+    $("#nowN").textContent = finished ? "08" : s < 0 ? "00" : `0${s + 1}`;
+    $("#nowT").textContent = finished ? "回放完成" : s < 0 ? "简报已就位" : SEGS[s].n + (waitAsk ? " · 等人拍板" : "");
+    $("#nowD").textContent = finished ? `${summary()}。往下看完整交付。` : s < 0 ? "回放会自己一步步往下走，约 40 秒跑完。" : waitAsk ? "黄色节点：可以按建议，也可以替负责人改主意。" : SEGS[s].d;
+    nowEl.classList.toggle("wait", !!waitAsk); if (ns !== lastS) { nowEl.classList.remove("flip"); void nowEl.offsetWidth; nowEl.classList.add("flip"); } lastS = ns;
+  }
+}
+async function type(p, g, instant) {
+  if (instant || matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+  const nodes = [], w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT); while (w.nextNode()) nodes.push([w.currentNode, w.currentNode.data]);
+  nodes.forEach((n) => (n[0].data = "")); p.classList.add("cur");
+  const step = Math.max(1, Math.ceil(nodes.reduce((a, n) => a + n[1].length, 0) / 44));
+  for (const [n, t] of nodes) for (let i = 0; i < t.length; i += step) { n.data = t.slice(0, i + step); stick(); if (!(await nap(24, g))) { nodes.forEach((x) => (x[0].data = x[1])); p.classList.remove("cur"); return false; } }
+  p.classList.remove("cur"); return true;
+}
+function decide(it, el, k) {
+  dec[it.id] = k; el.classList.add("done");
+  el.querySelector(".res").innerHTML = `<b>${k ? "你改为：" + it.alt : "按建议：" + it.sug}</b>${k ? it.ra : it.rs}`;
+  if (k && it.fa) it.fa(); stick();
+}
+async function render(it, g, instant) {
+  if (it.k === "brief") { add(`<h4>投放简报<span>YY-SPRING-001</span></h4><dl><dt>产品</dt><dd>漾野 青柠白桃气泡水</dd><dt>目标</dt><dd>新品首发，ROAS ≥ 2.0</dd><dt>人群</dt><dd>18–28 岁，一线与新一线</dd><dt>预算</dt><dd>¥50,000，投 14 天</dd><dt>渠道</dt><dd>抖音、小红书、视频号</dd><dt>可以说</dt><dd>0 糖、双口味、29.9 元 / 6 罐</dd></dl><dl class="no"><dt>不能说</dt><dd>减重、医疗功效、“最健康”</dd></dl>`, "c-brief"); return instant || nap(700, g); }
+  if (it.k === "you") { add(it.h, "c-you"); return instant || nap(500, g); }
+  if (it.k === "say" || it.k === "end") {
+    const h = it.k === "end" ? `这一轮交回 <b>8 张素材</b>、2 支视频分镜和 6 份文件。${summary()}。` : it.h;
+    const d = add(`${AV}<p>${h}</p>`, "c-say"), ok = await type(d.querySelector("p"), g, instant);
+    if (it.k === "end") { const n = add(`<h6>接下来可以看</h6><div class="c-next"><a href="#out">完整交付 <span>↓</span></a><a href="#result">72 小时复盘 <span>↓</span></a><a href="#skills">21 个技能 · 合规沙盒 <span>↓</span></a><a href="ad-workflow.html" target="_blank">打开 85 节点画布 <span>↗</span></a></div>`, "c-card"); }
+    return ok;
+  }
+  if (it.s >= 0 && first[it.s] === IT.indexOf(it)) add(`0${it.s + 1} · ${SEGS[it.s].n}`, "c-mark");
+  if (it.k === "tool") {
+    const d = add(`<span>▸</span><code>${it.sk.join(" ")}</code><span class="d">${it.d}</span><span class="t">${instant ? it.t.toFixed(1) + "s" : ""}</span>`, "c-tool" + (instant ? "" : " busy"));
+    if (instant) return true; const ok = await nap(it.t * 1000, g); d.classList.remove("busy"); d.querySelector(".t").textContent = `${it.t.toFixed(1)}s`; return ok;
+  }
+  if (it.k === "card") { const d = add(it.h, "c-card"); fillBars(d); return instant || nap(1100, g); }
+  if (it.k === "ask") {
+    const d = add(`<h6>${it.t}</h6><p>${it.p}</p><div class="row"><button type="button" class="sug" data-k="0">按建议：${it.sug}</button><button type="button" data-k="1">改为：${it.alt}</button><span class="ring"><svg viewBox="0 0 22 22"><circle class="bg" cx="11" cy="11" r="9"/><circle class="fg" cx="11" cy="11" r="9"/></svg><span>4 秒后按建议</span></span></div><div class="res"></div>`, "c-ask");
+    if (instant) { decide(it, d, dec[it.id] ?? 0); return true; }
+    waitAsk = it.t.replace("人工节点 · ", ""); ui();
+    const k = await new Promise((r) => {
+      let left = 4000; const fg = d.querySelector(".fg"), lab = d.querySelector(".ring span");
+      d.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("click", () => { left = -1; r(+b.dataset.k); }));
+      const t = () => { if (g !== gen) return r(null); if (left === -1) return; if (!paused && !away) left -= 50 * speed; fg.style.strokeDashoffset = `${56.5 * (1 - Math.max(0, left) / 4000)}`; lab.textContent = paused ? "已暂停" : `${Math.ceil(Math.max(0, left) / 1000)} 秒后按建议`; if (left <= 0) r(0); else setTimeout(t, 50); };
+      t();
+    });
+    waitAsk = null; if (k === null) return false; decide(it, d, k); return nap(k ? 2400 : 700, g);
+  }
+  return true;
+}
+function clear() { [...log.children].forEach((c) => c !== follow && c.remove()); con.classList.remove("away"); lastTop = 0; }
+async function play(from) {
+  const g = ++gen; started = true; finished = false; waitAsk = null;
+  for (idx = from; idx < IT.length; idx++) { ui(); const ok = await render(IT[idx], g, false); if (g !== gen || !ok) return; ui(); if (!(await nap(320, g))) return; }
+  finished = true; idx = IT.length; ui();
+}
+function jump(to, go = true) {
+  gen++; clear(); waitAsk = null; finished = false;
+  for (let i = 0; i < to; i++) render(IT[i], gen, true);
+  if (go) { paused = false; play(to); } else ui();
+}
+function toEnd() { gen++; clear(); waitAsk = null; IT.forEach((it) => render(it, gen, true)); started = true; finished = true; idx = IT.length; ui(); }
+const segOf = () => (finished ? 8 : IT[Math.min(idx, IT.length - 1)].s);
+segB.forEach((b) => b.addEventListener("click", () => jump(first[+b.dataset.s])));
+$("#cPrev").addEventListener("click", () => jump(segOf() <= 0 ? 0 : first[segOf() - 1]));
+$("#cNext").addEventListener("click", () => { const s = segOf() + 1; s >= 8 ? toEnd() : jump(first[s]); });
+$("#cEnd").addEventListener("click", toEnd);
+$("#cRe").addEventListener("click", () => { dec = {}; jump(0); });
+$("#cSpd").addEventListener("click", (e) => { speed = speed === 1 ? 2 : 1; e.currentTarget.textContent = `${speed}×`; });
+$("#cPlay").addEventListener("click", () => { if (finished) { dec = {}; jump(0); } else if (!started) { paused = false; play(0); } else { paused = !paused; ui(); } });
+con.addEventListener("keydown", (e) => { if (e.key === " " && e.target.tagName !== "BUTTON") { e.preventDefault(); $("#cPlay").click(); } });
+new IntersectionObserver(([e]) => {
+  away = !e.isIntersecting;
+  if (e.isIntersecting && !started) setTimeout(() => { if (!started) { paused = false; play(0); } }, 700);
+}, { threshold: 0.3 }).observe(con);
+ui();
+
+/* 02 · 六份文件 */
+const FILES = [
+  ["策略方案", "3 个方向，附评分和前测", ["A 下班后，先轻一口 · 86 分", "B 气泡把春天带走 · 79 分", "C 今天喝哪种轻松 · 74 分", "三条都过 60 分，B、C 留作变体"]],
+  ["脚本与分镜", "15 秒四镜头，8 个标题", ["0–3s 地铁出口拿出气泡水", "3–6s 开罐声盖过噪音", "6–11s 产品特写", "11–15s 公园落座 · 今天不必用力"]],
+  ["提示词包", "5 个平台规格各一套", ["抖音 9:16 · 小红书 3:4 · 视频号 16:9", "重定向 1:1 · 图文角标版", "片尾预留 AIGC 标识安全区"]],
+  ["合规报告", "逐条检查，1 项待确认", ["价格、口味、0 糖与简报逐字一致", "「最健康」→「轻一点」", "AIGC 标识位置待人确认"]],
+  ["投放配置", "三渠道预算、人群、分流", ["抖音 ¥25k · 小红书 ¥15k · 视频号 ¥10k", "A/B/C 按 60/25/15 分流", "ROAS 三级预警：观察、减预算、暂停"]],
+  ["72 小时复盘", "继续、修改、停止三条动作", ["ROAS 1.51×，达成 76%", "先修罐身文字和落地页首屏", "爆款基因写回下一轮策略打分"]],
+];
+$("#files").innerHTML = FILES.map(([b, s, l]) => `<button class="file rv" aria-expanded="false"><b>${b}</b><span>${s}</span><ul>${l.map((x) => `<li>· ${x}</li>`).join("")}</ul></button>`).join("");
+$$(".file").forEach((f) => { f.addEventListener("click", () => f.setAttribute("aria-expanded", f.getAttribute("aria-expanded") !== "true")); });
+
+/* 03 · 技能板 */
+const SK = [["01 洞察", [["市场洞察", "ad-insight"]]], ["02 策略", [["创意方向", "ad-strategy"], ["开场钩子", "ad-hook"], ["A/B 变体", "ad-ab-test"]]], ["03 蓝图", [["脚本分镜", "ad-blueprint"], ["生成提示词", "ad-prompt-eng"]]], ["04 生产", [["AI 生成", "ad-production"], ["视觉质检", "ad-visual-qa"], ["AIGC 标识", "ad-aigc-mark"]]],
+  ["05 合成", [["后期成片", "ad-assembly"], ["出海本地化", "ad-localize"]]], ["06 合规", [["合规规则", "ad-compliance"], ["三合一扫描", "ad-compliance-scan"]]], ["07 投放", [["投放配置", "ad-launch"], ["人群定向", "ad-audience"]]], ["08 复盘", [["效果分析", "ad-analytics"], ["素材 ROI", "ad-roi"], ["疲劳检测", "ad-fatigue"]]]];
+$("#board").innerHTML = SK.map(([h, l]) => `<div class="col"><h5>${h}</h5>${l.map(([a, b]) => `<span class="sk">${a}<code>${b}</code></span>`).join("")}</div>`).join("") +
+  `<div class="col all"><h5>贯穿全程</h5><span class="sk">编排器<code>ad-orchestrator</code><p>定先后、传上下文，失败重试，出错降级</p></span><span class="sk">人工审核队列<code>ad-queue-manager</code><p>待审任务按优先级排队，超时自动升级</p></span><span class="sk">成本守门<code>ad-cost-guardian</code><p>生产前预估、复盘时核算，超预算就停</p></span></div>`;
+
+/* 03 · 合规扫描 */
+const RULES = [
+  [/不长胖|减重|减肥|瘦身|燃脂/g, "hi", "功效暗示", ""], [/降血糖|助消化|治疗|医疗|药用/g, "hi", "医疗功效", ""],
+  [/最健康/g, "lo", "绝对化用语", "轻一点"], [/全网第一|第一|最好|顶级/g, "lo", "绝对化用语", "很受欢迎"], [/最适合/g, "lo", "绝对化用语", "适合"],
+  [/100%|纯天然/g, "mid", "需凭证", null],
+];
+function scan() {
+  const raw = $("#tx").value.trim(); if (!raw) return;
+  let marked = raw.replace(/[<>&]/g, ""), fixed = marked; const hits = { hi: [], mid: [], lo: [] };
+  for (const [re, lv, why, rep] of RULES) {
+    marked = marked.replace(re, (m) => { hits[lv].push(`「${m}」${why}`); return `\u0001${lv}\u0002${m}\u0003`; });
+    fixed = fixed.replace(re, (m) => (rep === null ? m : rep));
+  }
+  marked = marked.replace(/\u0001(\w+)\u0002(.*?)\u0003/g, '<mark class="$1">$2</mark>');
+  fixed = fixed.replace(/[，,]\s*[，,]/g, "，").replace(/^[，,]|[，,](?=[！!。])/g, "").replace(/喝了还能[！!]?/, "").replace(/，?\s*([！!。])$/, "$1");
+  const v = hits.hi.length ? `<b style="color:var(--ver)">拦截</b>：${hits.hi.join("、")}。高风险不自动改，退回文案阶段。` : hits.mid.length ? `<b style="color:#B7791F">等人确认</b>：${hits.mid.join("、")}。需要品牌方提供凭证。` : `<b style="color:var(--ok)">通过</b>${hits.lo.length ? "（低风险已自动改写）" : "，没有发现问题"}。`;
+  $("#scanOut").innerHTML = `<p>${marked}</p><div class="verdict">${v}${hits.lo.length ? `<br>自动改写：${hits.lo.join("、")}` : ""}</div>${hits.hi.length || hits.lo.length ? `<p class="fix">改完后：<b>${fixed}</b></p>` : ""}`;
+}
+$("#scanGo").addEventListener("click", scan);
+$$("[data-ex]").forEach((b) => b.addEventListener("click", () => { $("#tx").value = b.dataset.ex; scan(); }));
+
+/* 04 · 数字滚上来 */
+const rio = new IntersectionObserver((es) => es.forEach((e) => {
+  if (!e.isIntersecting) return; rio.disconnect();
+  $("#rbar").style.width = `${1.51 / 3 * 100}%`; $$(".ch .bar").forEach((b) => (b.style.width = b.dataset.w + "%"));
+  const s = performance.now(); (function f(t) { const k = Math.min(1, (t - s) / 1200); $("#roas").firstChild.textContent = `${(1.51 * (1 - Math.pow(1 - k, 3))).toFixed(2)}×`; if (k < 1) requestAnimationFrame(f); })(s);
+}), { threshold: 0.3 });
+rio.observe($("#result"));
+</script>
+</body>
+</html>
