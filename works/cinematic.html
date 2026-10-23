@@ -1,0 +1,8143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="release-version" content="2026.10">
+<link rel="canonical" href="https://joooooos.github.io/works/cinematic.html">
+<meta property="og:url" content="https://joooooos.github.io/works/cinematic.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电影感知识库 · 东方神话史诗</title>
+<meta name="description" content="电影感知识库:东方神话史诗 AIGC 视频的电影感方法论。导演法则、技术层、五叙事阶段、四维度参数、示范分镜与验收清单。">
+<meta property="og:title" content="电影感知识库 · 东方神话史诗 · 郭江硕">
+<meta property="og:description" content="只回答一个问题:我们应该怎么做,才能让 AI 视频的每一帧都在讲故事。">
+<meta property="og:image" content="https://joooooos.github.io/works/assets/cinematic/key/hero.jpg">
+<link rel="icon" href="../assets/icons/favicon-32.png?v=50">
+<style>
+:root{
+  --ink:#0A0C0F; --ink-2:#12161B; --panel:#161B22;
+  --line:rgba(210,220,235,.10); --line-2:rgba(210,220,235,.18);
+  --bone:#EAE3D6; --bone-dim:#9BA4AF; --bone-faint:#5C646E;
+  --s1:#1A3A4F; --s2:#8B1A1A; --s3:#C8860A; --s4:#B01E28; --s5:#D08A5A;
+  --src-orig:#7FA88A; --src-sup:#C8860A; --src-fix:#D9645A; --src-rev:#6FA8DC;
+  --accent:var(--s3);
+  --max:1200px;
+  --bar:34px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 64px)}
+body{margin:0;background:var(--ink);color:var(--bone);
+  font-family:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;transition:background .9s ease}
+.serif,h1,h2,h3,h4{font-family:"Songti SC","Noto Serif SC","STSong",serif}
+h1,h2,h3,h4{font-weight:600;line-height:1.25;margin:0}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+
+/* 遮幅 */
+.bar{position:fixed;left:0;right:0;height:var(--bar);background:#000;z-index:80;pointer-events:none}
+.bar.top{top:0}.bar.bot{bottom:0}
+.bar .tick{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;letter-spacing:.28em;color:#5a5f66}
+.bar .l{left:28px}.bar .r{right:28px}
+@media(max-width:640px){:root{--bar:22px}.bar .tick{font-size:9px;letter-spacing:.18em}}
+
+/* 顶栏 */
+nav{position:fixed;top:var(--bar);left:0;right:0;z-index:70;backdrop-filter:blur(10px);
+  background:rgba(10,12,15,.72);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:10px 28px;display:flex;align-items:center;gap:20px}
+.brand{font-family:"Songti SC",serif;font-size:16px;white-space:nowrap}
+.brand b{color:var(--accent);transition:color .6s}
+.nav-links{display:flex;gap:4px;margin-left:auto;font-size:13px;color:var(--bone-dim);overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{text-decoration:none;padding:4px 9px;border-radius:2px;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--bone)}
+.nav-links a.on{color:var(--bone);background:rgba(255,255,255,.06)}
+.tools{display:flex;gap:8px}
+.btn{font:inherit;font-size:12px;color:var(--bone-dim);background:transparent;border:1px solid var(--line-2);
+  border-radius:2px;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.btn:hover{color:var(--bone);border-color:var(--bone-faint)}
+.btn[aria-pressed="true"]{color:var(--ink);background:var(--accent);border-color:var(--accent)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:130px 0 calc(var(--bar) + 40px);position:relative;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;opacity:0;transition:opacity 1.6s ease, transform 14s ease-out;transform:scale(1.06)}
+.hero-img.on{opacity:1;transform:scale(1)}
+.hero-shade{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(10,12,15,.82) 0%,rgba(10,12,15,.45) 26%,rgba(10,12,15,0) 42%),
+  linear-gradient(0deg,rgba(10,12,15,.85) 0%,rgba(10,12,15,0) 28%)}
+.hero .wrap{max-width:none;width:100%;margin:0;padding:0 clamp(28px,5vw,84px)}
+.hero-col{max-width:min(31vw,500px)}
+@media(max-width:900px){.hero-col{max-width:none}}
+.hero .lede{font-size:15px;max-width:none}
+.home{font-size:12.5px;color:var(--bone-dim);text-decoration:none;white-space:nowrap;padding-right:14px;margin-right:2px;border-right:1px solid var(--line-2)}
+.home:hover{color:var(--bone)}
+.hero-t{font-size:clamp(60px,8vw,128px)!important;letter-spacing:.06em;line-height:1!important;max-width:none!important}
+.hero-q{font-family:"Songti SC","Noto Serif SC",serif;font-size:clamp(20px,2.1vw,30px);margin-top:18px;color:var(--bone)}
+.hero-q .q{color:var(--accent)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.cta a,.cta button{font:inherit;font-size:14px;text-decoration:none;color:var(--bone);border:1px solid var(--line-2);background:rgba(10,12,15,.4);
+  padding:10px 18px;border-radius:2px;cursor:pointer;backdrop-filter:blur(6px);transition:border-color .2s,background .2s}
+.cta a:hover,.cta button:hover{border-color:var(--accent)}
+.cta .pri{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.reel{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:34px}
+@media(max-width:760px){.reel{grid-template-columns:repeat(5,minmax(110px,1fr));overflow-x:auto}}
+.frame{position:relative;aspect-ratio:2.39/1;background:var(--c);overflow:hidden;cursor:pointer;border:none;padding:0;font:inherit;color:inherit;text-align:left}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.frame:hover img{transform:scale(1.06)}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 60%)}
+.frame span{position:absolute;left:8px;bottom:5px;z-index:1;font-size:12px;font-family:"Songti SC",serif}
+.frame i{position:absolute;left:0;right:0;top:0;height:3px;background:var(--c);z-index:1}
+.reel-cap{display:flex;justify-content:space-between;margin-top:8px;font-size:11.5px;color:var(--bone-faint);letter-spacing:.12em}
+
+/* 阅读辅助 */
+#prog{position:fixed;left:0;top:var(--bar);height:2px;width:0;z-index:72;background:linear-gradient(90deg,#4F86A8,#8B1A1A,#C8860A,#B01E28,#D08A5A)}
+.rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:9px}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:8px;text-decoration:none;font-size:11.5px;color:transparent;transition:color .2s}
+.rail a i{width:7px;height:7px;border-radius:50%;border:1px solid var(--bone-faint);flex:none;transition:all .2s}
+.rail a:hover,.rail a.on{color:var(--bone-dim)}
+.rail a.on i{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+@media(max-width:1280px){.rail{display:none}}
+.ov{position:fixed;inset:0;z-index:95;background:rgba(6,8,10,.96);display:none;overflow:auto;padding:90px 0 60px}
+.ov.on{display:block}
+.ov-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;margin-top:22px}
+.ov-g a{display:block;background:var(--ink-2);padding:20px 22px;text-decoration:none;border-top:2px solid transparent;transition:border-color .2s}
+.ov-g a:hover{border-top-color:var(--accent)}
+.ov-g .i{font-family:"SF Mono",monospace;font-size:12px;color:var(--bone-faint)}
+.ov-g h4{font-size:19px;margin:4px 0 8px}
+.ov-g p{margin:0;font-size:13px;color:var(--bone-dim);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.totop{position:fixed;right:22px;bottom:calc(var(--bar) + 18px);z-index:60;opacity:0;pointer-events:none;transition:opacity .3s}
+.totop.on{opacity:1;pointer-events:auto}
+body.present .totop{display:none}
+
+/* 可折叠模块 */
+details.blk{border:none;padding:0;margin-top:26px}
+details.blk>summary{list-style:none;cursor:pointer;color:var(--bone);display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary::before{content:"▸";color:var(--accent);font-size:12px;transition:transform .2s;display:inline-block}
+details.blk[open]>summary::before{transform:rotate(90deg)}
+details.blk>summary:hover{color:var(--accent)}
+details.blk>summary .cnt{margin-left:auto;font-family:"PingFang SC",sans-serif;font-size:11.5px;color:var(--bone-faint)}
+details.blk[open]>summary{border-bottom-color:transparent}
+.mtoc{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 4px;padding:14px 16px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
+.mtoc b{font-weight:400;font-size:11.5px;letter-spacing:.2em;color:var(--bone-faint);margin-right:6px;align-self:center}
+.mtoc button{font:inherit;font-size:12.5px;color:var(--bone-dim);background:transparent;border:1px solid var(--line);border-radius:2px;padding:3px 9px;cursor:pointer}
+.mtoc button:hover{color:var(--bone);border-color:var(--c,var(--accent))}
+.mtoc .all{margin-left:auto;color:var(--accent)}
+.key-banner{width:100%;aspect-ratio:2.39/1;object-fit:cover;display:block;margin:22px 0 4px}
+.stage-key{width:100%;aspect-ratio:2.39/1;object-fit:cover;display:block}
+.wall.clip .fig:nth-child(n+7){display:none}
+.gal .more{margin-top:12px}
+.hero-bg{position:absolute;inset:0;opacity:.6;background:
+  radial-gradient(120% 80% at 15% 10%,rgba(26,58,79,.55),transparent 55%),
+  radial-gradient(90% 70% at 88% 90%,rgba(200,134,10,.22),transparent 60%),
+  radial-gradient(80% 90% at 60% 40%,rgba(139,26,26,.18),transparent 65%)}
+.hero .wrap{position:relative}
+.eyebrow{color:var(--bone-faint);font-size:13px;letter-spacing:.3em;margin-bottom:26px}
+.hero h1{font-size:clamp(30px,5.2vw,64px);max-width:17ch}
+.hero h1 .q{color:var(--accent);transition:color .6s}
+.lede{margin-top:28px;max-width:46ch;color:var(--bone-dim);font-size:clamp(15px,1.7vw,18px)}
+.verdict{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.verdict .v{padding:9px 16px;border:1px solid var(--line-2);border-radius:2px;color:var(--bone-dim)}
+.verdict .v b{color:var(--bone)}
+.hero-arc{display:grid;grid-template-columns:repeat(5,1fr);height:6px;margin-top:56px;max-width:560px}
+.hint{margin-top:22px;color:var(--bone-faint);font-size:12px;letter-spacing:.12em}
+.hint kbd{font-family:inherit;border:1px solid var(--line-2);border-radius:2px;padding:0 6px;margin:0 2px}
+
+/* section */
+section{padding:92px 0;border-top:1px solid var(--line);min-height:40vh}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:12px}
+.sec-idx{font-family:"SF Mono",monospace;font-size:13px;color:var(--bone-faint);letter-spacing:.1em}
+.sec-head h2{font-size:clamp(24px,3.3vw,40px)}
+.sec-sub{color:var(--bone-dim);max-width:62ch;margin:0 0 40px;font-size:15.5px}
+h3.sub{font-size:20px;margin:44px 0 6px}
+
+/* 模块 */
+.blk{margin-top:30px;transition:opacity .3s}
+.blk-h{font-family:"Songti SC",serif;font-size:17px;margin-bottom:4px}
+.blk-n{font-size:13px;color:var(--bone-faint);margin:2px 0 10px;max-width:80ch}
+.blk p.t{margin:6px 0 0;color:var(--bone-dim);font-size:15px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--bone-faint);font-weight:400;font-size:12px;letter-spacing:.05em;white-space:nowrap}
+td{color:var(--bone)}
+td:first-child{font-family:"Songti SC",serif;white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,.015)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;box-shadow:0 0 0 1px rgba(255,255,255,.15) inset}
+ul.lst{margin:8px 0 0;padding-left:20px;color:var(--bone-dim);font-size:14.5px}
+ul.lst li{margin-bottom:6px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin-top:10px}
+.flow .st{border:1px solid var(--line-2);padding:10px 14px;font-size:13.5px;background:var(--ink-2);display:flex;align-items:center}
+.flow .ar{display:flex;align-items:center;padding:0 8px;color:var(--accent)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:10px}
+.card{border:1px solid var(--line);padding:18px 20px;background:var(--ink-2)}
+.card h4{font-size:16px;margin-bottom:8px}
+.card p{margin:0;color:var(--bone-dim);font-size:14px}
+pre.code{background:#05070a;border:1px solid var(--line);padding:14px 16px;overflow-x:auto;font-size:12.5px;color:#cfd6df;white-space:pre-wrap;word-break:break-all;margin:8px 0 0}
+
+/* 是什么 */
+.verdict-box{padding:24px 28px;border-left:2px solid var(--accent);background:rgba(200,134,10,.06);
+  font-family:"Songti SC",serif;font-size:clamp(17px,2vw,21px);transition:border-color .6s}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.def-card{border:1px solid var(--line);padding:26px 28px}
+.def-card .k{font-family:"Songti SC",serif;font-size:20px}
+.def-card .role{color:var(--bone);font-size:14.5px;margin:8px 0}
+.def-card p{margin:0;color:var(--bone-dim);font-size:14px}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:22px}
+@media(max-width:900px){.quad{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.quad{grid-template-columns:1fr}}
+.qd{padding:22px;background:var(--ink-2);border-top:3px solid var(--c);cursor:pointer;transition:background .2s}
+.qd:hover{background:var(--panel)}
+.qd .n{font-family:"Songti SC",serif;font-size:22px}
+.qd .o{font-family:"Songti SC",serif;color:var(--bone);font-size:14.5px;margin:8px 0}
+.qd p{margin:0;color:var(--bone-dim);font-size:13px}
+
+/* 技术层 */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.tech-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.tech-grid{grid-template-columns:1fr}}
+.tech{border:1px solid var(--line);padding:22px;background:var(--ink-2)}
+.tech .op{font-family:"Songti SC",serif;font-size:17px;margin-bottom:10px}
+.tech .how{color:var(--bone-faint);font-size:12.5px;margin-bottom:12px}
+.tech .ef{color:var(--bone-dim);font-size:13.5px}
+
+/* 五阶段 */
+.arc-track{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:6px}
+.arc-seg{position:relative;height:96px;cursor:pointer;border:none;padding:0;display:flex;flex-direction:column;
+  justify-content:flex-end;color:#fff;text-align:left;overflow:hidden;transition:filter .3s,transform .3s}
+.arc-seg:hover{filter:brightness(1.15)}
+.arc-seg .num{position:absolute;top:10px;left:12px;font-family:"Songti SC",serif;font-size:15px;opacity:.85}
+.arc-seg .nm{position:relative;z-index:1;padding:0 12px 12px;font-family:"Songti SC",serif;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.arc-seg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5))}
+.arc-seg[aria-selected="true"]{transform:translateY(-4px);box-shadow:0 0 0 2px var(--bone) inset}
+.arc-sig{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:10px 0 30px;font-size:12px;color:var(--bone-faint)}
+.arc-sig div{padding:6px 10px;border-top:1px dashed var(--line-2)}
+.arc-sig b{color:var(--bone-dim);font-weight:400}
+.stage{border:1px solid var(--line-2);background:var(--ink-2)}
+.stage-top{padding:24px 28px;display:flex;gap:20px;border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:flex-start}
+.stage-swatch{width:54px;height:54px;border-radius:2px;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset}
+.stage-title .num{color:var(--bone-faint);font-size:13px}
+.stage-title h3{font-size:28px;margin-top:2px}
+.stage-title .feat{color:var(--bone-dim);font-size:14px;margin-top:8px}
+.stage-fore{margin-left:auto;max-width:28ch;text-align:right}
+.stage-fore .lb{font-size:11px;letter-spacing:.2em;color:var(--bone-faint);display:block;margin-bottom:4px}
+.stage-fore .tx{font-family:"Songti SC",serif;font-size:15.5px;line-height:1.5;color:var(--accent)}
+.dims{display:grid;grid-template-columns:repeat(5,1fr)}
+@media(max-width:1000px){.dims{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.dims{grid-template-columns:1fr}}
+.dim{padding:20px 20px 24px;border-right:1px solid var(--line);border-top:1px solid var(--line)}
+.dim:last-child{border-right:none}
+.dim .dh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dim .dot{width:8px;height:8px;border-radius:50%}
+.dim .nm{font-family:"Songti SC",serif;font-size:17px}
+.dim .en{font-size:11px;color:var(--bone-faint)}
+.dim dt{font-size:11.5px;color:var(--bone-faint);margin-top:10px}
+.dim dd{margin:2px 0 0;font-size:13.5px}
+.stage-foot{padding:16px 28px;border-top:1px solid var(--line);font-size:13.5px;color:var(--bone-dim)}
+.stage-foot b{color:var(--bone);font-weight:400;font-family:"Songti SC",serif}
+
+/* 四维度 tabs */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.tab{font:inherit;background:transparent;border:none;color:var(--bone-dim);padding:12px 22px;cursor:pointer;
+  font-family:"Songti SC",serif;font-size:18px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab small{font-family:"PingFang SC",sans-serif;font-size:11px;color:var(--bone-faint);margin-left:6px}
+.tab[aria-selected="true"]{color:var(--bone);border-bottom-color:var(--c)}
+.pane{display:none;padding-top:26px}
+.pane.on{display:block}
+.pane-hero{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+@media(max-width:820px){.pane-hero{grid-template-columns:1fr}}
+.pane-hero .one{font-family:"Songti SC",serif;font-size:clamp(20px,2.4vw,28px);border-left:3px solid var(--c);padding-left:18px}
+.pane-hero .def{color:var(--bone-dim);font-size:14.5px;margin-top:14px}
+.kv{border:1px solid var(--line);background:var(--ink-2)}
+.kv div{padding:14px 18px;border-bottom:1px solid var(--line)}
+.kv div:last-child{border-bottom:none}
+.kv .k{font-size:11.5px;letter-spacing:.12em;color:var(--c);display:block;margin-bottom:4px}
+.kv .v{font-size:14px;color:var(--bone-dim)}
+.between{margin-top:46px;padding-top:6px;border-top:1px dashed var(--line-2)}
+.between>.lb{font-size:12px;letter-spacing:.2em;color:var(--bone-faint);margin-top:18px}
+
+/* 矩阵 */
+.matrix{min-width:900px}
+.matrix td:first-child{color:var(--bone)}
+.arcline{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:22px}
+@media(max-width:820px){.arcline{grid-template-columns:1fr 1fr}}
+.arcline .cell{padding:14px;border:1px solid var(--line);font-size:13px;color:var(--bone-dim)}
+.arcline .cell b{display:block;color:var(--bone);font-family:"Songti SC",serif;margin-bottom:6px}
+
+/* Prompt */
+.layers{display:grid;gap:10px;margin-top:8px}
+.layer{border:1px solid var(--line);padding:16px 20px;background:var(--ink-2)}
+.layer .l{font-size:12px;letter-spacing:.08em;color:var(--accent);margin-bottom:6px}
+.layer .c{font-size:13.5px;color:var(--bone-dim)}
+.nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.nodes{grid-template-columns:1fr}}
+
+/* 验收 */
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:820px){.checks{grid-template-columns:1fr}}
+.ck{display:flex;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;color:var(--bone-dim);align-items:flex-start}
+.ck input{margin-top:5px;accent-color:var(--s3)}
+.ck .d{font-size:11px;color:var(--bone-faint);border:1px solid var(--line-2);padding:0 6px;border-radius:2px;white-space:nowrap;margin-top:3px}
+.ck.done{color:var(--bone-faint);text-decoration:line-through}
+.progress{font-size:12px;color:var(--bone-faint);margin-top:6px}
+
+/* 案例 */
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:16px}
+@media(max-width:820px){.timeline{grid-template-columns:1fr 1fr}}
+.tl{background:var(--ink-2);padding:18px;border-top:3px solid var(--c)}
+.tl .tm{font-family:"SF Mono",monospace;font-size:12px;color:var(--bone-faint)}
+.tl h4{font-size:16px;margin:4px 0 8px}
+.tl p{margin:0 0 10px;font-size:13.5px;color:var(--bone-dim)}
+.tl .pt{font-size:12px;color:var(--bone)}
+details{margin-top:18px;border:1px solid var(--line);padding:12px 16px}
+summary{cursor:pointer;color:var(--bone-dim);font-size:14px}
+details p{color:var(--bone-dim);font-size:13.5px}
+
+/* 术语 */
+.search{width:100%;max-width:360px;font:inherit;font-size:14px;color:var(--bone);background:var(--ink-2);
+  border:1px solid var(--line-2);border-radius:2px;padding:8px 12px;margin-bottom:14px}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px}
+.gl{padding:14px 16px;background:var(--ink-2)}
+.gl b{font-family:"Songti SC",serif;font-weight:600;display:block;margin-bottom:4px}
+.gl span{font-size:13px;color:var(--bone-dim)}
+
+/* 图库 */
+.gal{margin-top:34px}
+.gal-h{font-family:"Songti SC",serif;font-size:17px;margin-bottom:4px}
+.gal-q{font-size:13px;color:var(--bone-faint);margin:2px 0 10px;border-left:2px solid var(--line-2);padding-left:10px}
+.gal-c{font-size:13.5px;color:var(--bone-dim);margin:12px 0 0;padding:12px 16px;background:rgba(111,168,220,.06);border-left:2px solid var(--src-rev)}
+.gal-c b{color:var(--src-rev);font-weight:400;margin-right:6px}
+.fig{margin:0;background:var(--ink-2);border:1px solid var(--line);display:flex;flex-direction:column}
+.fig .im{position:relative;background:#000;cursor:zoom-in;overflow:hidden}
+.fig img{display:block;width:100%;height:auto;transition:transform .5s}
+.fig .im:hover img{transform:scale(1.03)}
+.fig figcaption{padding:10px 12px 12px;font-size:12.5px;color:var(--bone-dim);flex:1}
+.fig .cap{color:var(--bone);font-size:13px;margin-bottom:6px;display:block}
+.fig .cm{display:block;margin-top:6px;color:var(--bone-dim)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-family:"SF Mono",monospace;font-size:10.5px;color:var(--bone-faint);border:1px solid var(--line);padding:0 5px;border-radius:2px;white-space:nowrap}
+.chip.wide{color:#9fd3a8;border-color:rgba(159,211,168,.35)}
+.chip.narrow{color:#e5978f;border-color:rgba(229,151,143,.35)}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:10px}
+@media(max-width:760px){.vs{grid-template-columns:1fr}}
+.pairs{display:grid;gap:16px;margin-top:10px}
+.pair{border:1px solid var(--line);background:rgba(255,255,255,.01);padding:14px}
+.pair-h{font-family:"Songti SC",serif;font-size:15px;margin-bottom:10px}
+.pair-g{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.pair-g .ar{color:var(--accent);font-size:20px}
+@media(max-width:640px){.pair-g{grid-template-columns:1fr}.pair-g .ar{display:none}}
+.pair .tag{font-size:11px;letter-spacing:.12em;color:var(--bone-faint);margin-bottom:4px}
+.pair .cm{font-size:13px;color:var(--bone-dim);margin-top:10px}
+.lb-wrap{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+.lb-wrap.on{display:flex}
+.lb-wrap img{max-width:94vw;max-height:72vh;object-fit:contain;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.lb-meta{max-width:900px;margin-top:16px;text-align:center;color:var(--bone-dim);font-size:14px}
+.lb-meta .cap{color:var(--bone);font-family:"Songti SC",serif;font-size:17px;display:block;margin-bottom:8px}
+.lb-meta .chips{justify-content:center;margin:8px 0}
+.lb-x{position:absolute;top:16px;right:22px;color:var(--bone-dim);font-size:13px;cursor:pointer}
+
+/* 导演法则 */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2px;margin-top:8px}
+.rule{background:var(--ink-2);padding:24px 26px 26px}
+.rule .no{font-family:"SF Mono",monospace;font-size:12px;color:var(--accent)}
+.rule h4{font-size:21px;margin:6px 0 10px}
+.rule p{margin:0;color:var(--bone-dim);font-size:14.5px;line-height:1.85}
+.rule .do{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;color:var(--bone)}
+.rule .do b{color:var(--accent);font-weight:400;margin-right:6px}
+/* 阶段扩展 */
+.dims.ext{grid-template-columns:repeat(4,1fr)}
+@media(max-width:980px){.dims.ext{grid-template-columns:1fr 1fr}}
+.stage-more{padding:18px 28px 6px;border-top:1px solid var(--line)}
+.stage-more .lb{font-size:11px;letter-spacing:.2em;color:var(--bone-faint);margin-bottom:8px}
+.stage-more .code{margin:0 0 14px}
+.case-h{font-family:"Songti SC",serif;font-size:24px;margin:46px 0 6px}
+.case-h:first-of-type{margin-top:10px}
+.case-d{color:var(--bone-dim);font-size:14.5px;margin:0 0 6px}
+.shots td:first-child{font-family:"SF Mono",monospace;color:var(--accent);white-space:nowrap}
+.shots td:nth-child(2){white-space:nowrap;font-family:"SF Mono",monospace;font-size:12px}
+footer{padding:60px 0 calc(var(--bar) + 60px);border-top:1px solid var(--line);color:var(--bone-faint);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+/* 讲解模式 */
+body.present section{min-height:calc(100vh - var(--bar)*2);padding:120px 0 80px}
+body.present .sec-head h2{font-size:clamp(30px,4.2vw,52px)}
+body.present .sec-sub{font-size:18px}
+body.present table{font-size:15px}
+.pager{position:fixed;right:24px;bottom:calc(var(--bar) + 18px);z-index:75;display:none;gap:6px;align-items:center;
+  font-size:12px;color:var(--bone-faint);background:rgba(10,12,15,.8);border:1px solid var(--line);padding:6px 10px;border-radius:2px}
+body.present .pager{display:flex}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media print{.bar,nav,.pager{display:none}.reveal{opacity:1;transform:none}body{background:#fff;color:#111}}
+</style>
+</head>
+<body>
+<div class="bar top"><span class="tick l mono">2.39 : 1</span><span class="tick r mono">CINEMATIC</span></div>
+<div class="bar bot"><span class="tick l mono">24 FPS</span><span class="tick r mono">EASTERN · MYTH · EPIC</span></div>
+
+<nav><div class="nav-in">
+  <a class="home" href="../index.html" title="回到 Forma 首页">← Forma</a><span class="brand">电影感 · <b id="brandStage">知识库</b></span>
+  <div class="nav-links" id="navLinks"></div>
+  <div class="tools">
+    <button class="btn" id="btnToc" title="章节总览(G)">总览</button>
+    <button class="btn" id="btnFold" aria-pressed="false" title="展开 / 收起所有模块">全部展开</button>
+    <button class="btn" id="btnPresent" aria-pressed="false" title="讲解模式:← → 翻页">讲解模式</button>
+  </div>
+</div></nav>
+
+<div id="prog"></div>
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <img class="hero-img" id="heroImg" alt="">
+  <div class="hero-shade"></div>
+  <div class="wrap" id="heroWrap"></div>
+</header>
+
+<main id="app"></main>
+
+<div class="lb-wrap" id="lightbox" role="dialog" aria-modal="true" aria-label="样片大图">
+  <span class="lb-x" id="lbX">← → 切换 · Esc 关闭 ✕</span>
+  <img id="lbImg" alt="">
+  <div class="lb-meta" id="lbMeta"></div>
+</div>
+
+<div class="rail" id="rail" role="navigation" aria-label="章节"></div>
+<div class="ov" id="ov" role="dialog" aria-label="章节总览"><div class="wrap">
+  <div class="sec-head"><span class="sec-idx">INDEX</span><h2>章节总览</h2></div>
+  <p class="sec-sub" style="margin-bottom:0">点击进入 · <kbd>G</kbd> 打开 / 关闭 · <kbd>Esc</kbd> 关闭</p>
+  <div class="ov-g" id="ovG"></div></div></div>
+<button class="btn totop" id="totop" title="回到顶部">↑ 顶部</button>
+<div class="pager" id="pager"><span id="pagerTx"></span><span>· ← → 翻页 · Esc 退出</span></div>
+
+<footer><div class="wrap">
+  <span id="footMeta"></span>
+  <span class="mono">数据源 → 电影感数据库.json · 修改后运行 python3 build.py</span>
+</div></footer>
+
+<script id="db" type="application/json">{
+ "meta": {
+  "标题": "电影感知识库",
+  "副标题": "东方神话史诗 · AIGC 视频电影感方法论",
+  "版本": "v3.0",
+  "整理日期": "2026-10-07",
+  "数据来源": "《电影感核心总结》+ 文档内 84 张样片图 + 电影工业实践",
+  "说明": "本库只回答一个问题:我们应该怎么做。以「导演法则 → 技术层 → 五叙事阶段 → 四维度 → 辅助维度 → 产线 → Prompt → 示范分镜 → 验收」为顺序,每一节都给出可直接执行的做法、参数和示范。",
+  "数据格式约定": {
+   "模块": "每个知识点是一个模块 {标题, 类型, 来源, 备注?, ...}。类型 = text | list | table | flow | code | cards",
+   "table": "列: [列名...], 行: [[单元格...]],单元格若为 #RRGGBB 色号,页面自动显示色块",
+   "flow": "步骤: [..] 按箭头顺序展示",
+   "cards": "卡片: [{标题, 内容}]",
+   "图库": "图库.组[]:类型 = pairs(起幅 / 落幅)| gallery(样片墙);图片 id 对应 assets/<id>.jpg,测量数据在 _src/image_metrics.json"
+  }
+ },
+ "导读": {
+  "一句话定义": "电影感 = 色彩、光影、构图、镜头共同作用下,模拟具有叙事意图与情绪张力的电影大银幕质感,让每一帧都在讲故事,而不只是显示内容。",
+  "唯一判断标准": "这一帧,在讲什么故事?",
+  "总验收": {
+   "测试": "把视频声音全关掉,给一个完全不知道故事的人看——他是否能猜到:发生了什么?什么情绪?将要发生什么?",
+   "通过": "陌生人能猜到情绪 = 达标",
+   "不通过": "猜不到 = 需要返工"
+  },
+  "四维度速览": [
+   {
+    "id": "color",
+    "维度": "色彩",
+    "一句话": "色彩是电影无声时说话的语言。",
+    "核心": "全片建立统一色彩宪法(≤3 个主色号),按叙事弧线绑定色彩弧线——开篇低饱和冷灰蓝 → 磨练暗红侵入 → 觉醒暖金爆发 → 战斗血红×深蓝极端对比 → 收场温橙回落。"
+   },
+   {
+    "id": "light",
+    "维度": "光影",
+    "一句话": "光是情绪的载体,每束光都必须有叙事来源和叙事目的。",
+    "核心": "按世界层级分配光源(神界顶光 / 人界侧光 / 鬼界底光);金色逆光轮廓是神圣感最高效的单一元素;光比随叙事升温(4:1 → 8:1 → 16:1)。"
+   },
+   {
+    "id": "composition",
+    "维度": "构图",
+    "一句话": "构图不是摆放,是在画框内讲权力、情绪和关系。",
+    "核心": "东方神话最大的差异化能力是留白:孤独/悲壮 ≥50% 负空间,神圣/宏观 ≥40%,力量/觉醒时刻充满画面;Z 轴三层纵深是从「平面图」到「电影画面」最直接的路径。"
+   },
+   {
+    "id": "camera",
+    "维度": "镜头",
+    "一句话": "镜头是观众的眼睛与情感代理人。",
+    "核心": "景别、视角、运动、节奏同时服务叙事:情感高潮必须有近景/极近景;神将降临必须仰拍;战斗高潮景别递减(中→近→极近);神圣场景禁止手持晃动。"
+   }
+  ]
+ },
+ "是什么": {
+  "原文定义": "通过照片或视频在色彩、构图、光影及镜头的共同作用下,模拟具有叙事意图与情绪张力的电影大银幕质感的一种视觉氛围,让每一帧都自动传递情绪、讲述故事——而非仅仅显示内容,让观众忘记自己在看画面,而是参与故事发展的能力。它由技术层 + 视觉美学层共同构建。",
+  "本质": "让观众忘记自己在看画面,而是参与故事发展。",
+  "两层构成": [
+   {
+    "层": "技术层",
+    "内容": "宽高比、清晰度、调色、质感等硬规格「像电影」",
+    "作用": "电影感的基础门槛:成本低、收益高,每次产出都应执行",
+    "对应章节": "技术层"
+   },
+   {
+    "层": "美学层",
+    "内容": "光影 × 色彩 × 构图 × 镜头 四维协同,让每一帧都在讲故事",
+    "作用": "电影感的上限:决定叙事张力",
+    "对应章节": "四维度 / 五叙事阶段"
+   }
+  ],
+  "判断标准": "能回答「这一帧在讲什么故事」的画面,就有电影感。"
+ },
+ "技术层": {
+  "原则": "技术层面的「像电影」是电影感的基础门槛。以下 4 项操作成本低、收益高,均可在后期低成本实现,建议作为每次产出的标准流程。",
+  "四项低成本高回报": [
+   {
+    "操作": "① 加宽银幕遮幅",
+    "实现方式": "输出时添加纯黑(#000000)上下边框,全片统一 2.39:1(或统一 2.00:1)",
+    "效果": "即时传递「电影级内容」心理信号"
+   },
+   {
+    "操作": "② 套用电影 LUT",
+    "实现方式": "FFmpeg / DaVinci 套用东方史诗 LUT",
+    "效果": "色调从「AI 色」→「电影色」"
+   },
+   {
+    "操作": "③ 叠加胶片颗粒",
+    "实现方式": "8–12% 强度 Film Grain 纹理",
+    "效果": "消除 AI 过于完美的「塑料感」"
+   },
+   {
+    "操作": "④ 高清晰度输出",
+    "实现方式": "生成高清素材或通过超分提高清晰度,统一 24fps",
+    "效果": "细节可信、运动模糊自然,观感「身临其境」,区别于游戏/直播感"
+   }
+  ],
+  "模块": [
+   {
+    "标题": "后期一键实现(FFmpeg 参考)",
+    "类型": "code",
+    "备注": "以 1920×1080 素材为例;LUT 文件需自备(.cube)。遮幅高度 = (画高 − 画宽 ÷ 2.39) ÷ 2 ≈ 138px。",
+    "内容": "ffmpeg -i in.mp4 -vf \"fps=24,lut3d=file=eastern_epic.cube,noise=alls=10:allf=t,drawbox=x=0:y=0:w=iw:h=138:color=black:t=fill,drawbox=x=0:y=ih-138:w=iw:h=138:color=black:t=fill\" -c:v libx264 -crf 16 -c:a copy out.mp4"
+   },
+   {
+    "标题": "其他技术要点",
+    "类型": "table",
+    "列": [
+     "名称",
+     "内容"
+    ],
+    "行": [
+     [
+      "真实物理感",
+      "角色移动时脚下尘土/草叶要有反应;爆炸冲击波要推动背景雾气/树木(更依赖模型能力)"
+     ],
+     [
+      "光影一致性",
+      "场景所有物体的受光方向必须来自同一光源,光影穿帮是电影感最大杀手"
+     ],
+     [
+      "叙事与氛围(声音)",
+      "BGM 在开头逐渐引入、情绪逐渐攀登;打斗开始前必须有 2–3 秒极度安静 / 慢动作 / 静止画面 / 环境音独奏"
+     ]
+    ]
+   },
+   {
+    "标题": "画幅选择",
+    "类型": "table",
+    "备注": "电影参考样片中 2.39:1 与 2.00:1 都很常见。全片统一一种,不要混用。",
+    "列": [
+     "画幅",
+     "代表",
+     "适合"
+    ],
+    "行": [
+     [
+      "2.39:1(宽银幕)",
+      "史诗、动作大片",
+      "神话史诗、大场面、群像(本库默认)"
+     ],
+     [
+      "2.00:1(Univisium)",
+      "流媒体剧集、作者电影",
+      "人物剧、对话多的段落"
+     ],
+     [
+      "1.85:1(遮幅宽银幕)",
+      "剧情片",
+      "室内戏、近景为主"
+     ],
+     [
+      "16:9(1.78:1)",
+      "电视、网络视频",
+      "不建议用于追求电影感的作品"
+     ]
+    ]
+   },
+   {
+    "标题": "技术层执行要点",
+    "类型": "list",
+    "条目": [
+     "遮幅必须纯黑 #000000,并且在 LUT 之后添加,避免被调色染灰",
+     "LUT 之前先做一级校正;LUT 强度 60–80%,不要 100% 直接套",
+     "颗粒在最终分辨率上叠加,以手机全屏尺寸检查是否可见",
+     "24fps + 自然运动模糊(相当于 1/48 秒快门)",
+     "输出码率留足(1080p 建议 ≥ 20 Mbps),否则平台压缩会抹掉颗粒和暗部细节"
+    ]
+   },
+   {
+    "标题": "遮幅尺寸速查",
+    "类型": "table",
+    "列": [
+     "画幅",
+     "1920×1080 内画面",
+     "上下黑边各",
+     "3840×2160 内画面",
+     "上下黑边各",
+     "适合"
+    ],
+    "行": [
+     [
+      "2.39:1",
+      "1920×804",
+      "138 px",
+      "3840×1606",
+      "277 px",
+      "神话史诗、大场面(首选)"
+     ],
+     [
+      "2.00:1",
+      "1920×960",
+      "60 px",
+      "3840×1920",
+      "120 px",
+      "人物剧、对话多的段落"
+     ],
+     [
+      "1.85:1",
+      "1920×1038",
+      "21 px",
+      "3840×2076",
+      "42 px",
+      "偏写实、室内戏"
+     ]
+    ],
+    "备注": "全片只用一种画幅。遮幅在调色和 LUT 之后最后加,保证黑边不被 LUT 染色。"
+   },
+   {
+    "标题": "颗粒、锐度与镜头质感",
+    "类型": "table",
+    "列": [
+     "项目",
+     "做法",
+     "为什么"
+    ],
+    "行": [
+     [
+      "颗粒",
+      "在最终输出分辨率上叠加,强度 10–12%,颗粒尺寸略大于 1 像素;以手机全屏尺寸检查是否可见",
+      "平台二次压缩会抹掉过细的颗粒"
+     ],
+     [
+      "锐度",
+      "AI 画面普遍过锐:整体轻微柔化,只保留眼睛和主体边缘的清晰",
+      "电影镜头的锐度是「柔中有锐」"
+     ],
+     [
+      "光晕 Halation",
+      "高光边缘加极轻的暖红色光晕",
+      "模拟胶片高光溢散,去掉数码的「硬」"
+     ],
+     [
+      "暗角",
+      "四角压暗 10–20%,幅度要让观众察觉不到",
+      "把视线收回画面中心"
+     ],
+     [
+      "镜头瑕疵",
+      "变形宽银幕的横向眩光、轻微色散,全片最多用在 2–3 个关键镜头",
+      "用多了就变成滤镜"
+     ]
+    ]
+   },
+   {
+    "标题": "交付规格",
+    "类型": "table",
+    "列": [
+     "项目",
+     "规格"
+    ],
+    "行": [
+     [
+      "帧率",
+      "24fps(或 23.976),全片统一,不混用 25/30/60"
+     ],
+     [
+      "分辨率",
+      "母版 3840×2160 或 1920×1080;AI 素材先超分再调色"
+     ],
+     [
+      "色彩空间",
+      "Rec.709,全片同一个调色工程"
+     ],
+     [
+      "编码",
+      "母版 ProRes 422 HQ;上传版 H.264 / H.265,1080p 码率 ≥ 20 Mbps"
+     ],
+     [
+      "音频",
+      "48kHz / 24bit;网络平台响度约 −14 LUFS,真峰值 ≤ −1 dBTP"
+     ],
+     [
+      "竖屏版本",
+      "9:16 不加遮幅,重新构图:主体放在画面上三分之一,保留上下呼吸空间"
+     ]
+    ]
+   }
+  ]
+ },
+ "四维度": [
+  {
+   "id": "color",
+   "名称": "色彩",
+   "英文": "Color",
+   "主题色": "#C8860A",
+   "一句话": "色彩是电影无声时说话的语言。",
+   "定义": "观众在听到任何声音之前,色彩已经传递了情绪预期。色彩系统的核心任务是让全片色调统一讲述同一个故事,而不是每个分镜各说各话。",
+   "核心原则": "关掉声音,只靠色彩,能猜出这一段在讲什么故事吗?全片建立统一色彩宪法(≤3 个主色号),按叙事弧线绑定色彩弧线。",
+   "验收标准": "关闭声音仅看色调,观众能感受到「情绪在变化」(从低沉到爆发、从压抑到希望),而不是「每段视频颜色不一样」。所有帧的阴影区域在同一色系内;所有帧的主色调组成有逻辑的色彩弧线。",
+   "模块": [
+    {
+     "标题": "全片色彩宪法 · 3 个主色号",
+     "类型": "table",
+     "备注": "3 个主色号定全片基调;其余颜色由主色降饱和 / 降明度派生,不算新主色。",
+     "列": [
+      "主色",
+      "色号",
+      "角色",
+      "派生色"
+     ],
+     "行": [
+      [
+       "深渊蓝",
+       "#1A3A4F",
+       "全片阴影基底、苦难、阴谋、夜",
+       "冷青阴影"
+      ],
+      [
+       "血红",
+       "#8B1A1A",
+       "冲突、杀伐、反派",
+       "暗红 #5A1414(磨练期侵入)"
+      ],
+      [
+       "暖金",
+       "#C8860A",
+       "神性、觉醒、主角逆光轮廓",
+       "温橙 #D08A5A(收场降调)"
+      ]
+     ]
+    },
+    {
+     "标题": "色彩一致性落地流程(AIGC 多段生成最大痛点)",
+     "类型": "flow",
+     "备注": "最常见的失败:每段画面色调不统一,从「神圣金」→「普通暖色」→「清冷蓝」,没有一致的视觉语言。",
+     "步骤": [
+      "为整部作品选定 3 个主色号",
+      "定义色彩弧线(每个故事段落对应什么主色调)",
+      "Prompt 中强制声明色彩一致性",
+      "后期统一套用同一 LUT"
+     ]
+    },
+    {
+     "标题": "色彩弧线(五阶段)",
+     "类型": "table",
+     "列": [
+      "叙事段落",
+      "推荐色调",
+      "饱和度",
+      "情绪预告功能"
+     ],
+     "行": [
+      [
+       "开篇·苦难",
+       "低饱和冷灰蓝",
+       "30–50%",
+       "提前传递压抑、苦难的情绪基调"
+      ],
+      [
+       "磨练·挣扎",
+       "饱和度缓升,暗红侵入",
+       "60–70%",
+       "冲突信号先于剧情动作传达给观众"
+      ],
+      [
+       "觉醒·爆发",
+       "暖金突破冷底",
+       "100–120%",
+       "情绪反转,冷暖极端对比产生突破感"
+      ],
+      [
+       "战斗·高潮",
+       "血红 × 深蓝极端对比",
+       "最高值",
+       "看到动作前,色彩已告知「极端时刻到来」"
+      ],
+      [
+       "悲壮·收场",
+       "温橙低饱和,落日余晖",
+       "60% 回落",
+       "饱和度下降本身传递「消耗与沉淀」"
+      ]
+     ]
+    },
+    {
+     "标题": "色彩情绪映射(必须 / 禁止)",
+     "类型": "table",
+     "备注": "每个分镜的主色调必须与它的情绪标签对应,不得随意替换。",
+     "列": [
+      "情绪标签",
+      "必须有的色调",
+      "禁止出现的色调"
+     ],
+     "行": [
+      [
+       "压抑孤独",
+       "低饱和冷灰蓝,饱和度 ≤50%",
+       "暖金色(传递希望感)"
+      ],
+      [
+       "内心挣扎",
+       "冷暖色调交界,存在颜色「撕裂感」",
+       "单一统一色调(消除挣扎感)"
+      ],
+      [
+       "觉醒爆发",
+       "暖金色为主,高饱和 ≥100%",
+       "全冷色调(消除爆发感)"
+      ],
+      [
+       "战斗高潮",
+       "血红 + 深蓝极端互补对比",
+       "中性低对比色(消除紧张感)"
+      ],
+      [
+       "悲壮升华",
+       "温暖低饱和橙调(≤70%)+ 金色余晖",
+       "高饱和纯色(太「甜」)"
+      ]
+     ]
+    },
+    {
+     "标题": "饱和度控制",
+     "类型": "table",
+     "备注": "饱和度越高越鲜艳、越抓视线,过高会「炸眼」;越低越平稳安静,过低画面不通透。阶段默认值见色彩弧线,单帧峰值(神力爆发瞬间)可到 130%。",
+     "列": [
+      "场景类型",
+      "目标饱和度",
+      "验收方法(矢量示波器)"
+     ],
+     "行": [
+      [
+       "苦难/压抑",
+       "30–50%",
+       "色彩信号贴近中心"
+      ],
+      [
+       "常规叙事",
+       "70–90%",
+       "中等幅度扩散"
+      ],
+      [
+       "神力/觉醒爆发",
+       "100–130%",
+       "扩散至外围,但不超出安全范围"
+      ],
+      [
+       "仙界/神界",
+       "90–120%(冷色高饱)",
+       "蓝/紫信号偏强"
+      ]
+     ]
+    },
+    {
+     "标题": "色彩情绪心理学全谱",
+     "类型": "table",
+     "备注": "按电影配色心理学与东方神话语境整理。",
+     "列": [
+      "色",
+      "色号",
+      "情绪",
+      "神话用途",
+      "禁忌"
+     ],
+     "行": [
+      [
+       "暖金 / 金橙",
+       "#C8860A",
+       "神圣、觉醒、希望",
+       "神界、神力激活、觉醒爆发、神将逆光轮廓",
+       "压抑孤独场景禁用(会传递希望感)"
+      ],
+      [
+       "血红 / 深红",
+       "#8B1A1A",
+       "杀伐、紧张、恐惧",
+       "战斗高潮、危机、反派登场",
+       "悲悯升华场景慎用高饱纯红"
+      ],
+      [
+       "暗红",
+       "#5A1414",
+       "潜伏的危机、挣扎",
+       "磨练段暗红侵入冷底,冲突信号先于剧情",
+       "—"
+      ],
+      [
+       "深渊蓝 / 青蓝",
+       "#1A3A4F",
+       "阴冷、压抑、孤独、宿命",
+       "开篇苦难、水属性神力、深夜、阴谋",
+       "觉醒爆发禁用全冷"
+      ],
+      [
+       "翠碧 / 青碧",
+       "#2E8B7A",
+       "仙气、生机、超脱",
+       "仙界、灵气、生命复苏、草木精怪",
+       "地府场景慎用(削弱诡异感)"
+      ],
+      [
+       "紫 / 淡紫",
+       "#6A4C93",
+       "神秘、混沌、先天",
+       "先天神、混沌之力、秘境、法阵",
+       "日常叙事慎用(过度神秘)"
+      ],
+      [
+       "幽绿 / 磷火绿",
+       "#3B6B3B",
+       "诡异、腐朽、反自然",
+       "地府、鬼界、毒瘴、妖魔",
+       "神界场景禁用"
+      ],
+      [
+       "惨白 / 冷白",
+       "#E8ECEF",
+       "死亡、终结、圣洁的极端",
+       "神性爆发的纯白席卷、死亡瞬间、雪原",
+       "长时间使用会失去冲击力"
+      ],
+      [
+       "温橙 / 落日",
+       "#D08A5A",
+       "悲悯、余韵、消耗与沉淀",
+       "悲壮收场、黄昏、牺牲后的宁静",
+       "战斗高潮禁用(泄掉张力)"
+      ],
+      [
+       "玄黑 / 墨",
+       "#0A0C0F",
+       "虚无、太初、未知",
+       "太初混沌、虚空、留白的极致、遮幅黑边",
+       "—"
+      ]
+     ]
+    },
+    {
+     "标题": "Teal & Orange 公式(东方神话变体)",
+     "类型": "cards",
+     "卡片": [
+      {
+       "标题": "原理",
+       "内容": "人的肤色天然落在橙色区间;把阴影/背景推向其互补色青蓝,形成最大色彩分离,主体自动「跳」出画面,且冷暖平衡、层次清晰。"
+      },
+      {
+       "标题": "东方神话变体",
+       "内容": "橙 → 神性暖金 #C8860A(逆光轮廓、体积光);青 → 深渊蓝 #1A3A4F(煞气、水、夜)。主角金边 × 背景冷煞,正好对应「神将 vs 环境」的叙事分野。"
+      },
+      {
+       "标题": "落地",
+       "内容": "背景/阴影统一压向冷青蓝,主角保留暖金背光轮廓;战斗高潮让金/红暖色与深蓝冷色极端对撞。"
+      }
+     ]
+    },
+    {
+     "标题": "表达想法 · 色调与情绪(样片观察)",
+     "类型": "table",
+     "列": [
+      "色彩手法",
+      "传递的情绪"
+     ],
+     "行": [
+      [
+       "红色调",
+       "紧张的氛围,害怕/恐惧"
+      ],
+      [
+       "一半黄色、一半黑暗",
+       "对未知的恐惧"
+      ],
+      [
+       "人物处在黄色色调中",
+       "怀旧、安静与淡淡的孤独感"
+      ],
+      [
+       "人物处在蓝色色调中",
+       "压抑或淡淡的忧伤"
+      ],
+      [
+       "外部冰冷月光 × 内部温暖灯光",
+       "区分不同人物的心情(冷暖对立)"
+      ]
+     ]
+    },
+    {
+     "标题": "本命色规则 · 色彩弧线的相对性",
+     "类型": "table",
+     "备注": "角色神力自带颜色时(如云中君的青蓝),色彩弧线以本命色为轴做相对变化,而不是套用固定色号。观众感知的是温度和纯度的相对变化。",
+     "列": [
+      "阶段",
+      "默认(无本命色)",
+      "以青蓝本命色为例",
+      "核心变化"
+     ],
+     "行": [
+      [
+       "① 开篇·苦难",
+       "低饱和冷灰蓝",
+       "灰、脏、低饱和的青",
+       "本命色被「压住」"
+      ],
+      [
+       "② 磨练·挣扎",
+       "暗红侵入冷底",
+       "青中渗入暗红",
+       "反色开始侵入"
+      ],
+      [
+       "③ 觉醒·爆发",
+       "暖金突破冷底",
+       "最纯、最亮的青白 + 暖金轮廓光",
+       "本命色达到最高亮度与纯度"
+      ],
+      [
+       "④ 战斗·高潮",
+       "血红 × 深蓝",
+       "青 × 血红极端对撞",
+       "本命色与反派反色对撞"
+      ],
+      [
+       "⑤ 悲壮·收场",
+       "温橙低饱和",
+       "暮色暖橙压过青,青只剩余晖里的一缕",
+       "整体向暖偏移"
+      ]
+     ]
+    },
+    {
+     "标题": "专业调色顺序",
+     "类型": "flow",
+     "备注": "LUT 只负责风格,不负责校正。跳过一级校正直接套 LUT,画面会变亮、变平。",
+     "步骤": [
+      "一级校正(曝光 / 白平衡 / 反差)",
+      "镜头间匹配",
+      "风格 LUT(强度 60–80%)",
+      "二级校正(肤色 / 天空)",
+      "暗角与局部压光",
+      "颗粒",
+      "遮幅"
+     ]
+    },
+    {
+     "标题": "低调画面 · 亮度目标",
+     "类型": "table",
+     "备注": "参考值来自本库电影参考样片的实测(平均亮度 0.25,亮度跨度 4.3 档)。平均亮度为 0–1 相对值,可在调色软件的波形图上对照;1 档 = 亮度差 2 倍。",
+     "列": [
+      "画面类型",
+      "平均亮度",
+      "亮度跨度",
+      "做法"
+     ],
+     "行": [
+      [
+       "常规叙事",
+       "0.20–0.30",
+       "4–5 档",
+       "暗部承载信息,光只落在主体上"
+      ],
+      [
+       "恐惧 / 阴谋",
+       "0.08–0.15",
+       "≥5 档",
+       "红要配合极暗,高亮的红是「热闹」"
+      ],
+      [
+       "神圣 / 觉醒",
+       "0.30–0.40",
+       "≥5 档",
+       "亮来自光源本身,画面里依然要有深暗部"
+      ],
+      [
+       "悲壮收场",
+       "0.20–0.30",
+       "3–4 档",
+       "反差回落,暗部略抬,留出雾感"
+      ],
+      [
+       "平静 / 日常",
+       "0.35–0.45",
+       "3 档左右",
+       "可以亮,但光依然要有方向"
+      ]
+     ]
+    },
+    {
+     "标题": "肤色线",
+     "类型": "text",
+     "内容": "无论 Teal & Orange 推得多狠,人物肤色都要落在矢量示波器的肤色线(约 11 点钟方向)附近。神性角色可以偏离肤色(发光、玉质),但凡人角色一旦偏青就会显得「病态」或「死人」。"
+    },
+    {
+     "标题": "色彩剧本 Color Script",
+     "类型": "flow",
+     "步骤": [
+      "按五阶段各选 1 张关键帧",
+      "缩成一排色块并列",
+      "检查温度弧线:冷 → 暖 → 对撞 → 暖",
+      "检查亮度弧线:暗 → 更暗 → 最亮 → 最暗对比 → 回落",
+      "标出本命色与反色出现的位置",
+      "锁定,作为全片调色参照"
+     ],
+     "备注": "动画工业常用的方法:在生成第一个镜头之前,先用一排小色块把全片的情绪温度画出来。色彩剧本通过了,单镜才开始生成。"
+    },
+    {
+     "标题": "角色色彩档案",
+     "类型": "table",
+     "列": [
+      "角色类型",
+      "主色",
+      "光",
+      "材质",
+      "规则"
+     ],
+     "行": [
+      [
+       "主角 / 正神",
+       "本命色",
+       "金色逆光轮廓,神力即光源",
+       "丝绸、玉、流光",
+       "全片唯一允许高饱和的角色"
+      ],
+      [
+       "反派 / 邪神",
+       "本命色的对立色(暗红、黑紫、幽绿)",
+       "底光、硬光",
+       "铁锈、骨、焦黑",
+       "颜色一出现,观众就知道危险"
+      ],
+      [
+       "凡人",
+       "土黄、赭石、青灰",
+       "自然侧光",
+       "粗布、木、夯土",
+       "肤色必须落在肤色线上"
+      ],
+      [
+       "师父 / 引路人",
+       "月白、素白",
+       "柔和顶光",
+       "素绢",
+       "低饱和、高明度,象征智慧"
+      ],
+      [
+       "群众 / 军队",
+       "统一降饱和的服色",
+       "跟随环境光",
+       "统一制式",
+       "整体不能抢主角的颜色"
+      ]
+     ]
+    },
+    {
+     "标题": "分阶段调色配方",
+     "类型": "table",
+     "列": [
+      "阶段",
+      "白平衡",
+      "反差 / 黑位",
+      "饱和度",
+      "二级重点"
+     ],
+     "行": [
+      [
+       "① 开篇·苦难",
+       "整体偏冷,高光去暖",
+       "压中间调,黑位略抬(雾感)",
+       "30–50%",
+       "天空去饱和,本命色只留一缕"
+      ],
+      [
+       "② 磨练·挣扎",
+       "中间调偏暖,阴影保持冷青",
+       "反差加大,四角压暗",
+       "60–70%",
+       "画面边缘单独推暗红"
+      ],
+      [
+       "③ 觉醒·爆发",
+       "光源区域按本命色,其余保持冷底",
+       "高光推到接近 100%,暗部压到底",
+       "100–120%",
+       "本命色单独提纯,轮廓光单独提暖"
+      ],
+      [
+       "④ 战斗·高潮",
+       "两个光源各自保持冷 / 暖",
+       "黑位压死,局部高反差",
+       "全片最高",
+       "红蓝分开提饱和,闪光帧单独处理"
+      ],
+      [
+       "⑤ 悲壮·收场",
+       "整体加暖",
+       "反差回落,高光柔化",
+       "≤70%",
+       "降低高光饱和,让暖色变「旧」"
+      ]
+     ]
+    },
+    {
+     "标题": "色彩禁忌",
+     "类型": "list",
+     "条目": [
+      "全片主色超过 3 个",
+      "相邻镜头色温无理由跳变",
+      "凡人肤色偏青(会显得病态或像死人)",
+      "高光既过曝又高饱和(AI 画面最常见的「发光塑料感」)",
+      "纯黑区域带色偏:黑应该是中性或偏冷",
+      "每个元素都在发光:发光只留给神力和真正的光源"
+     ]
+    }
+   ],
+   "分镜间规则": [
+    {
+     "标题": "职责",
+     "类型": "text",
+     "内容": "色彩承担「情绪预叙」——观众还未感知故事走向,色彩已先行传递。它是跨镜头情绪管理最高效的工具。"
+    },
+    {
+     "标题": "硬规则",
+     "类型": "list",
+     "条目": [
+      "开始出图前定主色号,全片不变",
+      "相邻分镜色调过渡必须有逻辑方向(渐变或有意义的反转),禁止无叙事原因的随机切换",
+      "同一场景不同角色可用冷暖对比区分情感状态(外部冰冷月光 × 内部温暖灯光)",
+      "所有帧的阴影区域保持在同一色系(本体系为冷青)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "light",
+   "名称": "光影",
+   "英文": "Light & Shadow",
+   "主题色": "#E8ECEF",
+   "一句话": "光是情绪的载体,每束光都必须有叙事来源和叙事目的。",
+   "定义": "光影是情绪的物理载体。无目的的光照 = 照明;有目的的光照 = 电影。重点运用在人物刻画(心理、角色)。神话题材不需要「好看的灯光」,需要「能讲故事的光」。",
+   "核心原则": "看到画面能说出光从哪里来、在表达什么情绪,就达标。每次确定打光方向前,先明确这束光在服务哪个情绪目标。",
+   "验收标准": "能回答「这束光从哪里来、它在帮这个场景表达什么」;场景内所有物体受光方向来自同一光源,无穿帮。",
+   "模块": [
+    {
+     "标题": "三条核心原则(神话题材)",
+     "类型": "cards",
+     "卡片": [
+      {
+       "标题": "按世界层级分配光源",
+       "内容": "神界顶光/背光(神圣感),人界侧光(现实感),鬼界底部渗光(诡异感)——光的方向本身就是叙事信息。"
+      },
+      {
+       "标题": "金色逆光轮廓",
+       "内容": "角色背后的金色边缘光是「神将」与「普通角色」最关键的视觉分野,神圣感最高效的单一元素,神话题材必用。"
+      },
+      {
+       "标题": "光比随叙事升温",
+       "内容": "叙事段 4:1 → 张力段 8:1 → 决战段 16:1,光的戏剧感跟着故事走。"
+      }
+     ]
+    },
+    {
+     "标题": "光源方向",
+     "类型": "table",
+     "列": [
+      "方向",
+      "心理效果",
+      "对应场景"
+     ],
+     "行": [
+      [
+       "顶光 Top",
+       "神圣、庄严、天降感",
+       "神将降临、法术激活"
+      ],
+      [
+       "45° 侧光 3/4",
+       "立体感最强,性格塑造;半明半暗带来神秘感",
+       "战前凝视、人物性格展示"
+      ],
+      [
+       "逆光 Backlight",
+       "神性轮廓、剪影、神秘",
+       "英雄出场、神将剪影"
+      ],
+      [
+       "底光 Bottom",
+       "诡异、反自然、恐惧、阴狠",
+       "妖魔登场、反派"
+      ],
+      [
+       "正面平光 Front",
+       "最真实但无戏剧感",
+       "仅用于对话,避免用在情绪场景"
+      ],
+      [
+       "自然光",
+       "画面更自然可信",
+       "人界日常、和平段落"
+      ]
+     ]
+    },
+    {
+     "标题": "光比 · 情绪烈度",
+     "类型": "table",
+     "备注": "光比 = 脸部受光面亮度 : 阴影面亮度,每翻一倍 = 1 档。只在脸上测量,整幅画面的明暗跨度另计。",
+     "列": [
+      "光比",
+      "曝光差",
+      "画面情绪",
+      "场景"
+     ],
+     "行": [
+      [
+       "2:1",
+       "1 档",
+       "柔和",
+       "日常对话、温馨、家庭、和平年代"
+      ],
+      [
+       "4:1",
+       "2 档",
+       "适中,轻戏剧感",
+       "大部分叙事镜头基准、开篇段"
+      ],
+      [
+       "8:1",
+       "3 档",
+       "强对比,戏剧张力、压迫感",
+       "战前对峙、神力激活、危机积累"
+      ],
+      [
+       "16:1",
+       "4 档",
+       "极端,卡拉瓦乔式明暗",
+       "决战时刻、牺牲、命运转折"
+      ]
+     ]
+    },
+    {
+     "标题": "体积光验收",
+     "类型": "table",
+     "备注": "体积光是神话题材最具辨识度的光效,也是「电影级」与「普通 AIGC」最直观的分水岭。",
+     "列": [
+      "要求",
+      "达标表现"
+     ],
+     "行": [
+      [
+       "光柱方向有叙事逻辑",
+       "神界顶光 / 人界侧光 / 鬼界底部渗光"
+      ],
+      [
+       "光柱内可见悬浮微粒",
+       "尘埃/花瓣/灵气,而非干净光柱"
+      ],
+      [
+       "光柱颜色与场景情绪一致",
+       "圣洁 = 冷白金,神界 = 暖橙,地府 = 绿幽"
+      ],
+      [
+       "光柱存在衰减",
+       "近处强、远处弱,而非均匀亮度"
+      ],
+      [
+       "遮挡产生合理阴影",
+       "被角色/物体遮挡时有清晰阴影边界"
+      ]
+     ]
+    },
+    {
+     "标题": "表达想法 · 氛围体感(样片观察)",
+     "类型": "table",
+     "备注": "侧光表现性格的两面,顶光表现神圣威压,与光源方向表一致。",
+     "列": [
+      "光线",
+      "人物/氛围效果"
+     ],
+     "行": [
+      [
+       "背景光",
+       "搭建严肃的基调"
+      ],
+      [
+       "侧光",
+       "半明半暗,体现人物的神秘感与复杂性格"
+      ],
+      [
+       "底光",
+       "体现人物的阴狠感"
+      ],
+      [
+       "顶光",
+       "神圣、威压;打在脸上时眼窝落入阴影,带出压迫与神秘"
+      ],
+      [
+       "自然光线",
+       "使画面更加自然"
+      ]
+     ]
+    },
+    {
+     "标题": "经典布光体系",
+     "类型": "table",
+     "列": [
+      "名称",
+      "内容"
+     ],
+     "行": [
+      [
+       "三点布光",
+       "主光 Key(定方向与光比)+ 辅光 Fill(控制阴影深浅)+ 轮廓光 Rim(分离主体与背景)。神话题材的金色逆光轮廓即强化版 Rim Light。"
+      ],
+      [
+       "动机光原则",
+       "画面中每束光在故事世界里都要有可信来源(月/烛/法术/神力),观众才不会出戏。"
+      ],
+      [
+       "卡拉瓦乔明暗法 Chiaroscuro",
+       "极端明暗对比(约 16:1),大片暗部里一束强光雕出主体,天然的决战/命运感。"
+      ],
+      [
+       "伦勃朗光",
+       "45° 侧光在暗侧脸颊留下倒三角光斑,人物立体又有戏剧性,适合战前凝视特写。"
+      ]
+     ]
+    },
+    {
+     "标题": "光比 vs 画面亮度跨度",
+     "类型": "table",
+     "备注": "电影参考样片的整幅亮度跨度常达 5–7.5 档(32:1–180:1),远超 16:1。两者是不同的量。",
+     "列": [
+      "概念",
+      "测量对象",
+      "用途",
+      "本库取值"
+     ],
+     "行": [
+      [
+       "光比 Key : Fill",
+       "人物脸部受光面 : 阴影面",
+       "控制人物情绪烈度",
+       "4:1 → 8:1 → 16:1"
+      ],
+      [
+       "画面亮度跨度",
+       "整幅画面最亮处 : 最暗处",
+       "控制整体氛围、低调 / 高调",
+       "参考片平均 4.3 档,极端 7.5 档"
+      ]
+     ]
+    },
+    {
+     "标题": "布光细节",
+     "类型": "table",
+     "列": [
+      "要点",
+      "说明"
+     ],
+     "行": [
+      [
+       "雾是体积光的前提",
+       "没有空气介质(雾、尘、烟、雨)就没有光柱。Prompt 里写体积光,必须同时写出介质"
+      ],
+      [
+       "负补光 Negative Fill",
+       "用黑旗吸掉暗侧的反射光,让阴影更深。AIGC 对应写法:「暗侧无反光、阴影纯净」"
+      ],
+      [
+       "实景光源 Practical",
+       "画面里出现的灯笼、烛火、法阵本身就是光源,能让光的动机一目了然"
+      ],
+      [
+       "眼神光 Catch Light",
+       "眼睛里的高光点。主角有眼神光显得有生命;反派或死亡角色去掉眼神光,眼睛变「死」"
+      ],
+      [
+       "肤色在暗部",
+       "低调画面里人脸亮度保持在中灰附近,其余可以压到很暗;脸也暗下去,观众会失去情感锚点"
+      ]
+     ]
+    },
+    {
+     "标题": "分阶段布光配方",
+     "类型": "table",
+     "列": [
+      "阶段",
+      "主光",
+      "辅光",
+      "轮廓光",
+      "画内光源",
+      "烟雾 / 介质"
+     ],
+     "行": [
+      [
+       "① 开篇·苦难",
+       "单侧冷光 45°–90°,大面积柔光",
+       "几乎没有,用负辅光(黑旗)压暗阴影面",
+       "无",
+       "远处微弱的火光或天光",
+       "薄雾,降低远景反差"
+      ],
+      [
+       "② 磨练·挣扎",
+       "偏暖的硬侧光",
+       "冷色弱辅光,光比 8:1",
+       "断续、不稳定的暗红 / 暖光",
+       "火把、闪电",
+       "雨幕、扬尘"
+      ],
+      [
+       "③ 觉醒·爆发",
+       "背后或上方的强逆光(本命色 / 金)",
+       "神力反射到脸上的弱补光",
+       "金色轮廓必须完整",
+       "神力本身就是光源,必须照亮地面和衣褶",
+       "浓雾,让光束可见"
+      ],
+      [
+       "④ 战斗·高潮",
+       "两个方向固定的对立光源(本命色 vs 反色)",
+       "无,阴影硬朗",
+       "双色轮廓",
+       "打击闪光 1–2 帧",
+       "烟尘随冲击波运动"
+      ],
+      [
+       "⑤ 悲壮·收场",
+       "低角度落日逆光",
+       "天空蓝的反射作冷辅光",
+       "温暖的一线",
+       "余烬",
+       "薄而宽,体积光柔和"
+      ]
+     ]
+    },
+    {
+     "标题": "时间与天气的光",
+     "类型": "table",
+     "列": [
+      "时段 / 天气",
+      "光的特征",
+      "适合情绪",
+      "Prompt 写法"
+     ],
+     "行": [
+      [
+       "黄金时刻(日出后 / 日落前约 1 小时)",
+       "低角度暖光,长影",
+       "怀旧、收场、温情",
+       "golden hour, low warm sun, long shadows"
+      ],
+      [
+       "蓝调时刻(日落后 20–30 分钟)",
+       "无直射光,整体蓝",
+       "忧伤、孤独、开篇",
+       "blue hour, soft ambient blue light"
+      ],
+      [
+       "正午",
+       "硬顶光,眼窝落入阴影",
+       "威压、审判",
+       "harsh overhead sun, deep eye shadows"
+      ],
+      [
+       "阴天",
+       "巨大柔光,几乎无影",
+       "压抑、平静",
+       "overcast, soft diffused light"
+      ],
+      [
+       "月夜",
+       "冷蓝主光 + 暖色画内光源",
+       "阴谋、思念",
+       "cold moonlight, warm candle practicals"
+      ],
+      [
+       "雷暴",
+       "瞬间强闪 + 大面积极暗",
+       "战斗、恐惧",
+       "lightning flash, stormy darkness"
+      ],
+      [
+       "晨雾",
+       "光束可见,空气透视强",
+       "神圣、新生",
+       "morning mist, god rays through fog"
+      ]
+     ]
+    },
+    {
+     "标题": "神力光效的物理规则",
+     "类型": "list",
+     "条目": [
+      "发光体就是光源:必须照亮周围的脸、地面、衣褶和粒子",
+      "光的颜色决定反射的颜色:青光照出青色高光,金光照出金色高光",
+      "越近越亮,离开光源迅速衰减(平方反比)",
+      "最强的光源处允许过曝溢出,不要强行保留细节",
+      "光要被遮挡才有体积:发丝、衣袍、碎石把光切成光束",
+      "体积光必须有介质:写体积光时同时写出雾、尘埃或水汽",
+      "同一画面不能出现两个「太阳」,主光方向只有一个"
+     ]
+    }
+   ],
+   "分镜间规则": [
+    {
+     "标题": "光比递进",
+     "类型": "table",
+     "备注": "随叙事进程系统性升温,让观众生理上感知「故事越来越沉重」。",
+     "列": [
+      "叙事阶段",
+      "光比(Key:Fill)",
+      "画面感受",
+      "神话场景"
+     ],
+     "行": [
+      [
+       "开篇 / 日常叙事段",
+       "4:1(2 档差)",
+       "轻戏剧感,柔和",
+       "家庭场景、初识、平静段落"
+      ],
+      [
+       "张力 / 矛盾段",
+       "8:1(3 档差)",
+       "戏剧张力、压迫感",
+       "战前对峙、神力激活、危机积累"
+      ],
+      [
+       "决战 / 命运转折段",
+       "16:1(4 档差)",
+       "极端明暗,卡拉瓦乔感",
+       "决战时刻、牺牲、命运转折"
+      ]
+     ]
+    },
+    {
+     "标题": "世界层级光源一致性",
+     "类型": "table",
+     "列": [
+      "世界层级",
+      "光源方向",
+      "叙事含义",
+      "一致性要求",
+      "违反后果"
+     ],
+     "行": [
+      [
+       "神界",
+       "顶光 / 背光",
+       "光从上方而来,暗示神圣秩序",
+       "所有神界场景顶光方向一致",
+       "神界感消失"
+      ],
+      [
+       "人界",
+       "侧光",
+       "光有方向,暗示现实的重量",
+       "自然光源,侧光贯穿人界叙事段",
+       "日常感/普通感"
+      ],
+      [
+       "鬼界",
+       "底部渗光",
+       "光从下方渗入,违背自然规律",
+       "地府场景底光方向一致",
+       "地府感消失"
+      ]
+     ]
+    },
+    {
+     "标题": "跨层级切换",
+     "类型": "text",
+     "内容": "人界 → 神界等切换时,光源方向的改变本身就是叙事事件,必须让观众感知「世界变了」。"
+    }
+   ]
+  },
+  {
+   "id": "composition",
+   "名称": "构图",
+   "英文": "Composition",
+   "主题色": "#2E8B7A",
+   "一句话": "构图不是摆放,是在画框内讲权力、情绪和关系。",
+   "定义": "主体的位置、大小、与背景的关系,告诉观众此刻的故事状态。东方神话最大的差异化能力是「留白」——西方用满构图传递力量,东方用空旷传递宏大与悲悯。",
+   "核心原则": "关掉声音后,能否说出一句「这一帧在表达什么」?构图法则不是越复杂越好,而是用最适合当前情绪目标的法则。",
+   "验收标准": "任何观众(不需要懂构图)看到这帧,能凭直觉感受到情绪(震撼/孤独/紧张/神圣),而无需解读构图规则。",
+   "模块": [
+    {
+     "标题": "构图法则 · 情绪映射",
+     "类型": "table",
+     "列": [
+      "情绪目标",
+      "必须使用",
+      "禁止使用"
+     ],
+     "行": [
+      [
+       "神圣/崇拜",
+       "中轴对称 + 仰拍 + 大量天空负空间",
+       "三分法偏角(破坏庄严感)"
+      ],
+      [
+       "孤独/悲壮",
+       "三分法偏角 + 负空间 50–70% + 渺小人物",
+       "中轴对称(给人力量感)"
+      ],
+      [
+       "战斗/紧张",
+       "对角线构图 + 荷兰角(倾斜 10–30°)",
+       "平衡构图(消除紧张感)"
+      ],
+      [
+       "压迫/恐惧",
+       "框架式构图(前景遮蔽)+ 仰拍",
+       "开放构图(给人逃脱感)"
+      ],
+      [
+       "觉醒/希望",
+       "引导线指向光源 + 开放上方空间",
+       "低调构图(压制光明感)"
+      ]
+     ],
+     "备注": "「孤独 / 悲壮」禁止中轴只适用于人物较大(>10%)时;人物足够小(≤5%)时,居中同样孤独,而且更有宿命感。"
+    },
+    {
+     "标题": "构图法则工具箱",
+     "类型": "table",
+     "备注": "每种法则的做法与情绪效果。",
+     "列": [
+      "法则",
+      "做法",
+      "情绪效果"
+     ],
+     "行": [
+      [
+       "三分法",
+       "主体放在三分线交点,偏离中心",
+       "自然、均衡;偏角放置带出孤独与失衡"
+      ],
+      [
+       "中轴对称",
+       "主体居中,左右镜像",
+       "庄严、神圣、秩序、权威"
+      ],
+      [
+       "黄金螺旋",
+       "视觉重心放在螺旋收敛点",
+       "均衡且有引导,视线自然落向主体"
+      ],
+      [
+       "对角线",
+       "主体/动势沿画面对角线展开",
+       "动势、冲突、速度"
+      ],
+      [
+       "三角构图",
+       "多个元素组成稳定三角(正三角)或倒三角",
+       "正三角稳定、倒三角危险"
+      ],
+      [
+       "框架式",
+       "门框、廊柱、神兽双翼框住主体",
+       "聚焦、窥视、压迫或保护"
+      ],
+      [
+       "点构图",
+       "单一小主体置于大空间",
+       "引导视线、孤立感"
+      ],
+      [
+       "满构图",
+       "元素铺满画面不留空",
+       "感官过载、混乱、力量"
+      ]
+     ]
+    },
+    {
+     "标题": "表达想法 · 线条与形状(样片观察)",
+     "类型": "table",
+     "列": [
+      "手法",
+      "效果"
+     ],
+     "行": [
+      [
+       "点构图",
+       "引导观众视线"
+      ],
+      [
+       "黄金三角构图",
+       "使画面整体更加均衡"
+      ],
+      [
+       "沿水平轴倾斜构图",
+       "通过失衡画面营造紧张感"
+      ],
+      [
+       "引导线",
+       "牵引观众视角,可用来烘托主角出场"
+      ],
+      [
+       "垂直线",
+       "象征高度与力量"
+      ],
+      [
+       "水平线分割",
+       "传达距离与平静"
+      ],
+      [
+       "简洁几何形状",
+       "整洁有序,视觉统一,万物各司其职的静谧氛围"
+      ],
+      [
+       "不规则有机形状",
+       "让人感觉更加自然"
+      ],
+      [
+       "满构图",
+       "营造感官过载、混乱的氛围"
+      ],
+      [
+       "俯视视角",
+       "体现场景的惊险"
+      ]
+     ]
+    },
+    {
+     "标题": "Z 轴三层空间(每个分镜必须满足)",
+     "类型": "table",
+     "备注": "Z 轴纵深是 AIGC 视频最常缺失的构图维度,补上它是从「平面图」到「电影画面」最直接的路径。",
+     "列": [
+      "空间层",
+      "要求",
+      "允许内容",
+      "达标判断"
+     ],
+     "行": [
+      [
+       "前景层",
+       "必须有虚化前景元素",
+       "草叶/香炉烟/石柱残片/飘花/枯枝",
+       "主体前方有虚焦物体,占画面 10–30%"
+      ],
+      [
+       "中景层",
+       "主体所在,清晰锐利",
+       "人物/法器/神兽",
+       "焦点在此,边缘轻微虚化"
+      ],
+      [
+       "背景层",
+       "颜色偏蓝、对比降低的远景",
+       "山脉/云海/建筑群/天空",
+       "远景偏冷,轮廓模糊(空气透视)"
+      ]
+     ]
+    },
+    {
+     "标题": "Z 轴验收方法",
+     "类型": "list",
+     "条目": [
+      "截图后,从画面最前到最后能数到至少 3 个空间层次",
+      "前景元素有虚化(非全清晰)",
+      "背景与中景有明显的空气透视差(远处偏蓝/偏淡)"
+     ]
+    },
+    {
+     "标题": "分场景前景推荐",
+     "类型": "table",
+     "列": [
+      "场景",
+      "前景元素"
+     ],
+     "行": [
+      [
+       "神圣",
+       "香炉烟、飘落花瓣、灵气粒子"
+      ],
+      [
+       "战斗",
+       "飞溅碎石、尘埃、破损石柱、破甲残片"
+      ],
+      [
+       "地府",
+       "鬼火幽光、凋零枯叶"
+      ],
+      [
+       "苦难",
+       "枯草、飘叶、残破建筑碎柱"
+      ]
+     ]
+    },
+    {
+     "标题": "负空间 · 留白规则",
+     "类型": "table",
+     "备注": "留白不是「画面没内容」,而是空旷区域本身承载情绪——苍茫天空里的孤立身影,比堆满特效的画面更能传递英雄的孤独。验收:画面主体(角色 + 法器)面积 ≤20% = 有效留白。",
+     "列": [
+      "叙事情绪",
+      "负空间比例",
+      "做法"
+     ],
+     "行": [
+      [
+       "孤独 / 悲壮",
+       "≥50%",
+       "角色偏角落,天空/旷野大面积留空"
+      ],
+      [
+       "神圣 / 宏观",
+       "≥40%",
+       "角色仰拍,天空云海充满上方空间"
+      ],
+      [
+       "力量 / 觉醒",
+       "无负空间",
+       "高潮时刻特写撑满,力量感最强"
+      ],
+      [
+       "收场 / 余韵",
+       "≥60%",
+       "人物再次渺小,以空旷衬悲壮"
+      ]
+     ]
+    },
+    {
+     "标题": "视角高度",
+     "类型": "table",
+     "备注": "每个分镜都必须能回答「为什么用这个视角」。",
+     "列": [
+      "视角",
+      "心理效果",
+      "场景 / 验收要求"
+     ],
+     "行": [
+      [
+       "仰拍(≥30°)",
+       "高大 / 威猛 / 权威 / 神圣",
+       "神将出场、BOSS 降临、法宝激活——必须使用"
+      ],
+      [
+       "平视(±15°)",
+       "平等 / 情感代入",
+       "对话、结义、托付遗志"
+      ],
+      [
+       "俯拍(≥30°)",
+       "渺小 / 悲悯 / 压迫 / 宿命",
+       "面对命运、被围困、陷入绝境"
+      ],
+      [
+       "鸟瞰(>60°)",
+       "宏观 / 上帝视角",
+       "战场全景、宏观建立"
+      ],
+      [
+       "荷兰角(倾斜 10–30°)",
+       "不安 / 失衡 / 混乱 / 诡异",
+       "危机、诡计、妖魔登场、人物困惑时刻"
+      ]
+     ]
+    },
+    {
+     "标题": "视角验收硬性要求",
+     "类型": "list",
+     "条目": [
+      "所有分镜都用平视 = 缺乏情绪变化",
+      "仰拍渺小的普通人 = 情绪表意错误",
+      "视角必须与情绪目标(全局色调 + 分镜情绪)匹配"
+     ]
+    },
+    {
+     "标题": "引导线",
+     "类型": "table",
+     "备注": "画面中必须至少存在一种把视线引向主体的「视觉通道」。验收:闭眼后再看画面 3 秒,视线落点在主体上 = 有效。",
+     "列": [
+      "类型",
+      "元素"
+     ],
+     "行": [
+      [
+       "自然引导线",
+       "道路、廊柱列、桥梁、山脊线、河流走向"
+      ],
+      [
+       "神话专属引导线",
+       "光柱方向、灵气流轨迹、符文排列、闪电路径"
+      ]
+     ]
+    },
+    {
+     "标题": "理论根基",
+     "类型": "table",
+     "列": [
+      "名称",
+      "内容"
+     ],
+     "行": [
+      [
+       "留白 = 東方的「間」",
+       "以无写有,空处即情绪。西方求满、东方求空,这是最大的差异化护城河。"
+      ],
+      [
+       "空气透视",
+       "远景因大气散射而偏蓝、对比降低、轮廓模糊,是营造纵深最真实的手段,也是背景层验收的物理依据。"
+      ],
+      [
+       "主体突出法(非写实比例)",
+       "靠构图(三分法、引导线)和对比光效(深蓝背景 × 亮金背光)突出主角,而不是把主角画得很大。"
+      ]
+     ]
+    },
+    {
+     "标题": "画面细节",
+     "类型": "table",
+     "列": [
+      "要点",
+      "说明"
+     ],
+     "行": [
+      [
+       "视线空间 Lead Room",
+       "人物面朝哪边,哪边就要留出更多空间;反过来留(背后空、面前挤)会制造压迫或「被追赶」感"
+      ],
+      [
+       "头顶空间 Headroom",
+       "中景、近景头顶留白要小;头顶留白过大显得人物渺小、无力"
+      ],
+      [
+       "中轴 + 极小人物",
+       "人物 <5% 且居中时,画面同时具备庄严和孤独,适合「宿命」类镜头"
+      ],
+      [
+       "画面重量",
+       "暗部、大面积色块、人脸都「重」;亮的天空「轻」。上轻下重稳定,上重下轻压迫"
+      ],
+      [
+       "2.39 安全框",
+       "AIGC 多数以 16:9 生成,裁成 2.39:1 会切掉约 25% 的高度。生成时就要让主体和视线落在画面中间 75% 的高度内"
+      ],
+      [
+       "前景遮挡比例",
+       "前景虚焦元素 10–30% 是纵深;超过 40% 变成「偷窥」或「被困」"
+      ]
+     ]
+    },
+    {
+     "标题": "2.39:1 宽银幕构图",
+     "类型": "table",
+     "列": [
+      "要点",
+      "做法"
+     ],
+     "行": [
+      [
+       "横向并置",
+       "宽画幅擅长并置:人与天地、两军对垒、两人分居画面两端"
+      ],
+      [
+       "单人近景",
+       "人物放在三分线,视线前方留出空间(引导空间 Lead Room)"
+      ],
+      [
+       "头顶空间",
+       "宽画幅的头顶空间更小,特写可以切掉头顶,但不能切下巴"
+      ],
+      [
+       "对峙",
+       "双人分列左右三分线,中间留空,空白就是张力"
+      ],
+      [
+       "安全框",
+       "以 16:9 生成时,主体和视线放在中间 75% 高度内,给遮幅留余量"
+      ]
+     ]
+    },
+    {
+     "标题": "人物调度 Blocking",
+     "类型": "table",
+     "列": [
+      "调度",
+      "做法",
+      "表达"
+     ],
+     "行": [
+      [
+       "纵深调度",
+       "人物从远处走向镜头,或从镜头前走向深处",
+       "到来 / 压迫;离去 / 命运"
+      ],
+      [
+       "高低位",
+       "站立 vs 跪伏,神座高处 vs 阶下",
+       "权力关系"
+      ],
+      [
+       "入画 / 出画",
+       "从画外进入;走出画面",
+       "新力量出现;离开或死亡"
+      ],
+      [
+       "三角调度",
+       "三人呈三角形站位,打破三角",
+       "关系稳定;关系破裂"
+      ],
+      [
+       "前后遮挡",
+       "一人挡住另一人",
+       "控制、保护或隔阂"
+      ],
+      [
+       "距离变化",
+       "两人在连续镜头中逐渐靠近或拉远",
+       "关系在变化"
+      ]
+     ]
+    },
+    {
+     "标题": "神话尺度感",
+     "类型": "table",
+     "列": [
+      "手段",
+      "做法"
+     ],
+     "行": [
+      [
+       "参照物",
+       "在巨物旁放人、鸟、树、建筑等观众熟悉尺寸的东西"
+      ],
+      [
+       "空气透视",
+       "巨物越远越蓝、越淡、反差越低"
+      ],
+      [
+       "局部出画",
+       "巨物只露一部分,让观众自己补全「更大」"
+      ],
+      [
+       "低机位",
+       "贴地仰拍加广角,让巨物占满上方"
+      ],
+      [
+       "慢",
+       "大质量的东西动作慢:巨物、神兽、天象都要慢"
+      ],
+      [
+       "声音",
+       "低频加延迟:先看到,半拍后才听到"
+      ]
+     ]
+    },
+    {
+     "标题": "群像与大场面",
+     "类型": "list",
+     "条目": [
+      "群体排成几何形状(方阵、弧线、长龙),形状本身就是秩序或混乱",
+      "群体统一降饱和,主角是唯一的高饱和或唯一有逆光的人",
+      "千军万马用极远景 + 俯拍 + 空气透视,远处的人只是纹理",
+      "群体朝向一致时,让主角逆向站立:孤胆一人的最强构图"
+     ]
+    }
+   ],
+   "分镜间规则": [
+    {
+     "标题": "构图弧线",
+     "类型": "flow",
+     "备注": "跨镜头的构图变化本身就是叙事弧线(具体细节按分镜调整)。",
+     "步骤": [
+      "开篇:人物渺小于大环境(孤立的存在感)",
+      "发展:人物与环境平衡(成长中)",
+      "高潮:人物充满画面(力量顶点)",
+      "收场:人物再次渺小(悲壮,但这次是主动承担)"
+     ]
+    },
+    {
+     "标题": "留白随阶段变化",
+     "类型": "table",
+     "列": [
+      "叙事情绪",
+      "负空间",
+      "跨镜头变化方向"
+     ],
+     "行": [
+      [
+       "开篇孤立 / 苦难",
+       "≥50%",
+       "开场用大负空间建立渺小感"
+      ],
+      [
+       "神圣 / 宏观建立",
+       "≥40%",
+       "仰拍天空云海,传递世界观规模"
+      ],
+      [
+       "力量 / 觉醒爆发",
+       "人物充满画面",
+       "从负空间到满构图,空间压缩本身传递力量积累"
+      ],
+      [
+       "收场 / 余韵",
+       "≥60%",
+       "从满构图回退到大负空间,以空旷衬悲壮"
+      ]
+     ]
+    },
+    {
+     "标题": "构图节奏逻辑",
+     "类型": "table",
+     "列": [
+      "变化",
+      "含义"
+     ],
+     "行": [
+      [
+       "空 → 满",
+       "力量积累、觉醒突破"
+      ],
+      [
+       "满 → 空",
+       "力量消耗、余韵沉淀"
+      ],
+      [
+       "持续空",
+       "孤独、宿命压迫"
+      ],
+      [
+       "持续满",
+       "战斗混乱、感官过载"
+      ]
+     ]
+    },
+    {
+     "标题": "视角跨镜头变化",
+     "类型": "table",
+     "列": [
+      "情绪跨越",
+      "视角变化",
+      "叙事效果"
+     ],
+     "行": [
+      [
+       "孤独 → 觉醒",
+       "俯拍(渺小)→ 仰拍(充满画面)",
+       "视角翻转传递命运反转"
+      ],
+      [
+       "平等对话 → 神将出场",
+       "平视 → 仰拍(≥30°)",
+       "视角切换标记「神圣时刻」开始"
+      ],
+      [
+       "正常 → 危机",
+       "水平构图 → 荷兰角(10–30°)",
+       "画面失衡感先于危机事件到来"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "camera",
+   "名称": "镜头",
+   "英文": "Camera & Lens",
+   "主题色": "#8FB3D9",
+   "一句话": "镜头是观众的眼睛与情感代理人。",
+   "定义": "镜头不是摄像机在记录发生了什么,而是帮观众以特定视角、特定情绪体验故事,让观众从镜头进入画面。景别、视角、运动、节奏四者必须同时服务叙事意图。",
+   "核心原则": "每个镜头必须能回答两个问题:叙事目的(告诉观众什么)+ 情绪导向(让观众感受什么)。",
+   "验收标准": "只能回答一个 = 勉强及格;两个都能回答 = 电影感达标。",
+   "模块": [
+    {
+     "标题": "景别系统",
+     "类型": "table",
+     "列": [
+      "景别",
+      "画面",
+      "人物占比",
+      "叙事功能",
+      "情绪功能",
+      "错误使用"
+     ],
+     "行": [
+      [
+       "极远景 ELS",
+       "人物极小",
+       "<5%(建立镜头)~ 15%",
+       "建立世界规模、地理关系",
+       "渺小、宏观、孤独",
+       "用极远景展示人物情绪(看不见)"
+      ],
+      [
+       "远景 LS",
+       "人物全身 + 大量环境",
+       "10–15%",
+       "人物与环境的位置关系",
+       "存在感、格局感",
+       "情感高潮用远景(太远不代入)"
+      ],
+      [
+       "中景 MS",
+       "腰部以上",
+       "20–30%",
+       "动作 + 环境平衡叙事",
+       "参与感、叙事效率",
+       "所有镜头都是中景(单调)"
+      ],
+      [
+       "近景/特写 CU",
+       "脸 / 手 / 局部",
+       "40–60%",
+       "强调情绪、关键细节",
+       "亲密感、情绪共鸣",
+       "情感不强的场景用特写(浪费)"
+      ],
+      [
+       "极近景 ECU",
+       "眼睛 / 嘴唇 / 手指",
+       "≥70%",
+       "时间暂停、极致聚焦",
+       "情绪放大到极限",
+       "频繁使用(失去冲击力)"
+      ]
+     ]
+    },
+    {
+     "标题": "景别硬性要求",
+     "类型": "list",
+     "条目": [
+      "全片景别必须有变化(至少 3 种交替出现)",
+      "情感高潮时刻(觉醒 / 牺牲 / 抉择)必须有近景或极近景",
+      "场景建立必须从远景或极远景开始"
+     ]
+    },
+    {
+     "标题": "神话题材核心景别策略",
+     "类型": "table",
+     "备注": "神将降临先仰拍建立威压,再用极近景切细节。",
+     "列": [
+      "神话场景",
+      "必须使用",
+      "为什么"
+     ],
+     "行": [
+      [
+       "神将降临 / BOSS 出场",
+       "仰拍(≥30°)全身建立威压 → 极近景 ECU 切眼神 / 法器",
+       "先让观众敬畏,再让观众看清"
+      ],
+      [
+       "世界观建立",
+       "极远景 ELS 展示神界 / 鬼界 / 人界的规模",
+       "观众先知道「在哪」,才会关心「是谁」"
+      ],
+      [
+       "觉醒 / 抉择 / 牺牲",
+       "特写 CU(人脸占 40–60%)或 ECU 眼睛",
+       "情感高潮需要看清眼睛"
+      ],
+      [
+       "战斗高潮",
+       "景别快速递减:中 → 近 → 极近,快切",
+       "景别递减就是冲击在累积"
+      ],
+      [
+       "英雄孤立面对命运",
+       "远景 + 大负空间(人物 ≤10%)",
+       "距离产生渺小感"
+      ]
+     ]
+    },
+    {
+     "标题": "镜头运动",
+     "类型": "table",
+     "列": [
+      "运动",
+      "心理效果",
+      "神话应用场景",
+      "禁忌",
+      "样片"
+     ],
+     "行": [
+      [
+       "升镜 Crane Up",
+       "上升 = 宏大 / 希望 / 格局",
+       "开场世界观建立 / 正面胜利收场",
+       "悲剧/死亡场景(情绪矛盾)",
+       "jimeng-2026-04-26-3241-Smooth crane up shot….mp4"
+      ],
+      [
+       "降镜 Crane Down",
+       "下压 = 下沉 / 命运 / 压迫",
+       "主角落入困境 / 命运压迫",
+       "觉醒/希望场景",
+       "jimeng-2026-04-26-3020-Slow, oppressive crane down shot….mp4"
+      ],
+      [
+       "推镜 Dolly In",
+       "情绪升温、重量感、不可回头感",
+       "角色做出关键决定 / 情绪升温",
+       "无情绪变化的平淡场景",
+       "jimeng-2026-04-26-8490-Slow, dramatic dolly-in shot….mp4"
+      ],
+      [
+       "拉镜 Pull Back",
+       "孤独、格局、渺小、疏离",
+       "英雄独自面对命运 / 史诗级孤独",
+       "喜悦/团聚场景(反效果)",
+       "jimeng-2026-04-26-8112-Epic, slow pull-back shot….mp4"
+      ],
+      [
+       "横移 Tracking",
+       "动感、陪伴、跟随",
+       "角色行进 / 战斗跟拍",
+       "静态情感场景(破坏静止感)",
+       "—"
+      ],
+      [
+       "环绕 Orbit",
+       "强调主体三维存在感",
+       "展示 BOSS / 神兽全貌",
+       "情感对话(破坏私密感)",
+       "—"
+      ],
+      [
+       "手持晃动 Handheld",
+       "真实、混乱、临场、危险",
+       "战斗混乱 / 危机逃亡",
+       "平静叙事 / 神圣场景(破坏庄严)",
+       "jimeng-2026-04-26-8196-Fast, unstable handheld camera shot….mp4"
+      ],
+      [
+       "升拉 Crane + Pull",
+       "悲悯、宏大、历史感",
+       "悲壮收场 / 余韵结束",
+       "紧凑高潮段",
+       "jimeng-2026-04-26-5455-Epic combined crane-up and pull-back shot….mp4"
+      ],
+      [
+       "固定镜头 Static",
+       "沉浸、投入、静观",
+       "开篇苦难、战前静默",
+       "战斗高潮(失去战斗感)",
+       "固定镜头.mov"
+      ]
+     ]
+    },
+    {
+     "标题": "表达想法 · 运镜体验(样片观察)",
+     "类型": "table",
+     "列": [
+      "运镜",
+      "效果"
+     ],
+     "行": [
+      [
+       "固定镜头",
+       "固定视角观看,让人沉浸画面中,更加投入"
+      ],
+      [
+       "升镜、降镜(竖摇)",
+       "揭示信息、跟随角色、捕捉周围环境"
+      ],
+      [
+       "拉近",
+       "强调这一幕的重要性,暗示人物心理,增加紧张感"
+      ],
+      [
+       "拉远",
+       "暗示角色疏离,揭示环境与处境;也能让观众从情绪中抽离"
+      ],
+      [
+       "手持晃动",
+       "身临其境,紧张氛围,体现危险处境"
+      ],
+      [
+       "旋转镜头",
+       "让人紧张不安"
+      ]
+     ]
+    },
+    {
+     "标题": "运动验收硬性要求",
+     "类型": "list",
+     "备注": "AIGC 视频模型无法理解物理速度,用「画面宽度 % / 秒」来描述。",
+     "条目": [
+      "每个镜头的运动方向必须有叙事理由(不接受「随机运动」或「让画面不静止」)",
+      "同一场景内不得出现方向相反的无意义来回运动",
+      "速度服从情绪:宏大场景慢(约 0.2–0.5 m/s,≤10% 画面宽度/秒),战斗场景快(约 1–3 m/s,30–100% 画面宽度/秒)",
+      "AIGC 运镜幅度不宜过大,单镜只做一种主运动",
+      "节奏感:快切 <1s = 混乱,长镜 >5s = 孤独积累"
+     ]
+    },
+    {
+     "标题": "焦距与镜头类型",
+     "类型": "table",
+     "备注": "焦距越长视角越窄、背景压缩越强;越短视角越宽、畸变越大。",
+     "列": [
+      "镜头",
+      "等效焦距",
+      "效果",
+      "适用"
+     ],
+     "行": [
+      [
+       "超广角",
+       "14–24mm",
+       "宏大震撼,轻微畸变,突出孤独感,带超现实风格",
+       "神话宏观建立"
+      ],
+      [
+       "广角",
+       "24–35mm",
+       "角色显得有距离感,增强临场感;接近人眼的自然真实",
+       "日常行进 / 叙事"
+      ],
+      [
+       "标准",
+       "50mm",
+       "人眼视角的质朴感,均衡无压迫,但画面偏平淡",
+       "对话 / 平衡叙事"
+      ],
+      [
+       "中长焦",
+       "85mm",
+       "亲密感 + 轻微背景压缩",
+       "人物情感特写"
+      ],
+      [
+       "长焦",
+       "135–200mm",
+       "强烈背景压缩,突出前后层次;隐秘、窥视感",
+       "规模对比、烘托氛围、收场压缩"
+      ],
+      [
+       "微距",
+       "微距镜头",
+       "放大细节,突出关键剧情细节",
+       "法器、符文、泪滴、指尖"
+      ],
+      [
+       "变形宽银幕",
+       "Anamorphic(镜头类型)",
+       "椭圆散景、横向光晕,好莱坞大片标志",
+       "史诗全景"
+      ]
+     ]
+    },
+    {
+     "标题": "景深与焦点",
+     "类型": "table",
+     "备注": "焦点变换 Rack Focus 指拍摄中把焦点从一个主体转到另一个,用来转移观众的注意力。",
+     "列": [
+      "要点",
+      "说明"
+     ],
+     "行": [
+      [
+       "大光圈 = 情感特写",
+       "背景虚化,只留主体清晰"
+      ],
+      [
+       "小光圈 = 风景建立",
+       "前后皆实,交代环境"
+      ],
+      [
+       "焦点变换 Rack Focus",
+       "镜头内把焦点从前景转到后景(或反之),引导观众注意力转移,常用于揭示「真正重要的东西」"
+      ],
+      [
+       "景深与焦距",
+       "长焦 + 大光圈虚化最强;超广角即使大光圈也很难虚化背景"
+      ]
+     ]
+    },
+    {
+     "标题": "表达想法 · 视角与层次(样片观察)",
+     "类型": "table",
+     "列": [
+      "手法",
+      "效果"
+     ],
+     "行": [
+      [
+       "前景 + 中景 + 背景",
+       "突出人物,分别交代人物所处环境及心理,延伸画面感"
+      ],
+      [
+       "俯拍场景",
+       "突出场景的危险程度"
+      ],
+      [
+       "俯拍人物",
+       "弱化人物的力量感,突出无助"
+      ],
+      [
+       "仰拍人物",
+       "强化人物的力量感,突出能力"
+      ],
+      [
+       "仰拍场景",
+       "突出建筑/山体的高耸与压迫"
+      ]
+     ]
+    },
+    {
+     "标题": "镜头节奏",
+     "类型": "table",
+     "列": [
+      "阶段",
+      "单镜时长",
+      "原因"
+     ],
+     "行": [
+      [
+       "开场建立",
+       "5–15 秒",
+       "需要时间让观众进入世界观"
+      ],
+      [
+       "常规叙事",
+       "2–4 秒",
+       "信息传递与情感建立平衡"
+      ],
+      [
+       "战斗前蓄力",
+       "4–8 秒(反常放慢)",
+       "战前静默是高潮前的情绪蓄积"
+      ],
+      [
+       "战斗高潮",
+       "递减 3s → 2s → 1s → 0.5s",
+       "节奏加速制造紧张与冲击"
+      ],
+      [
+       "情感特写",
+       "3–6 秒",
+       "让观众有时间感受情绪,不要催促"
+      ],
+      [
+       "史诗收场",
+       "8–20 秒单镜",
+       "余韵需要时间在空旷中沉淀"
+      ]
+     ]
+    },
+    {
+     "标题": "速度渐变(打击感)",
+     "类型": "table",
+     "备注": "重要动作时刻(出拳 / 收击 / 法术爆发)必须有速度渐变,无速度渐变的战斗 = 缺乏打击感。",
+     "列": [
+      "段",
+      "画面速度"
+     ],
+     "行": [
+      [
+       "蓄力",
+       "正常 1x"
+      ],
+      [
+       "动作细节放大",
+       "慢动作 0.3x(冲击前 0.5s)"
+      ],
+      [
+       "打击感定格",
+       "峰值 0.1x(冲击瞬间)"
+      ],
+      [
+       "恢复",
+       "正常 1x"
+      ]
+     ]
+    },
+    {
+     "标题": "镜头语言铁律",
+     "类型": "table",
+     "列": [
+      "名称",
+      "内容"
+     ],
+     "行": [
+      [
+       "180° 轴线规则",
+       "两个主体之间有一条假想轴线,机位不可跨越,否则观众会迷失左右关系。对话、对峙、战斗跟拍尤其要守。"
+      ],
+      [
+       "正反打 Shot-Reverse-Shot",
+       "A 的过肩 → B 的过肩交替,建立空间与情感张力,是磨练段对峙戏的主力。"
+      ],
+      [
+       "24fps 基准",
+       "24fps 带来的自然运动模糊是「电影」区别于「游戏/直播」高帧率廉价感的关键。"
+      ]
+     ]
+    },
+    {
+     "标题": "镜头与剪辑细节",
+     "类型": "table",
+     "列": [
+      "要点",
+      "说明"
+     ],
+     "行": [
+      [
+       "透视由距离决定",
+       "焦段只改变视野;人物与背景的大小关系由机位距离决定。写 Prompt 时描述「摄影机离人物多远」"
+      ],
+      [
+       "镜头高度 = 叙事立场",
+       "摄影机放在谁的视线高度,观众就站在谁一边"
+      ],
+      [
+       "180° 快门",
+       "24fps 配 1/48 秒快门,运动模糊最接近电影;AIGC 中描述为「自然运动模糊」"
+      ],
+      [
+       "30° 规则",
+       "同一主体的相邻两个镜头,机位角度变化至少 30°,否则像跳帧(跳切)"
+      ],
+      [
+       "动作剪辑 Cut on Action",
+       "在动作进行中剪切(出拳的瞬间),剪辑点会被动作掩盖,节奏更顺"
+      ],
+      [
+       "匹配剪辑 Match Cut",
+       "用形状或动作相似的两个画面衔接(眼睛 → 太阳),最适合用来标记叙事阶段的跨越"
+      ],
+      [
+       "J-Cut / L-Cut",
+       "声音先于画面进入(J)或晚于画面离开(L),让阶段过渡更平滑"
+      ]
+     ]
+    },
+    {
+     "标题": "运镜配方 · 按目的选",
+     "类型": "table",
+     "列": [
+      "目的",
+      "运镜",
+      "Prompt 写法"
+     ],
+     "行": [
+      [
+       "揭示世界",
+       "升镜 / 后拉",
+       "crane up revealing the vast landscape"
+      ],
+      [
+       "强调重要性",
+       "缓慢推近",
+       "slow dolly in towards the face"
+      ],
+      [
+       "抽离 / 告别",
+       "缓慢后拉",
+       "slow pull back, figure becomes small"
+      ],
+      [
+       "跟随旅程",
+       "横移 / 跟拍",
+       "tracking shot following alongside"
+      ],
+      [
+       "展示威压",
+       "低机位仰推 / 环绕",
+       "low angle push in, slow orbit"
+      ],
+      [
+       "紧张不安",
+       "手持 / 旋转",
+       "handheld, slight rotation"
+      ],
+      [
+       "内心冲击",
+       "推拉变焦 Dolly Zoom",
+       "dolly zoom, background stretches"
+      ],
+      [
+       "凝视 / 悬念",
+       "固定长镜头",
+       "locked-off static shot, long take"
+      ]
+     ]
+    },
+    {
+     "标题": "转场设计",
+     "类型": "table",
+     "列": [
+      "转场",
+      "做法",
+      "适用"
+     ],
+     "行": [
+      [
+       "动作剪辑",
+       "在动作进行到一半时切到下一个角度",
+       "战斗、连续动作"
+      ],
+      [
+       "匹配剪辑",
+       "上下两镜形状、动作或颜色相同(闭眼 → 月亮)",
+       "时间跨越、意象联想"
+      ],
+      [
+       "遮挡转场",
+       "前景物体或人物划过镜头,遮满画面时切",
+       "同场景换角度、换地点"
+      ],
+      [
+       "光转场",
+       "白闪或本命色闪光 2–4 帧",
+       "觉醒、爆发"
+      ],
+      [
+       "声音先行",
+       "J-cut:下一镜的声音先进;L-cut:上一镜的声音延续",
+       "几乎所有转场都可以叠加"
+      ],
+      [
+       "溶化",
+       "两镜叠化 0.5–2s",
+       "时间流逝、回忆"
+      ],
+      [
+       "甩镜",
+       "快速横摇造成模糊,在模糊中切",
+       "战斗、追逐"
+      ],
+      [
+       "黑场",
+       "淡出到黑再淡入",
+       "大段落结束、死亡"
+      ]
+     ]
+    },
+    {
+     "标题": "动作场面拍法",
+     "类型": "table",
+     "列": [
+      "原则",
+      "做法"
+     ],
+     "行": [
+      [
+       "先建立空间",
+       "用一个双人全景交代方位和距离"
+      ],
+      [
+       "一镜一动作",
+       "每个镜头只完成一次攻防"
+      ],
+      [
+       "反应镜头",
+       "被击者和旁观者的反应约占三分之一"
+      ],
+      [
+       "冲击帧",
+       "击中瞬间 2–4 帧闪白、定格或震屏"
+      ],
+      [
+       "快慢对比",
+       "快 → 慢 → 快,慢在最关键的一击"
+      ],
+      [
+       "可读性优先",
+       "主体始终在画面中心区域,观众看不懂的快没有意义"
+      ]
+     ]
+    },
+    {
+     "标题": "段落镜头结构",
+     "类型": "flow",
+     "步骤": [
+      "建立镜头(在哪)",
+      "中景(谁和谁)",
+      "近景(什么情绪)",
+      "特写(关键细节)",
+      "反应镜头(结果)",
+      "回到全景(新的局面)"
+     ],
+     "备注": "一个完整段落的标准顺序,可以压缩,但不要打乱:观众先需要空间,才能理解情绪。"
+    }
+   ],
+   "分镜间规则": [
+    {
+     "标题": "情绪呼吸序列",
+     "类型": "flow",
+     "步骤": [
+      "极远景(进入世界)",
+      "中景(叙事推进)",
+      "战前静镜(蓄力 4–8s)",
+      "极近景(情绪爆发)",
+      "极远景长镜(余韵沉淀 8–20s)"
+     ]
+    },
+    {
+     "标题": "分镜间景别节奏",
+     "类型": "table",
+     "列": [
+      "叙事阶段",
+      "单镜时长",
+      "景别变化方向",
+      "原则"
+     ],
+     "行": [
+      [
+       "开场建立",
+       "5–15 秒/镜",
+       "极远景为主",
+       "让观众有时间进入世界观"
+      ],
+      [
+       "叙事推进",
+       "常规(2–4 秒)",
+       "中景为主,穿插远近",
+       "平衡叙事效率与情绪代入"
+      ],
+      [
+       "战前蓄力",
+       "4–8 秒(刻意放慢)",
+       "固定或极缓慢运动",
+       "反常的静是高潮前最大的张力积累"
+      ],
+      [
+       "战斗高潮",
+       "3s → 2s → 1s → 0.5s",
+       "中 → 近 → 极近",
+       "节奏加速制造冲击,景别缩小制造压迫"
+      ],
+      [
+       "情感高潮",
+       "3–6 秒",
+       "近景 / 极近景",
+       "给观众时间感受情绪"
+      ],
+      [
+       "史诗收场",
+       "8–20 秒单镜",
+       "远景 → 极远景",
+       "余韵在空旷中生长,禁止频繁剪切"
+      ]
+     ]
+    },
+    {
+     "标题": "禁忌",
+     "类型": "list",
+     "条目": [
+      "神圣降临场景禁止手持晃动——动感破坏庄严",
+      "悲剧/死亡场景禁止纯升镜——上升暗示希望,与叙事矛盾"
+     ]
+    }
+   ]
+  }
+ ],
+ "辅助维度": [
+  {
+   "id": "content",
+   "名称": "画面内容与美术",
+   "英文": "Production Design",
+   "主题色": "#6A4C93",
+   "一句话": "画面里放什么,本身就在暗示人物的内心。",
+   "核心原则": "画面展示故事需要的内容,并通过主角所在的场景暗示人物当下的内心变化。",
+   "模块": [
+    {
+     "标题": "表达手法",
+     "类型": "table",
+     "列": [
+      "手法",
+      "暗示",
+      "神话示例"
+     ],
+     "行": [
+      [
+       "重复的图案",
+       "疯狂、执念、困局",
+       "无尽回廊、层层叠叠的符咒"
+      ],
+      [
+       "环境与人物同步变化",
+       "内心状态外化",
+       "主角心死时枯树、心燃时灵火复燃"
+      ],
+      [
+       "象征物 / 母题",
+       "命运、承诺、羁绊",
+       "反复出现的玉佩、断剑、同一株花"
+      ],
+      [
+       "空间大小与封闭度",
+       "自由 vs 囚禁",
+       "狭窄石牢 vs 无边云海"
+      ],
+      [
+       "残缺与完整",
+       "失去与圆满",
+       "破碎神殿 → 重建神殿"
+      ],
+      [
+       "人物在画面中的位置关系",
+       "权力高低、亲疏远近",
+       "神座高处 vs 跪伏阶下"
+      ]
+     ]
+    },
+    {
+     "标题": "三界视觉规范 World Bible",
+     "类型": "table",
+     "列": [
+      "世界",
+      "主色",
+      "光",
+      "材质",
+      "地貌 / 建筑",
+      "粒子"
+     ],
+     "行": [
+      [
+       "神界",
+       "月白、暖金、本命色",
+       "柔和顶光,高调",
+       "玉、云、丝绸、流金",
+       "悬空山、云海、白玉阶",
+       "光点缓慢上升"
+      ],
+      [
+       "人界",
+       "土黄、赭石、青灰",
+       "自然侧光",
+       "木、粗布、夯土、青铜",
+       "城郭、田野、山河",
+       "尘土、落叶"
+      ],
+      [
+       "鬼界",
+       "黑紫、幽绿、暗红",
+       "底光、冷光",
+       "骨、铁锈、湿石、黑水",
+       "倒悬城、深渊、枯林",
+       "灰烬、磷火下坠"
+      ]
+     ],
+     "备注": "三界的差别要在任何一帧里一眼可辨,跨界的镜头就是世界规则的切换。"
+    },
+    {
+     "标题": "东方美术元素",
+     "类型": "table",
+     "列": [
+      "元素",
+      "用法",
+      "禁忌"
+     ],
+     "行": [
+      [
+       "服饰",
+       "宽袍大袖、披帛:风中的衣料动态是神性最便宜的来源",
+       "现代剪裁、拉链、塑料质感"
+      ],
+      [
+       "纹样",
+       "云纹、雷纹、饕餮纹、回纹,用在法器、建筑和神力形态上",
+       "西式花纹混入"
+      ],
+      [
+       "法器",
+       "青铜剑、玉璧、铃、伞:法器发出的光就是光源",
+       "法器只是道具、不参与光影"
+      ],
+      [
+       "建筑",
+       "斗拱、飞檐、阙、祭坛,按一个时代统一",
+       "不同朝代混搭"
+      ],
+      [
+       "符文",
+       "作为神力的形态出现",
+       "可读的文字(旗帜、牌匾、书法)"
+      ],
+      [
+       "山水",
+       "用山水画的「三远」:高远(仰望)、深远(纵深)、平远(辽阔)",
+       "山水只当背景板"
+      ]
+     ]
+    },
+    {
+     "标题": "特效粒子设计",
+     "类型": "table",
+     "列": [
+      "粒子",
+      "运动",
+      "阶段"
+     ],
+     "行": [
+      [
+       "雪 / 灰烬",
+       "缓慢下落",
+       "① 开篇"
+      ],
+      [
+       "雨 / 泥水",
+       "方向明确、受风影响",
+       "② 磨练"
+      ],
+      [
+       "光点 / 碎石",
+       "悬停、上升,违反重力",
+       "③ 觉醒"
+      ],
+      [
+       "火星 / 碎片",
+       "高速、沿冲击波方向",
+       "④ 战斗"
+      ],
+      [
+       "花瓣 / 余烬",
+       "缓慢上升并消散",
+       "⑤ 收场"
+      ]
+     ],
+     "备注": "通用规则:粒子要被场景光源照亮;前、中、后三层都有粒子,前景粒子虚焦;同一镜头内运动方向统一(同一个风向)。"
+    }
+   ],
+   "分镜间规则": []
+  },
+  {
+   "id": "acting",
+   "名称": "表演与调度",
+   "英文": "Performance",
+   "主题色": "#B5838D",
+   "一句话": "电影感的最后一公里在角色脸上:克制比夸张更有力量。",
+   "核心原则": "景别越近,表演越小。AIGC 角色最常见的问题是表情过度和眼神空洞,要用具体的身体细节代替情绪形容词。",
+   "模块": [
+    {
+     "标题": "景别与表演幅度",
+     "类型": "table",
+     "列": [
+      "景别",
+      "表演重点",
+      "幅度"
+     ],
+     "行": [
+      [
+       "ELS / LS",
+       "身体姿态、剪影、走路的节奏",
+       "大"
+      ],
+      [
+       "MS",
+       "手势、上半身的方向",
+       "中"
+      ],
+      [
+       "CU",
+       "眼神、呼吸、微表情",
+       "小"
+      ],
+      [
+       "ECU",
+       "瞳孔、睫毛、一滴泪",
+       "极小"
+      ]
+     ]
+    },
+    {
+     "标题": "情绪的表演写法",
+     "类型": "table",
+     "列": [
+      "情绪",
+      "不要写",
+      "要写"
+     ],
+     "行": [
+      [
+       "悲伤",
+       "痛哭流涕",
+       "下颌微微颤抖,眼眶泛红,强忍着没有落泪"
+      ],
+      [
+       "愤怒",
+       "怒吼",
+       "咬紧牙关,鼻翼微张,目光死死锁定对方"
+      ],
+      [
+       "恐惧",
+       "惊恐尖叫",
+       "瞳孔收缩,呼吸急促,身体不自觉后缩"
+      ],
+      [
+       "坚定",
+       "表情坚毅",
+       "缓缓抬起头,目光平视前方,不再眨眼"
+      ],
+      [
+       "释然",
+       "微笑",
+       "闭眼长长呼出一口气,肩膀放松下来"
+      ],
+      [
+       "神性",
+       "威严",
+       "面无表情,平静地俯视,几乎不动"
+      ]
+     ],
+     "备注": "情绪形容词会让模型生成夸张的表情;具体的身体细节才会生成可信的表演。"
+    },
+    {
+     "标题": "眼神规则",
+     "类型": "list",
+     "条目": [
+      "必须有眼神光(Catchlight):没有眼神光的眼睛是「死人眼」",
+      "视线方向和下一个镜头匹配(视线匹配 Eyeline Match)",
+      "不看镜头,除非刻意打破第四面墙",
+      "视线前方留出空间",
+      "觉醒时刻把「睁眼」作为表演节点"
+     ]
+    },
+    {
+     "标题": "动作的四段式",
+     "类型": "flow",
+     "步骤": [
+      "预备(蓄力、反向动作)",
+      "发力",
+      "收势",
+      "余波(衣袍、头发、粒子继续运动)"
+     ],
+     "备注": "缺少预备的动作没有重量,缺少余波的动作像被剪断。"
+    },
+    {
+     "标题": "静止的力量",
+     "类型": "text",
+     "内容": "神性角色动作越少越强大。凡人在动、世界在动,神只需要转一下眼睛。把最大的动作留给觉醒和战斗,其余时间让神「稳如山」。"
+    }
+   ],
+   "分镜间规则": []
+  },
+  {
+   "id": "sound",
+   "名称": "声音与节奏",
+   "英文": "Sound & Rhythm",
+   "主题色": "#9BA4AF",
+   "一句话": "声音决定情绪何时到来,静默是最大的张力。",
+   "核心原则": "BGM 开头逐渐引入,情绪逐渐攀登;打斗前必须有 2–3 秒极度安静 / 慢动作 / 环境音独奏。",
+   "模块": [
+    {
+     "标题": "节奏与呼吸",
+     "类型": "flow",
+     "备注": "剪辑的呼吸节奏,画面与声音都遵循。",
+     "步骤": [
+      "长",
+      "短",
+      "长",
+      "短短短",
+      "极长停顿",
+      "爆发"
+     ]
+    },
+    {
+     "标题": "声画配合要点",
+     "类型": "table",
+     "列": [
+      "阶段",
+      "声音策略"
+     ],
+     "行": [
+      [
+       "开篇·苦难",
+       "环境音为主(风、水、远钟),BGM 低频铺底"
+      ],
+      [
+       "磨练·挣扎",
+       "节奏型打击乐渐入,心跳/呼吸声"
+      ],
+      [
+       "觉醒·爆发",
+       "爆发前 2–3 秒抽空所有声音,爆发瞬间全频段进入"
+      ],
+      [
+       "战斗·高潮",
+       "重拍卡点剪辑,打击音效与 0.1x 定格同步"
+      ],
+      [
+       "悲壮·收场",
+       "单乐器旋律 + 环境音回归,音量渐弱至静默"
+      ]
+     ]
+    },
+    {
+     "标题": "声音五层",
+     "类型": "table",
+     "列": [
+      "层",
+      "内容",
+      "作用"
+     ],
+     "行": [
+      [
+       "对白 / 旁白",
+       "人声",
+       "信息(神话短片里越少越好)"
+      ],
+      [
+       "拟音 Foley",
+       "脚步、衣料、兵器、呼吸",
+       "真实感,让画面「有重量」"
+      ],
+      [
+       "音效 SFX",
+       "神力、雷、爆炸、冲击",
+       "力量感"
+      ],
+      [
+       "环境声",
+       "风、雨、虫鸣、远处人声",
+       "空间感,最容易被忽略却最重要"
+      ],
+      [
+       "音乐 Score",
+       "主题旋律与配器",
+       "情绪走向"
+      ]
+     ]
+    },
+    {
+     "标题": "音乐结构对齐五阶段",
+     "类型": "table",
+     "列": [
+      "阶段",
+      "音乐",
+      "配器建议"
+     ],
+     "行": [
+      [
+       "① 开篇·苦难",
+       "无节拍,长音铺底",
+       "埙、古琴泛音、低音弦乐长音"
+      ],
+      [
+       "② 磨练·挣扎",
+       "节奏型出现,逐段加速",
+       "大鼓、堂鼓、低音提琴反复音型"
+      ],
+      [
+       "③ 觉醒·爆发",
+       "先抽空,再让主题旋律第一次完整进入",
+       "合唱、铜管、编钟"
+      ],
+      [
+       "④ 战斗·高潮",
+       "全片最高密度,重拍",
+       "战鼓、打击乐、弦乐急奏"
+      ],
+      [
+       "⑤ 悲壮·收场",
+       "主题旋律以单乐器重现",
+       "箫、笛、人声吟唱"
+      ]
+     ]
+    },
+    {
+     "标题": "声音技巧",
+     "类型": "table",
+     "列": [
+      "技巧",
+      "做法"
+     ],
+     "行": [
+      [
+       "声音先于画面",
+       "先听到龙吟,再看到龙"
+      ],
+      [
+       "主观声",
+       "觉醒时外界声音消失,只剩心跳和呼吸"
+      ],
+      [
+       "静默",
+       "爆发前 2–3s 抽空所有声音"
+      ],
+      [
+       "低频 = 体量",
+       "巨物、神力、大场面一定要有低频"
+      ],
+      [
+       "混响 = 空间",
+       "混响越长,空间越大;神殿、深渊要有长混响"
+      ],
+      [
+       "卡点",
+       "剪辑点落在音乐重拍上,打击音效与冲击帧同帧"
+      ]
+     ]
+    }
+   ],
+   "分镜间规则": []
+  },
+  {
+   "id": "edit",
+   "名称": "剪辑与节奏",
+   "英文": "Editing",
+   "主题色": "#5C8A8A",
+   "一句话": "剪辑决定观众在什么时候感受到什么。",
+   "核心原则": "每一个剪点都要服务情绪。情绪对了,轻微的跳轴和不连贯观众不会在意;情绪错了,再流畅也没有用。",
+   "模块": [
+    {
+     "标题": "剪辑六原则(Walter Murch)",
+     "类型": "table",
+     "列": [
+      "优先级",
+      "原则",
+      "权重"
+     ],
+     "行": [
+      [
+       "1",
+       "情感:这一剪是否忠于此刻的情绪",
+       "51%"
+      ],
+      [
+       "2",
+       "故事:是否推进了故事",
+       "23%"
+      ],
+      [
+       "3",
+       "节奏:是否落在节奏上",
+       "10%"
+      ],
+      [
+       "4",
+       "视线追踪:观众的视线落点是否连贯",
+       "7%"
+      ],
+      [
+       "5",
+       "二维画面:轴线、左右方位是否一致",
+       "5%"
+      ],
+      [
+       "6",
+       "三维空间:空间位置是否连续",
+       "4%"
+      ]
+     ],
+     "备注": "出自剪辑师 Walter Murch《眨眼之间》。前三条加起来占 84%:冲突时,永远先保情感。"
+    },
+    {
+     "标题": "剪点怎么选",
+     "类型": "list",
+     "条目": [
+      "在动作中切:动作完成一半时切到下一个角度,观众看不到剪点",
+      "视线引导:上一镜观众视线的落点,就是下一镜主体的位置",
+      "情绪最高点之后多留 1–2 秒,让情绪落地",
+      "对话和反应:反应镜头往往比说话的镜头更重要"
+     ]
+    },
+    {
+     "标题": "AIGC 剪辑要点",
+     "类型": "table",
+     "列": [
+      "要点",
+      "做法"
+     ],
+     "行": [
+      [
+       "剪辑余量",
+       "每镜生成时头尾各多 1 秒,剪辑时只用中段"
+      ],
+      [
+       "避开首尾帧",
+       "AI 视频首尾几帧最容易形变,剪掉"
+      ],
+      [
+       "一镜多版",
+       "关键镜头至少生成 3 版,剪辑时挑表演最好的"
+      ],
+      [
+       "慢动作在生成时做",
+       "在 Prompt 里写慢动作,后期强行变速容易糊"
+      ],
+      [
+       "先粗剪再精修",
+       "用粗剪验证节奏,节奏对了再花时间修单镜"
+      ]
+     ]
+    },
+    {
+     "标题": "60 秒节奏模板",
+     "类型": "table",
+     "列": [
+      "时间",
+      "阶段",
+      "镜头数",
+      "平均时长",
+      "节奏"
+     ],
+     "行": [
+      [
+       "0–12s",
+       "① 开篇·苦难",
+       "3",
+       "4s",
+       "长"
+      ],
+      [
+       "12–24s",
+       "② 磨练·挣扎",
+       "4",
+       "3s",
+       "短"
+      ],
+      [
+       "24–36s",
+       "③ 觉醒·爆发",
+       "4",
+       "3s(含 4s 静镜)",
+       "极长停顿 → 爆发"
+      ],
+      [
+       "36–50s",
+       "④ 战斗·高潮",
+       "6",
+       "2.3s",
+       "短短短"
+      ],
+      [
+       "50–60s",
+       "⑤ 悲壮·收场",
+       "1",
+       "10s",
+       "长"
+      ]
+     ],
+     "备注": "与「示范分镜」中的 60 秒《云中君 · 雨落》完全对应。"
+    }
+   ],
+   "分镜间规则": []
+  }
+ ],
+ "五叙事阶段": {
+  "说明": "神话史诗的情绪弧线,严格单向推进,禁止回退:①开篇·苦难 → ②磨练·挣扎 → ③觉醒·爆发 → ④战斗·高潮 → ⑤悲壮·收场。四维度必须在每个阶段同步配合,任一维度单独变化而其他维度不跟进,都会破坏叙事一致性。 色彩取值以「本命色规则」为准:当角色有明确神力色时,弧线围绕本命色做相对变化(见色彩维度)。",
+  "推进信号": [
+   {
+    "从到": "① → ②",
+    "信号": "苦难累积至主角开始主动抗争 / 受训 / 被磨砺"
+   },
+   {
+    "从到": "② → ③",
+    "信号": "内心崩溃临界点 / 信念突破 / 神力初醒"
+   },
+   {
+    "从到": "③ → ④",
+    "信号": "宣战 / 正面交锋 / 决战开始"
+   },
+   {
+    "从到": "④ → ⑤",
+    "信号": "战斗结束 / 牺牲 / 代价出现 / 余韵开始"
+   },
+   {
+    "从到": "不明确时",
+    "信号": "保持与上一分镜相同阶段"
+   }
+  ],
+  "阶段": [
+   {
+    "编号": "①",
+    "名称": "开篇·苦难",
+    "标签": "[开篇·苦难]",
+    "主题色": "#1A3A4F",
+    "情节特征": "主角处境艰难、孤立、压抑,尚未发力",
+    "典型画面特征": "色调压抑冷灰、人物渺小孤立、大面积负空间",
+    "情绪预告功能": "提前传递压抑、苦难的情绪基调",
+    "色彩": {
+     "主色调": "低饱和冷灰蓝,主色 #1A3A4F 深渊蓝",
+     "饱和度": "30–50%",
+     "阴影": "偏冷青",
+     "禁止": "暖金色(会传递希望感)",
+     "本命色写法": "灰、脏、低饱和的本命色,被冷灰压住"
+    },
+    "光影": {
+     "光比": "4:1",
+     "光源": "单侧冷光源(人界侧光),弱补光",
+     "轮廓光": "无金色轮廓光",
+     "体积光": "暗淡"
+    },
+    "构图": {
+     "负空间": "≥50%(建议 50–70%)",
+     "视角": "俯拍(≥30°)或三分法偏角",
+     "人物关系": "人物渺小于大环境",
+     "Z轴": "前景虚焦飘叶/枯草,中景主角,背景偏蓝模糊"
+    },
+    "镜头": {
+     "景别": "极远景 / 远景为主",
+     "人物占比": "10–15%",
+     "焦距": "35mm 广角,景深偏大,背景可见",
+     "单镜时长": "5–15s,长而沉"
+    },
+    "运镜": {
+     "基调": "沉静、缓慢,镜头几乎不动,让观众在旷野与压抑中停留",
+     "推荐": "固定静镜 / 极缓慢横移(≤画面宽度 10%/秒)/ 缓慢向后拉远",
+     "禁止": "快速推进、手持晃动、环绕"
+    },
+    "环境升华示例": "「阴天」→ 九幽煞气如吞噬苍穹的巨兽,冷灰蓝光渗透云层缝隙",
+    "声音": {
+     "环境": "风声、远钟、水滴、旷野回响,低频嗡鸣铺底",
+     "音乐": "单件乐器长音(埙 / 古琴泛音)或无乐,旋律尚未成型",
+     "静默": "允许长时间只有环境音"
+    },
+    "表演": {
+     "状态": "动作少、幅度小,视线向下或望向远方",
+     "身体": "承重的姿态:肩下沉、步履慢",
+     "禁止": "大幅度情绪外放、直视镜头"
+    },
+    "环境特效": {
+     "天气": "阴云、薄雾、细雨、飘雪、尘霾",
+     "粒子": "稀疏、缓慢下落(灰烬 / 雪 / 枯叶),偏冷灰",
+     "神力": "未显现,或只有微弱一缕本命色"
+    },
+    "剪辑": {
+     "节奏": "长镜头 5–15s,少剪",
+     "转场": "淡入、溶化,声音先于画面进入",
+     "信息顺序": "先给世界,再给人物"
+    },
+    "镜头清单": [
+     [
+      "1",
+      "ELS 极远景 · 俯拍",
+      "固定或极缓推",
+      "8s",
+      "天地间一个小点,雾气横流,人物占画面不到 5%"
+     ],
+     [
+      "2",
+      "LS 远景 · 侧面平视",
+      "缓慢横移跟随",
+      "6s",
+      "人物负重前行,前景枯草虚焦"
+     ],
+     [
+      "3",
+      "MS 中景 · 背影",
+      "固定",
+      "5s",
+      "人物停步回望,远处故土只剩残影"
+     ],
+     [
+      "4",
+      "MCU 近景 · 侧光",
+      "极缓推",
+      "6s",
+      "半张脸在阴影里,眼神低垂"
+     ]
+    ],
+    "Prompt片段": "极远景俯拍,人物仅占画面 5%–10%,大面积阴云与雾气留白,低饱和冷灰蓝色调,单侧冷光,光比 4:1,前景虚焦枯草,背景偏蓝模糊,稀疏雪花缓慢飘落,整体偏暗,暗部占画面一半以上,静谧而压抑。"
+   },
+   {
+    "编号": "②",
+    "名称": "磨练·挣扎",
+    "标签": "[磨练·挣扎]",
+    "主题色": "#8B1A1A",
+    "情节特征": "冲突升级,主角受阻、对抗,矛盾积累",
+    "典型画面特征": "冲突对峙、侧光强对比、人物与环境抗衡",
+    "情绪预告功能": "冲突信号先于剧情动作传达给观众",
+    "色彩": {
+     "主色调": "冷灰蓝底上暗红 #8B1A1A 侵入边缘",
+     "饱和度": "60–70%",
+     "阴影": "仍冷,暗红杂质渗入",
+     "特征": "主光偏暖,冷暖交界产生撕裂感",
+     "本命色写法": "本命色中渗入暗红,冷暖交界处有撕裂感"
+    },
+    "光影": {
+     "光比": "8:1",
+     "光源": "侧光强对比,局部侧光强调冲突面",
+     "轮廓光": "开始出现但不稳定",
+     "体积光": "偶有弱体积光"
+    },
+    "构图": {
+     "负空间": "30–50%",
+     "视角": "三分法偏角 / 正反打平视对峙",
+     "人物关系": "人物与环境开始抗衡",
+     "Z轴": "前景飞溅泥土/破损器物,引导线指向冲突焦点"
+    },
+    "镜头": {
+     "景别": "中景为主,逐渐向近景压缩",
+     "人物占比": "20–30%",
+     "焦距": "50mm",
+     "单镜时长": "常规 2–4s,比开篇短"
+    },
+    "运镜": {
+     "基调": "开始收紧,有方向感与压迫感,但仍克制",
+     "推荐": "缓慢向前推进 / 正反打左右摇切 / 侧面跟随平移",
+     "禁止": "手持晃动、快速环绕"
+    },
+    "环境升华示例": "「风沙」→ 裹挟暗红煞气的砂砾横扫画面,侧光把每一粒沙都照出锋芒",
+    "声音": {
+     "环境": "金属、碎石、喘息、心跳等近距离拟音增多",
+     "音乐": "节奏型打击乐渐入(大鼓、低音弦乐反复音型),逐段加速",
+     "静默": "失败的瞬间抽空声音 0.5–1s"
+    },
+    "表演": {
+     "状态": "反复尝试、跌倒再起,每个动作都有阻力",
+     "身体": "汗、伤、泥,肌肉紧绷",
+     "眼神": "从回避到直视对手或目标"
+    },
+    "环境特效": {
+     "天气": "风雨加剧、乌云翻涌、远处雷光",
+     "粒子": "飞溅的泥水、火星、碎石,有明确的运动方向",
+     "神力": "本命色光芒时隐时现,不稳定"
+    },
+    "剪辑": {
+     "节奏": "2–4s,蒙太奇式重复(同一动作多次失败)",
+     "转场": "匹配剪辑表现时间推移,跳切表现反复",
+     "信息顺序": "每次重复都要有一点变化:更快、更准、伤更多"
+    },
+    "镜头清单": [
+     [
+      "1",
+      "MS 中景 · 平视",
+      "轻微手持",
+      "3s",
+      "出招失败被击退,泥水飞溅"
+     ],
+     [
+      "2",
+      "CU 特写 · 手部",
+      "固定",
+      "2s",
+      "握紧兵器的手,血与泥"
+     ],
+     [
+      "3",
+      "MS 中景 · 俯拍主角",
+      "固定",
+      "3s",
+      "对手居高临下,主角在画面下方"
+     ],
+     [
+      "4",
+      "MCU 近景 · 侧光",
+      "缓推",
+      "4s",
+      "主角抬头,眼神第一次变得坚定,暗红边缘光侵入"
+     ]
+    ],
+    "Prompt片段": "中景三分法偏角,人物占画面 25%,饱和度 60–70%,主光偏暖、阴影冷青,画面边缘暗红侵入,侧光强对比,光比 8:1,前景飞溅泥水与碎石,弱体积光穿过雨幕,冷暖交界处有撕裂感。"
+   },
+   {
+    "编号": "③",
+    "名称": "觉醒·爆发",
+    "标签": "[觉醒·爆发]",
+    "主题色": "#C8860A",
+    "情节特征": "主角突破极限,神力激活,情绪反转",
+    "典型画面特征": "体积光爆发、暖金突破冷底、仰拍角度",
+    "情绪预告功能": "情绪反转,冷暖极端对比产生突破感",
+    "色彩": {
+     "主色调": "暖金 #C8860A 突破冷底",
+     "饱和度": "100–120%(爆发峰值帧 ≤130%)",
+     "阴影": "冷暖极端对比",
+     "特征": "爆发瞬间全画面金色",
+     "本命色写法": "最纯、最亮的本命色 + 暖金轮廓光(本命色为暖金时,直接用暖金)"
+    },
+    "光影": {
+     "光比": "16:1",
+     "光源": "体积光 / God Rays 从背后或上方爆发",
+     "轮廓光": "金色逆光轮廓光必须存在",
+     "体积光": "强烈丁达尔效应,光柱内可见微粒"
+    },
+    "构图": {
+     "负空间": "从大压缩至充满",
+     "视角": "三分法偏角 → 仰拍(≥30°),引导线指向光源",
+     "人物关系": "人物开始主导画面",
+     "Z轴": "前景虚焦元素烘托纵深"
+    },
+    "镜头": {
+     "景别": "战前静镜 → 极近景 ECU(眼睛/拳头)→ 仰推扩展至中景/全身",
+     "人物占比": "主导画面(≥40%)",
+     "焦距": "特写用 85mm+ 大光圈虚化背景;仰拍全身用 24–35mm 增强高大感",
+     "单镜时长": "静镜 4–8s 后快速爆发"
+    },
+    "运镜": {
+     "基调": "仰拍为主,由慢到快,配合能量爆发向上或向前突破",
+     "推荐": "仰角缓慢上升 / 由下向上推进 / 速度渐变由慢到快推镜",
+     "禁止": "手持晃动(破坏神圣)、向后拉远(弱化爆发;视野扩展靠上升和仰推完成)"
+    },
+    "环境升华示例": "「大雨」→ 从天而降的金色灵雨,每道雨线都裹着暖光折射的光晕",
+    "声音": {
+     "爆发前": "抽空 2–3s,只剩心跳或耳鸣般的高频",
+     "爆发": "全频段同时进入:低频冲击 + 合唱 / 铜管",
+     "母题": "角色主题旋律第一次完整出现"
+    },
+    "表演": {
+     "蓄力": "闭眼、呼吸放慢、身体完全静止,静止就是蓄力",
+     "节点": "睁眼的一瞬是全片最重要的表演节点",
+     "禁止": "嘶吼过度、面部夸张变形"
+    },
+    "环境特效": {
+     "天气": "雨停、云裂,天光从裂隙落下",
+     "粒子": "由下落转为上升或悬停,物理规则被改写",
+     "神力": "本命色从体内向外扩散,照亮周围的地面、衣褶和脸"
+    },
+    "剪辑": {
+     "节奏": "4–8s 静镜 → 速度渐变 → 爆发后连续 3–4 个短镜头",
+     "转场": "白闪 2–4 帧或本命色闪光",
+     "信息顺序": "先给反应(眼睛),再给结果(能量)"
+    },
+    "镜头清单": [
+     [
+      "1",
+      "ECU 大特写 · 眼睛",
+      "固定",
+      "3s",
+      "闭着的眼,睫毛上的雨滴悬停"
+     ],
+     [
+      "2",
+      "ECU 大特写 · 眼睛",
+      "固定",
+      "1s",
+      "睁眼,瞳孔亮起本命色"
+     ],
+     [
+      "3",
+      "LS 远景 · 仰拍 35°",
+      "由下向上推",
+      "4s",
+      "体积光从背后爆发,碎石与雨滴向上漂浮"
+     ],
+     [
+      "4",
+      "ELS 极远景 · 仰拍",
+      "升镜",
+      "4s",
+      "光柱刺破云层,人物在光柱底部"
+     ]
+    ],
+    "Prompt片段": "极近景眼睛特写,人脸占画面 60% 以上,85mm 大光圈,背景完全虚化;随后仰拍 35° 全身,体积光与 God Rays 从背后爆发,空气中有雾气与悬浮微粒,金色逆光轮廓光勾勒全身,本命色达到最高亮度,饱和度 100–120%,光比 16:1,冷暖极端对比。"
+   },
+   {
+    "编号": "④",
+    "名称": "战斗·高潮",
+    "标签": "[战斗·高潮]",
+    "主题色": "#B01E28",
+    "情节特征": "激烈交战,双方全力对抗,节奏最快",
+    "典型画面特征": "冷暖色极端对比、满构图、对角线 / 荷兰角",
+    "情绪预告功能": "观众看到动作前,色彩已告知「极端时刻到来」",
+    "色彩": {
+     "主色调": "血红 #8B1A1A × 深蓝 #1A3A4F 极端对比",
+     "饱和度": "最高值",
+     "阴影": "冷暖双色极度撕裂",
+     "特征": "打击瞬间全画面闪光 1–2 帧",
+     "本命色写法": "本命色 × 反派反色极端对撞,碰撞点爆白"
+    },
+    "光影": {
+     "光比": "16:1",
+     "光源": "冷暖光源极端对撞,方向固定",
+     "轮廓光": "硬朗,随打击闪光瞬时增强",
+     "体积光": "粒子/冲击波受光方向一致"
+    },
+    "构图": {
+     "负空间": "无,人物充满画面",
+     "视角": "对角线构图 + 荷兰角(倾斜 10–30°)",
+     "人物关系": "满构图",
+     "Z轴": "前景飞溅碎石 / 破甲碎片 / 尘埃"
+    },
+    "镜头": {
+     "景别": "中 → 近 → 极近快切递减",
+     "人物占比": "充满",
+     "焦距": "方向性运动模糊",
+     "单镜时长": "3s → 2s → 1s → 0.5s;冲击瞬间 1x → 0.1x"
+    },
+    "运镜": {
+     "基调": "快速、不稳定,制造混乱感与冲击感",
+     "推荐": "手持轻微晃动跟随 / 快速左右摇 / 环绕加速 / 跟随冲击方向快推",
+     "禁止": "固定静镜(失去战斗感)、缓慢升镜(暗示希望,与高潮矛盾)"
+    },
+    "环境升华示例": "「天空」→ 苍穹撕裂为血红与深蓝两半,冲击波推开漫天雾气",
+    "声音": {
+     "节奏": "重拍卡点,打击音效与冲击帧同步",
+     "层次": "兵器 / 肉搏拟音在前,音乐在后,环境音退场",
+     "留白": "致命一击前抽空 0.5–1s,击中后先低频轰鸣再回声"
+    },
+    "表演": {
+     "动作": "每个动作都有预备 → 发力 → 收势三段",
+     "力量": "靠反作用力表现:地面碎裂、衣袍猎猎、被击退的滑行",
+     "眼神": "锁定对手,不看镜头"
+    },
+    "环境特效": {
+     "天气": "雷暴、火雨、狂风,环境被战斗摧毁",
+     "粒子": "高密度、高速度,方向随冲击波统一",
+     "神力": "本命色与反色对撞,碰撞处爆白"
+    },
+    "剪辑": {
+     "节奏": "3s → 2s → 1s → 0.5s 递减,关键一击 0.1x 定格",
+     "转场": "在动作中切,甩镜转场",
+     "方位": "始终守住 180° 轴线,对手方位不跳"
+    },
+    "镜头清单": [
+     [
+      "1",
+      "LS 远景 · 双人",
+      "横移",
+      "3s",
+      "交代双方方位与距离,建立轴线"
+     ],
+     [
+      "2",
+      "MS 中景 · 荷兰角 20°",
+      "手持",
+      "2s",
+      "主角冲刺,前景碎石飞过镜头"
+     ],
+     [
+      "3",
+      "CU 特写 · 兵器",
+      "甩镜",
+      "1s",
+      "兵器相撞,火星四溅"
+     ],
+     [
+      "4",
+      "ECU 大特写 · 对手眼睛",
+      "固定",
+      "0.5s",
+      "对手第一次露出惊惧"
+     ],
+     [
+      "5",
+      "MS 中景 · 慢动作",
+      "速度渐变 1x → 0.1x → 1x",
+      "3s",
+      "致命一击,冲击波推开所有粒子"
+     ]
+    ],
+    "Prompt片段": "中景对角线构图,荷兰角倾斜 20°,人物充满画面,本命色与血红极端对撞,饱和度最高,冷暖光源方向固定,打击瞬间全画面闪光,前景碎石与火星高速飞过,方向性运动模糊,阴影硬朗。"
+   },
+   {
+    "编号": "⑤",
+    "名称": "悲壮·收场",
+    "标签": "[悲壮·收场]",
+    "主题色": "#D08A5A",
+    "情节特征": "战斗结束,牺牲、胜利或余韵,情绪沉淀",
+    "典型画面特征": "温橙余晖、宏观拉远、大天空负空间",
+    "情绪预告功能": "饱和度下降本身传递「消耗与沉淀」",
+    "色彩": {
+     "主色调": "温橙低饱和,落日余晖(#C8860A 降调派生 #D08A5A)",
+     "饱和度": "60% 回落(≤70%)",
+     "阴影": "偏暖,整体色温偏金橙",
+     "禁止": "高饱和纯色(太甜)",
+     "本命色写法": "暮色暖橙压过本命色,本命色只剩余晖里的一缕"
+    },
+    "光影": {
+     "光比": "8:1(回落)",
+     "光源": "金橙逆光 + 长影",
+     "轮廓光": "温暖而非神圣,消逝或残留一线",
+     "体积光": "柔和而宽阔"
+    },
+    "构图": {
+     "负空间": "≥60%",
+     "视角": "宏观拉远,中轴或对称传递庄重",
+     "人物关系": "人物再次渺小(主动承担,非压迫)",
+     "Z轴": "前景飘落花瓣 / 余烬"
+    },
+    "镜头": {
+     "景别": "远景 → 极远景长镜头",
+     "人物占比": "渺小(≤15%)",
+     "焦距": "长焦压缩",
+     "单镜时长": "8–20s 不剪断"
+    },
+    "运镜": {
+     "基调": "缓慢、宏观、不剪断,让余韵在空旷中沉淀",
+     "推荐": "缓慢后退并升高(升拉)/ 无人机后退升高 / 长焦缓推压缩景深",
+     "禁止": "手持晃动、快速推进;牺牲/死亡段禁用纯升镜(升拉因同时后退拉开视野,传递的是悲悯,可用)"
+    },
+    "环境升华示例": "「黄昏」→ 温橙余晖横贯天际,拉出角色三倍身长的长影",
+    "声音": {
+     "音乐": "主题旋律以单乐器重现(箫 / 笛 / 人声吟唱),与开篇呼应",
+     "环境": "风、余烬噼啪、远处鸟鸣:世界恢复呼吸",
+     "结尾": "渐弱至完全静默,静默保持 2–3s 再黑场"
+    },
+    "表演": {
+     "状态": "疲惫、平静、释然,动作极慢",
+     "动作": "放下兵器、回望、闭眼",
+     "禁止": "再次大幅度情绪爆发"
+    },
+    "环境特效": {
+     "天气": "雨后、落日、暮色、晨雾",
+     "粒子": "余烬、花瓣、光点缓慢上升并消散",
+     "神力": "本命色退成余晖,或化作雾气消散"
+    },
+    "剪辑": {
+     "节奏": "8–20s 长镜头不剪断",
+     "转场": "慢溶化,淡出黑场",
+     "呼应": "至少一个镜头与开篇同机位、同构图,状态相反"
+    },
+    "镜头清单": [
+     [
+      "1",
+      "MCU 近景 · 逆光",
+      "固定",
+      "6s",
+      "侧脸被金橙逆光勾边,眼中有泪光"
+     ],
+     [
+      "2",
+      "LS 远景 · 背影",
+      "缓慢后拉",
+      "8s",
+      "人物站在废墟中,长影拖在地上"
+     ],
+     [
+      "3",
+      "ELS 极远景 · 中轴对称",
+      "升拉",
+      "15s",
+      "天地辽阔,人物再次渺小,与开篇第一镜同构图"
+     ]
+    ],
+    "Prompt片段": "远景到极远景,人物占画面 15% 以下,大天空负空间 ≥60%,中轴对称,温橙低饱和(60%),落日金橙逆光与长影,柔和宽阔的体积光,空气中余烬与花瓣缓慢上升,长焦压缩,宁静而悲悯。"
+   }
+  ]
+ },
+ "四维协同矩阵": {
+  "说明": "跨阶段的四维度同步配合表——这是把「四维度」和「五阶段」编织成叙事弧线的核心。每一次阶段跨越,四个维度必须同时变化。",
+  "阶段跨越": [
+   {
+    "跨越": "开篇苦难 → 磨练挣扎",
+    "色彩": "冷灰蓝(30–50%)→ 暗红开始侵入(60–70%)",
+    "光影": "光比 4:1 → 8:1,阴影面积扩大",
+    "构图": "人物渺小于大环境 → 人物与环境开始抗衡",
+    "景别节奏": "极远景建立 → 中景推进,镜头变短",
+    "叙事效果": "压抑积累,冲突信号提前传达"
+   },
+   {
+    "跨越": "磨练挣扎 → 觉醒爆发",
+    "色彩": "暗红侵入(70%)→ 暖金突破冷底(100–120%)",
+    "光影": "光比 8:1 → 16:1,体积光爆发",
+    "构图": "三分法偏角(渺小)→ 仰拍,引导线指向光源",
+    "景别节奏": "中景叙事 → 战前静默(4–8s 反常放慢)→ 特写情绪爆发",
+    "叙事效果": "蓄力后的突破感,观众感知「转折点」"
+   },
+   {
+    "跨越": "觉醒爆发 → 战斗高潮",
+    "色彩": "暖金(100%)→ 血红 × 深蓝极端对比(最高值)",
+    "光影": "暖光爆发 → 冷暖极端对撞,打击闪光",
+    "构图": "仰拍开放空间 → 对角线 + 荷兰角压迫",
+    "景别节奏": "速度渐变慢动作 → 快切递减(3s→2s→1s→0.5s)",
+    "叙事效果": "节奏加速积累冲击,力量从集中到释放"
+   },
+   {
+    "跨越": "战斗高潮 → 悲壮收场",
+    "色彩": "血红 × 深蓝(极端)→ 温橙低饱和(60% 回落)",
+    "光影": "极端冷暖 → 金橙逆光长影,光比降至 8:1",
+    "构图": "满构图快切 → 宏观拉远,大天空负空间 ≥60%",
+    "景别节奏": "极速快切 → 8–20s 单镜不剪断",
+    "叙事效果": "情绪从爆发到沉淀,悲悯与余韵在空旷中生长"
+   }
+  ],
+  "全片弧线": [
+   {
+    "维度": "色彩",
+    "弧线": "冷 → 暖 → 极端 → 温"
+   },
+   {
+    "维度": "光比",
+    "弧线": "4:1(叙事)→ 8:1(张力)→ 16:1(决战)→ 8:1(回落)"
+   },
+   {
+    "维度": "构图",
+    "弧线": "人物渺小(孤立)→ 与环境平衡(成长)→ 充满画面(顶点)→ 再次渺小(悲壮承担)"
+   },
+   {
+    "维度": "景别",
+    "弧线": "极远景 → 中景 → 特写 → 极远景(情绪呼吸节律)"
+   },
+   {
+    "维度": "总效果",
+    "弧线": "观众生理感知「故事越来越沉重」,角色命运轨迹无需旁白即可感知"
+   }
+  ]
+ },
+ "产线方法论": {
+  "说明": "把电影感参数从第一步就贯穿全程,而不是在最后一步补救。引入两个变量:全局变量 A(剧情氛围)和分镜表达色彩 B(每帧情绪标签)。",
+  "全局变量A": {
+   "名称": "剧情氛围规范",
+   "定义": "剧本完成后、所有生成节点之前定义的全片美学规范,让每个分镜单独生成也保持与整部作品一致的视觉调性。所有分镜、提示词、视频生成都以此为基准。",
+   "字段模板": {
+    "字段": [
+     [
+      "作品名 / 题材",
+      "如:云中君 · 东方神话史诗"
+     ],
+     [
+      "本命色",
+      "云中君:青蓝(觉醒时最纯最亮,收场被暮色暖橙压过)"
+     ],
+     [
+      "三个主色号",
+      "#1A3A4F 深渊蓝 / #8B1A1A 血红 / #C8860A 暖金"
+     ],
+     [
+      "阴影色系",
+      "冷青(全片不变)"
+     ],
+     [
+      "世界层级与光源",
+      "神界顶光 / 人界侧光 / 鬼界底光"
+     ],
+     [
+      "技术规格",
+      "2.39:1 遮幅、24fps、统一 LUT、颗粒 10%"
+     ],
+     [
+      "角色基准形象",
+      "每个角色的固定神性特征与材质(全程不可偏移)"
+     ],
+     [
+      "五阶段分段",
+      "剧本中每个阶段起止的分镜编号"
+     ],
+     [
+      "色彩剧本",
+      "五阶段各一张关键帧的色块排列图(附件)"
+     ]
+    ]
+   }
+  },
+  "分镜色彩B": {
+   "名称": "每帧的情绪标签",
+   "定义": "拆分分镜时为每个分镜单独标注的情绪表达参数,决定它在情绪弧线中的位置,进而决定用什么色彩、灯光、构图。",
+   "字段模板": {
+    "字段": [
+     [
+      "分镜编号",
+      "12"
+     ],
+     [
+      "叙事阶段",
+      "③ 觉醒·爆发"
+     ],
+     [
+      "情绪标签",
+      "觉醒爆发"
+     ],
+     [
+      "世界层级",
+      "神界"
+     ],
+     [
+      "色彩",
+      "暖金突破冷底,110%,阴影冷青"
+     ],
+     [
+      "光影",
+      "16:1,背后体积光,金色轮廓光"
+     ],
+     [
+      "构图",
+      "仰拍 35°,负空间压缩至 10%,前景灵气粒子"
+     ],
+     [
+      "镜头",
+      "ECU 眼睛 → 仰推至全身,4s 静镜后加速"
+     ],
+     [
+      "声音",
+      "爆发前 2s 抽空,只留心跳;睁眼瞬间全频进入"
+     ],
+     [
+      "表演",
+      "闭眼静止 → 睁眼,瞳孔亮起本命色"
+     ]
+    ]
+   }
+  },
+  "产线流程": {
+   "标题": "电影感产线(从剧本到成片)",
+   "类型": "flow",
+   "备注": "电影感参数从第一步就贯穿全程,而不是在最后一步补救。",
+   "步骤": [
+    "剧本定稿",
+    "节拍表:切分五阶段",
+    "全局变量 A + 色彩剧本",
+    "锁定角色与场景资产",
+    "分镜 + 情绪标签 B",
+    "① 文生图(三层强制冗余)",
+    "首帧调色锁定",
+    "② 运镜方案",
+    "图生视频(每镜多版)",
+    "③ 一致性自查",
+    "粗剪(声音先行)",
+    "调色 + 技术层",
+    "混音",
+    "无声测试验收"
+   ]
+  },
+  "待解决问题": {
+   "标题": "叙事阶段自动标注",
+   "类型": "table",
+   "列": [
+    "步骤",
+    "做法"
+   ],
+   "行": [
+    [
+     "1 · 逐段输入",
+     "剧本按分镜逐段交给模型"
+    ],
+    [
+     "2 · 按信号标注",
+     "模型依据「推进信号」为每个分镜输出阶段标签"
+    ],
+    [
+     "3 · 强制单向",
+     "后一镜的阶段不能早于前一镜;不明确时沿用上一镜"
+    ],
+    [
+     "4 · 输出边界",
+     "列出每个阶段的起止分镜编号"
+    ],
+    [
+     "5 · 人工复核",
+     "只复核阶段交界的几个分镜"
+    ],
+    [
+     "6 · 查表注入",
+     "按阶段查参数表,把四维度参数注入 Prompt 第二层"
+    ]
+   ]
+  },
+  "AIGC落地要点": {
+   "标题": "AIGC 落地要点",
+   "类型": "table",
+   "列": [
+    "环节",
+    "做法"
+   ],
+   "行": [
+    [
+     "首帧锁色",
+     "先把首帧调到目标色调,再作为图生视频的输入,比在 Prompt 里描述颜色稳定得多"
+    ],
+    [
+     "同场景复用参考",
+     "同一场景的分镜复用同一张场景参考图和角色参考图,保证光源方向和角色一致"
+    ],
+    [
+     "生成后统一调色",
+     "Prompt 只负责「大方向」,最终色彩一致性靠后期统一套同一套调色"
+    ],
+    [
+     "2.39 安全框",
+     "以 16:9 生成时,主体和视线放在画面中间 75% 高度内,给裁切留余量"
+    ],
+    [
+     "先暗后亮",
+     "生成时宁可偏暗,后期提亮容易,压暗 AI 的「全亮」画面会损失层次"
+    ],
+    [
+     "阶段边界人工复核",
+     "模型自动标注叙事阶段后,人工只复核阶段交界的几个分镜"
+    ]
+   ]
+  },
+  "资产库": {
+   "标题": "资产库",
+   "类型": "table",
+   "列": [
+    "资产",
+    "内容",
+    "用法"
+   ],
+   "行": [
+    [
+     "角色基准图",
+     "正 / 侧 / 背三视图 + 表情表 + 本命色",
+     "每次生成都作为参考图输入"
+    ],
+    [
+     "场景定场图",
+     "每个场景一张主光方向明确的定场图",
+     "同场景所有分镜复用,保证光源方向一致"
+    ],
+    [
+     "色板与 LUT",
+     "三主色、本命色、五阶段调色配方",
+     "后期统一套用"
+    ],
+    [
+     "Prompt 库",
+     "风格前缀、五阶段片段、负面提示词",
+     "直接拼装,不每次重写"
+    ],
+    [
+     "参考片库",
+     "按色彩 / 光影 / 构图 / 镜头归档的截图",
+     "每张图只标注它要学的那一个维度"
+    ]
+   ]
+  },
+  "角色分工": {
+   "标题": "角色分工",
+   "类型": "table",
+   "列": [
+    "角色",
+    "职责",
+    "交付"
+   ],
+   "行": [
+    [
+     "导演",
+     "阶段切分、情绪标签、最终验收",
+     "节拍表、分镜表"
+    ],
+    [
+     "美术 / 视觉",
+     "全局变量 A、色彩剧本、三界视觉规范",
+     "资产库"
+    ],
+    [
+     "提示词",
+     "三个 Prompt 节点",
+     "每镜 Prompt"
+    ],
+    [
+     "生成",
+     "图 / 视频生成与初筛",
+     "每镜 3 版候选"
+    ],
+    [
+     "剪辑",
+     "粗剪、节奏、转场",
+     "粗剪版"
+    ],
+    [
+     "调色 / 后期",
+     "一级校正、风格、技术层",
+     "调色版"
+    ],
+    [
+     "声音",
+     "音乐、音效、混音",
+     "混音版"
+    ]
+   ],
+   "备注": "小团队可以一人兼多职,但每个职责都要有人签字。"
+  },
+  "迭代循环": {
+   "标题": "迭代循环",
+   "类型": "flow",
+   "步骤": [
+    "生成",
+    "无声看片",
+    "标出不达标的维度",
+    "只改这一个维度的参数",
+    "重新生成"
+   ],
+   "备注": "一次只改一个变量,否则不知道是哪一处改动起了作用。"
+  }
+ },
+ "Prompt工程": {
+  "说明": "「叙事阶段识别 → 四维度参数强制注入」的提示词工程,由三个节点串联完成。完整可复制的模板见《Prompt模板.md》。",
+  "三个提示词节点": [
+   {
+    "节点": "① 文生图提示词",
+    "角色": "好莱坞顶级电影导演 × 玄幻概念美术总监",
+    "职责": "把【剧本】与【人物形象】按分镜合并,先识别叙事阶段再套四维度参数,输出 JSON(分镜编号 / 叙事阶段 / 四维度参数 / 画面描述)"
+   },
+   {
+    "节点": "② 运镜方案",
+    "角色": "电影感导演",
+    "职责": "分析文生图提示词,按叙事阶段套用运镜规则,输出每镜运镜方式(推/拉/摇/移/环绕/跟随/升/降),幅度不宜过大"
+   },
+   {
+    "节点": "③ 一致性自查",
+    "角色": "—",
+    "职责": "替换敏感词、枪 → 神纹长矛、去除文字/地图/沙盘、每个人物名只出现一次、禁止静止人物"
+   }
+  ],
+  "三层强制冗余机制": [
+   {
+    "层": "第一层 · 固定风格前缀",
+    "内容": "玄幻神话史诗感,8K超清画质,2.39:1宽银幕电影遮幅(上下黑边),24fps自然运动模糊,浅景深大光圈,consistent cinematic color grade throughout。"
+   },
+   {
+    "层": "第二层 · 叙事阶段四维度声明",
+    "内容": "当前叙事阶段:[阶段名]。色彩:[主色调+饱和度+阴影色温]。光影:[光比+光源方向+轮廓光状态]。构图:[负空间%+视角+Z轴前景元素]。景别:[景别+人物占比%+镜头运动]。"
+   },
+   {
+    "层": "第三层 · 基准形象描述",
+    "内容": "完整复写角色固定神性特征(发色/瞳色/神纹/服饰/材质/体征),全程不可偏移。"
+   }
+  ],
+  "模块": [
+   {
+    "标题": "神性动态融合(动作电影感化)",
+    "类型": "table",
+    "列": [
+     "剧本动作",
+     "电影感化写法"
+    ],
+    "行": [
+     [
+      "挥剑",
+      "剑刃裹挟破碎的星光,带起方向性运动模糊轨迹"
+     ],
+     [
+      "行走",
+      "足尖轻踏虚空,脚下绽开同色系能量涟漪,与当前叙事阶段色调一致"
+     ],
+     [
+      "觉醒",
+      "双瞳骤亮,金色体积光从脊背爆发,头发在光压中逆向飘扬"
+     ]
+    ]
+   },
+   {
+    "标题": "环境玄幻化(按阶段升华天气与场景)",
+    "类型": "table",
+    "列": [
+     "原词",
+     "升华写法"
+    ],
+    "行": [
+     [
+      "阴天(阶段①)",
+      "九幽煞气如吞噬苍穹的巨兽,冷灰蓝光渗透云层缝隙"
+     ],
+     [
+      "大雨(阶段③)",
+      "从天而降的金色灵雨,每道雨线都裹携暖光折射光晕"
+     ],
+     [
+      "黄昏(阶段⑤)",
+      "温橙余晖横贯天际,拉出角色三倍身长的长影"
+     ],
+     [
+      "山脉",
+      "如卧龙般的浮空岛屿,垂下万丈流瀑"
+     ]
+    ]
+   },
+   {
+    "标题": "角色形象一致性",
+    "类型": "list",
+    "条目": [
+     "固定细节:瞳色(如金色重瞳)、额间神纹、发色发型、体表特征(青色龙鳞、金色羽毛)、神性配饰(混天绫、额饰)",
+     "固定材质:神纹绸缎光泽、古老青铜锈迹、神兽毛发流光质感,选定后全程不准偏移",
+     "远景中主角靠标志性光晕(Aura)或神纹色彩辨识;只有特写时才全量堆砌面部细节"
+    ]
+   },
+   {
+    "标题": "运镜 Prompt 基础要求",
+    "类型": "list",
+    "备注": "运镜 Prompt 禁用「特写 / 聚焦 / 面部」等词,是为了防止视频模型重新构图;景别已由文生图节点决定,运镜只描述运动。",
+    "条目": [
+     "按画面内容选择合适运镜:推、拉、摇、移、环绕、跟随、升、降",
+     "输出格式 {\"分镜编号\":\"5\", \"运镜方式\":\"...\"}",
+     "运镜方式中不出现分镜编号",
+     "运镜幅度不能太大",
+     "不使用「特写」「聚焦」「面部」及相关词",
+     "不出现人物名字,用外貌特征 + 画面位置指代人物",
+     "不出现画面中不存在的元素",
+     "禁止出现「地图」「沙盘」等描述"
+    ]
+   },
+   {
+    "标题": "运镜速查词典",
+    "类型": "table",
+    "列": [
+     "情绪标签",
+     "推荐运镜",
+     "节奏感",
+     "禁忌"
+    ],
+    "行": [
+     [
+      "神圣降临",
+      "仰角缓慢上升,镜头从下方拱起",
+      "长而庄重,5–10s",
+      "手持晃动"
+     ],
+     [
+      "孤胆英雄",
+      "侧面缓慢跟随平移,轻微向后拉远",
+      "沉稳,4–8s",
+      "快速推进"
+     ],
+     [
+      "觉醒爆发",
+      "由下向上仰推,速度由慢到快",
+      "先慢后快",
+      "向后拉远"
+     ],
+     [
+      "战斗混乱",
+      "手持轻微晃动跟随,方向随冲击变化",
+      "极速,<1s 感",
+      "固定静镜"
+     ],
+     [
+      "战前静默",
+      "缓慢向前推进,极小幅度,制造压迫感",
+      "刻意放慢",
+      "手持晃动"
+     ],
+     [
+      "悲壮收场",
+      "缓慢后退升高,视野逐渐开阔",
+      "极慢,8–20s",
+      "快速切换"
+     ],
+     [
+      "世界观建立",
+      "缓慢横扫全景,或从地面缓慢升至高空",
+      "长而宏观",
+      "快速推进"
+     ]
+    ]
+   },
+   {
+    "标题": "导演规则(优先级高于参数表)",
+    "类型": "list",
+    "条目": [
+     "本命色规则:角色神力是冷色时,觉醒用本命色的最高亮度 + 暖金轮廓光;收场比觉醒更暖;战斗必须出现与本命色对撞的反色",
+     "光比只测脸:整幅画面的明暗跨度可以远大于 16:1",
+     "敢暗:每镜至少三分之一画面落在暗部,不写「全亮、全清晰」",
+     "体积光要有介质:写体积光时同时写出雾、尘埃或水汽",
+     "2.39:1 安全框:以 16:9 生成时,主体和视线放在中间 75% 高度内",
+     "特写要够近:情感高潮的特写,人脸至少占画面 40%,或直接写到眼睛",
+     "留白要够大:写「神圣 / 宏观」时,人物不超过画面 20%",
+     "表演写身体细节,不写情绪形容词"
+    ]
+   },
+   {
+    "标题": "通用负面提示词",
+    "类型": "code",
+    "内容": "过曝, 平光, 画面全亮, 无阴影, 塑料质感, 过度锐化, 皮肤过度磨皮, 表情夸张, 眼神空洞, 无眼神光, 呆板居中, 文字, 水印, 字幕, 现代元素, 手指畸形, 多余肢体, 画面过饱和, 霓虹色, 游戏截图感, 3D 渲染感\n\noverexposed, flat lighting, no shadows, plastic skin, oversharpened, exaggerated expression, dead eyes, text, watermark, modern objects, extra fingers, oversaturated, neon, video game look"
+   },
+   {
+    "标题": "镜头语言中英对照",
+    "类型": "table",
+    "列": [
+     "中文",
+     "Prompt 英文"
+    ],
+    "行": [
+     [
+      "极远景 / 远景",
+      "extreme wide shot / wide shot"
+     ],
+     [
+      "中景 / 近景",
+      "medium shot / medium close-up"
+     ],
+     [
+      "特写 / 大特写",
+      "close-up / extreme close-up"
+     ],
+     [
+      "仰拍 / 俯拍 / 鸟瞰",
+      "low angle / high angle / bird's-eye view"
+     ],
+     [
+      "荷兰角",
+      "dutch angle, tilted frame"
+     ],
+     [
+      "推 / 拉",
+      "dolly in / pull back"
+     ],
+     [
+      "升 / 降",
+      "crane up / crane down"
+     ],
+     [
+      "横移 / 环绕",
+      "tracking shot / orbit shot"
+     ],
+     [
+      "手持",
+      "handheld camera"
+     ],
+     [
+      "推拉变焦",
+      "dolly zoom"
+     ],
+     [
+      "浅景深",
+      "shallow depth of field, bokeh"
+     ],
+     [
+      "体积光",
+      "volumetric lighting, god rays"
+     ],
+     [
+      "轮廓光 / 逆光",
+      "rim light / backlit"
+     ],
+     [
+      "低调照明",
+      "low-key lighting, deep shadows"
+     ],
+     [
+      "宽银幕",
+      "anamorphic, 2.39:1 cinemascope"
+     ],
+     [
+      "胶片颗粒",
+      "film grain, 35mm film"
+     ]
+    ]
+   }
+  ],
+  "内容硬约束": [
+   "火枪发明前时代:「枪」一律替换为「神纹长矛」",
+   "禁止出现「地图」「沙盘」「地形图」;自查发现时替换为「符合这个时代的古代地势轮廓图腾」",
+   "移除所有文字:旗帜为纯色能量光幕、无字;牌匾无字,仅有发光图腾",
+   "禁止静止人物,剧本未规定动作时按当前叙事阶段生成匹配的玄幻动态",
+   "合并形象时必须包含人物性别;每个人物名字仅出现一次",
+   "不使用物品归属关系表述(如「小明的船」)",
+   "所有特效粒子必须受场景光源影响,颜色与当前叙事阶段一致,禁止「飘在画面上像 UI」的粒子",
+   "输出不含任何敏感词"
+  ]
+ },
+ "验收清单": {
+  "说明": "交付前逐项勾选。单镜验收在每个镜头生成后做,全片验收在调色混音后做。",
+  "单镜验收": [
+   {
+    "维度": "色彩",
+    "检查项": "主色调与情绪标签匹配,未出现该情绪的禁止色调;阴影在冷青色系"
+   },
+   {
+    "维度": "色彩",
+    "检查项": "饱和度落在当前阶段区间(矢量示波器)"
+   },
+   {
+    "维度": "光影",
+    "检查项": "能说出光从哪来、在表达什么;光比符合阶段;所有物体受光方向一致"
+   },
+   {
+    "维度": "光影",
+    "检查项": "神将/主角有金色逆光轮廓(阶段③必有);体积光有微粒、有衰减、有遮挡阴影"
+   },
+   {
+    "维度": "构图",
+    "检查项": "能数出 3 个空间层次,前景虚化占 10–30%,背景偏蓝偏淡"
+   },
+   {
+    "维度": "构图",
+    "检查项": "构图法则与情绪匹配;负空间比例达标;闭眼 3 秒视线落在主体"
+   },
+   {
+    "维度": "构图",
+    "检查项": "能回答「为什么用这个视角」;没有仰拍渺小普通人"
+   },
+   {
+    "维度": "镜头",
+    "检查项": "能同时回答叙事目的与情绪导向"
+   },
+   {
+    "维度": "镜头",
+    "检查项": "运动方向有叙事理由,未踩阶段运镜禁忌;关键动作有速度渐变"
+   },
+   {
+    "维度": "光影",
+    "检查项": "整体偏暗,暗部至少占三分之一;体积光有雾、尘埃等介质"
+   },
+   {
+    "维度": "镜头",
+    "检查项": "情感高潮的特写人脸 ≥40%;运镜能说出「因为什么」"
+   },
+   {
+    "维度": "表演",
+    "检查项": "表情克制、有眼神光,视线方向与下一镜匹配"
+   }
+  ],
+  "全片验收": [
+   {
+    "维度": "色彩",
+    "检查项": "所有主色调组成有逻辑的弧线,相邻分镜无随机跳色"
+   },
+   {
+    "维度": "光影",
+    "检查项": "光比随阶段递进(4:1 → 8:1 → 16:1 → 8:1);同一世界层级光源方向一致"
+   },
+   {
+    "维度": "构图",
+    "检查项": "构图弧线成立:渺小 → 平衡 → 充满 → 再次渺小"
+   },
+   {
+    "维度": "镜头",
+    "检查项": "至少 3 种景别交替;场景从远景建立;情感高潮有近景/极近景"
+   },
+   {
+    "维度": "镜头",
+    "检查项": "镜头时长符合节奏表;战斗前有 2–3 秒静默"
+   },
+   {
+    "维度": "技术",
+    "检查项": "统一画幅(2.39:1 或 2.00:1)、遮幅纯黑 #000000(先 LUT 后遮幅)、统一 LUT、颗粒在手机全屏可见、24fps"
+   },
+   {
+    "维度": "色彩",
+    "检查项": "本命色弧线成立:至少出现冷、暖、对撞三种温度,色彩剧本与成片一致"
+   },
+   {
+    "维度": "声音",
+    "检查项": "关掉画面只听声音,能分辨出五个阶段;爆发前有静默"
+   },
+   {
+    "维度": "剪辑",
+    "检查项": "动作戏不跳轴;收场至少一个镜头与开篇呼应"
+   },
+   {
+    "维度": "总验收",
+    "检查项": "关掉声音给陌生人看,能猜到发生了什么、什么情绪、将要发生什么"
+   }
+  ]
+ },
+ "案例": [
+  {
+   "名称": "60 秒《云中君 · 雨落》",
+   "说明": "用一条 60 秒的完整短片演示全部规则:五阶段单向推进、本命色弧线(青蓝)、光比 4 → 8 → 16 → 8、构图渺小 → 平衡 → 充满 → 再次渺小、景别与节奏呼吸、声音先行。故事:人间大旱,云神云中君神力枯竭;旱魃降世,他在绝境中觉醒,以最后的神力化云为雨。",
+   "样片": "待生成 · 按下方分镜表制作",
+   "分段": [
+    {
+     "时间": "0–12s",
+     "对应阶段": "① 开篇·苦难",
+     "阶段序号": 0,
+     "画面": "龟裂的大地上,白衣云神赤足独行,衣袍边的青色云气稀薄将散。",
+     "四维度要点": "灰青低饱和 · 光比 4:1 · 人物 <5% · 极远景长镜头"
+    },
+    {
+     "时间": "12–24s",
+     "对应阶段": "② 磨练·挣扎",
+     "阶段序号": 1,
+     "画面": "召云失败,掌心青光明灭;地平线上旱魃的暗红身影燃起大地。",
+     "四维度要点": "暗红侵入 · 光比 8:1 · 人物与环境抗衡 · 鼓点渐入"
+    },
+    {
+     "时间": "24–36s",
+     "对应阶段": "③ 觉醒·爆发",
+     "阶段序号": 2,
+     "画面": "一切声音抽空;睁眼,瞳孔亮起最纯的青白;光柱刺破天幕,第一片云成形。",
+     "四维度要点": "本命色最亮 + 暖金轮廓 · 16:1 · ECU → 仰拍 · 静默后爆发"
+    },
+    {
+     "时间": "36–50s",
+     "对应阶段": "④ 战斗·高潮",
+     "阶段序号": 3,
+     "画面": "云海与火海对峙;青雷与赤焰相撞;一掌落下,0.1x 定格时第一滴雨出现。",
+     "四维度要点": "青 × 血红对撞 · 荷兰角 · 3s → 0.5s 快切 · 守住轴线"
+    },
+    {
+     "时间": "50–60s",
+     "对应阶段": "⑤ 悲壮·收场",
+     "阶段序号": 4,
+     "画面": "雨后黄昏,积水映出金橙天空,稻田冒出新绿;云神化作青雾融入云层。",
+     "四维度要点": "暮色暖橙压过青 · 回落 8:1 · 人物再次渺小 · 与第一镜同构图"
+    }
+   ],
+   "分镜表": {
+    "列": [
+     "镜",
+     "时间",
+     "景别 / 角度",
+     "运镜",
+     "光与色",
+     "声音",
+     "画面"
+    ],
+    "行": [
+     [
+      "1",
+      "0–5s",
+      "ELS · 俯拍",
+      "极缓推",
+      "灰黄天光,顶部散射;灰青低饱和",
+      "风声、干裂声",
+      "干涸河床如蛛网龟裂,白衣身影是画面里唯一的亮点,热霾翻涌"
+     ],
+     [
+      "2",
+      "5–9s",
+      "LS · 侧面平视",
+      "横移跟随",
+      "单侧冷光 4:1",
+      "脚步踩碎枯稻",
+      "赤足走过枯死的稻田,衣袍边的青色云气稀薄将散,前景枯稻虚焦"
+     ],
+     [
+      "3",
+      "9–12s",
+      "MCU · 侧光",
+      "极缓推",
+      "半脸入暗,负辅光",
+      "低频嗡鸣,埙一个长音",
+      "抬眼望向没有一丝云的天"
+     ],
+     [
+      "4",
+      "12–15s",
+      "MS · 平视",
+      "轻微手持",
+      "掌心青光为唯一画内光源",
+      "鼓点第一次进入",
+      "抬手召云,掌心青光亮起又熄灭,尘土被气流卷起"
+     ],
+     [
+      "5",
+      "15–17s",
+      "CU · 手",
+      "固定",
+      "青光闪烁照亮皲裂的皮肤",
+      "电流般的噼啪声",
+      "手掌皲裂,青光像漏电一样明灭"
+     ],
+     [
+      "6",
+      "17–20s",
+      "LS · 远望地平线",
+      "固定",
+      "暗红从画面右侧侵入",
+      "远处低沉的轰鸣",
+      "热浪扭曲的地平线上,旱魃的暗红身影出现,脚下大地燃起暗火"
+     ],
+     [
+      "7",
+      "20–24s",
+      "MCU · 正反打",
+      "缓推",
+      "暗红边缘光照上半张脸,另半张冷青 8:1",
+      "鼓点加速,心跳",
+      "云中君直视旱魃,冷暖交界正落在他的脸上"
+     ],
+     [
+      "8",
+      "24–28s",
+      "ECU · 眼睛",
+      "固定",
+      "几乎全暗,只有睫毛上的一点反光",
+      "所有声音抽空,只剩心跳",
+      "闭着的眼,睫毛上一粒尘埃悬停不落"
+     ],
+     [
+      "9",
+      "28–29s",
+      "ECU · 眼睛",
+      "固定",
+      "瞳孔亮起最纯的青白",
+      "全频冲击",
+      "睁眼"
+     ],
+     [
+      "10",
+      "29–33s",
+      "LS · 仰拍 35°",
+      "由下向上推",
+      "青白体积光从背后冲起,金色轮廓光勾边 16:1;浓雾",
+      "合唱进入",
+      "尘土与碎石向上漂浮,衣袍逆风展开"
+     ],
+     [
+      "11",
+      "33–36s",
+      "ELS · 仰拍",
+      "升镜",
+      "光柱为唯一光源",
+      "编钟,主题旋律第一次完整出现",
+      "光柱刺破灰黄天幕,第一片云在光柱顶端旋转成形"
+     ],
+     [
+      "12",
+      "36–39s",
+      "LS · 双人",
+      "横移",
+      "画左青、画右红,两个固定光源",
+      "音乐让位给环境轰鸣",
+      "云海与火海在大地两侧对峙,建立方位:云中君在左,旱魃在右"
+     ],
+     [
+      "13",
+      "39–41s",
+      "MS · 荷兰角 20°",
+      "手持",
+      "青色主光,红色反打轮廓",
+      "风啸、衣袍猎猎",
+      "踏云冲刺,前景火星擦过镜头"
+     ],
+     [
+      "14",
+      "41–42s",
+      "CU · 碰撞点",
+      "甩镜",
+      "撞点爆白 2 帧",
+      "重击 + 低频",
+      "青雷与赤焰相撞"
+     ],
+     [
+      "15",
+      "42–43s",
+      "ECU · 旱魃眼睛",
+      "固定",
+      "红光中的惧色",
+      "抽空 0.5s",
+      "旱魃眼中第一次出现惧意"
+     ],
+     [
+      "16",
+      "43–46s",
+      "MS · 慢动作",
+      "速度渐变 1x → 0.1x → 1x",
+      "冲击波推开所有火星",
+      "定格处只剩一滴水声",
+      "一掌落下,0.1x 定格时,第一滴雨出现在空中"
+     ],
+     [
+      "17",
+      "46–50s",
+      "ELS · 俯拍",
+      "缓慢下降",
+      "雨幕中光线转灰蓝",
+      "暴雨声压过一切",
+      "暴雨倾盆,火海成片熄灭,白汽升腾"
+     ],
+     [
+      "18",
+      "50–60s",
+      "ELS · 中轴对称(与镜 1 同构图)",
+      "升拉",
+      "落日金橙逆光,长影 8:1;青只剩一缕",
+      "箫吹主题旋律,雨滴声,渐弱到静默 3s 后黑场",
+      "积水映出金橙天空,稻田冒出第一点新绿;云中君极小地站在画面正中,身形化作青色雾气融入天上的云"
+     ]
+    ]
+   },
+   "提示词": "【风格前缀】玄幻神话史诗感,8K 超清画质,2.39:1 宽银幕电影遮幅,24fps 自然运动模糊,浅景深,全片统一电影调色,低调照明,胶片颗粒。\n【基准形象】云中君:白衣广袖、银白长发、额间青色云纹,神力为青蓝色云气。\n【镜 10 示例】当前叙事阶段:觉醒·爆发。远景仰拍 35°,镜头由下向上推进;青白色体积光从云中君背后冲天而起,浓雾中光束清晰可见,金色逆光轮廓光勾勒全身;尘土与碎石违反重力向上漂浮,白衣广袖逆风展开;本命色青蓝达到最高亮度与纯度,饱和度 110%,光比 16:1,画面下方大地依然深暗。"
+  },
+  {
+   "名称": "12 秒构图弧线长镜头",
+   "样片": "jimeng-2026-04-26-7589-A continuous 12-second epic cinematic sh....mp4",
+   "说明": "用一个连续镜头完整演示「渺小 → 平衡 → 充满 → 再次渺小」的构图弧线,同时也覆盖了五阶段的色彩与光影变化,适合作为讲解时的总结案例。",
+   "分段": [
+    {
+     "时间": "0–3s",
+     "对应阶段": "① 开篇·苦难",
+     "画面": "极广全景,压抑乌云下,白发的东方神祇渺小孤寂地伫立在无边漆黑如镜的水面上",
+     "四维度要点": "极远景 · 大负空间 · 冷暗色调 · 孤独",
+     "阶段序号": 0
+    },
+    {
+     "时间": "3–6s",
+     "对应阶段": "② 磨练·挣扎",
+     "画面": "镜头平滑前推至中景,漆黑毒水翻涌攻击,神祇周身绽放青蓝光芒奋起反击",
+     "四维度要点": "推镜 · 中景 · 神光与黑暗风暴平衡(人物与环境抗衡)",
+     "阶段序号": 1
+    },
+    {
+     "时间": "6–9s",
+     "对应阶段": "③④ 觉醒·爆发 / 高潮",
+     "画面": "骤然极速拉近至面部大特写,画面被面容填满;青蓝能量从双眼喷涌,肌肤迸裂显出神圣符文,白发拂过镜头",
+     "四维度要点": "ECU · 满构图零留白 · 能量爆发",
+     "阶段序号": 2
+    },
+    {
+     "时间": "9–12s",
+     "对应阶段": "⑤ 悲壮·收场",
+     "画面": "纯白光席卷全屏后极速拉远回到宏大全景,风暴消散,暮色苍穹映在平静水面,神祇再次渺小,化作青蓝雾气随风消散",
+     "四维度要点": "拉远 · 极远景 · 大负空间 · 悲情而宁静",
+     "阶段序号": 4
+    }
+   ],
+   "提示词": "一段连续12秒的史诗级电影长镜头。第一阶段(0-3秒):镜头以一个极广阔的全景画面开场。在压抑沉重的乌云之下,一位身披白发的渺小而孤寂的东方神祇,独自伫立在无边无际、如镜面般漆黑的水面上。画面透出一股令人窒息的孤独感。第二阶段(3-6秒):镜头平滑地向前推进,切换至中景。漆黑且充满毒性的水流翻涌而起,向他发起猛烈攻击。神祇周身开始绽放出耀眼的青蓝色光芒,奋起反击。画面构图巧妙地平衡了他日益强盛的神光与周遭的黑暗风暴,彰显了他坚不可摧的意志。第三阶段(6-9秒):骤然间,镜头极速拉近,切入至面部的特写大特写——画面完全被他的面容填满,不留一丝留白。高潮瞬间爆发。刺目的青蓝色能量从他双眼中狂暴喷涌而出;他周身的肌肤迸裂开来,显露出流光溢彩的神圣符文;狂乱的白发在风中飞舞,甚至拂掠过镜头画面。第四阶段(9-12秒):一股磅礴纯净的白光瞬间席卷整个屏幕,随后镜头在刹那间极速拉远,退回到宏大的全景视角。风暴已然消散,取而代之的是一片空灵绝美、映照在平静水面上的暮色苍穹。神祇的身影再次变得渺小,但他此刻正安详地消融为一团流光溢彩的青蓝色雾气,最终随风飘散,归于虚无。这是一个极具悲情色彩,却又宁静而唯美的结局。杰作级画质,8K分辨率,动作流畅自然,呈现虚幻引擎5(Unreal Engine 5)特有的美学风格,史诗神话题材。"
+  }
+ ],
+ "术语表": [
+  {
+   "术语": "遮幅 Letterbox",
+   "解释": "画面上下加黑边,模拟 2.39:1 宽银幕比例"
+  },
+  {
+   "术语": "2.39:1",
+   "解释": "好莱坞宽银幕标准画幅比例,也常写作 2.35:1"
+  },
+  {
+   "术语": "24fps",
+   "解释": "电影标准帧率,带来自然运动模糊"
+  },
+  {
+   "术语": "LUT",
+   "解释": "Look-Up Table,调色预设表,一键把素材映射到目标色彩风格"
+  },
+  {
+   "术语": "胶片颗粒 Film Grain",
+   "解释": "模拟胶片的随机噪点纹理,降低数字画面的塑料感"
+  },
+  {
+   "术语": "超分",
+   "解释": "超分辨率,用算法把低清素材放大为高清"
+  },
+  {
+   "术语": "矢量示波器",
+   "解释": "调色软件中显示色相和饱和度分布的工具,信号越靠外饱和度越高"
+  },
+  {
+   "术语": "Teal & Orange",
+   "解释": "青橙对比调色,阴影推青、肤色保橙,好莱坞最通用的调色公式"
+  },
+  {
+   "术语": "光比",
+   "解释": "受光面与阴影面的亮度比,每翻一倍相差 1 档曝光"
+  },
+  {
+   "术语": "主光 / 辅光 / 轮廓光",
+   "解释": "Key / Fill / Rim,三点布光的三盏灯"
+  },
+  {
+   "术语": "体积光 / God Rays",
+   "解释": "光穿过雾气、尘埃时形成可见光柱"
+  },
+  {
+   "术语": "丁达尔效应",
+   "解释": "光在含微粒介质中散射形成光路,体积光的物理原理"
+  },
+  {
+   "术语": "动机光",
+   "解释": "在故事世界里有可信来源的光"
+  },
+  {
+   "术语": "卡拉瓦乔明暗法",
+   "解释": "Chiaroscuro,极端明暗对比的布光风格"
+  },
+  {
+   "术语": "伦勃朗光",
+   "解释": "侧光在暗侧脸颊形成倒三角光斑的人像布光"
+  },
+  {
+   "术语": "负空间 / 留白",
+   "解释": "画面中主体以外的空旷区域,承载情绪"
+  },
+  {
+   "术语": "空气透视",
+   "解释": "远处景物因大气散射偏蓝、变淡、变模糊"
+  },
+  {
+   "术语": "Z 轴纵深",
+   "解释": "画面由近到远的前景 / 中景 / 背景层次"
+  },
+  {
+   "术语": "荷兰角 Dutch Angle",
+   "解释": "摄影机沿光轴倾斜拍摄,画面地平线倾斜"
+  },
+  {
+   "术语": "ELS / LS / MS / CU / ECU",
+   "解释": "极远景 / 远景 / 中景 / 特写 / 极近景"
+  },
+  {
+   "术语": "推 / 拉 Dolly In / Pull Back",
+   "解释": "摄影机向主体靠近 / 远离"
+  },
+  {
+   "术语": "升 / 降 Crane Up / Down",
+   "解释": "摄影机垂直上升 / 下降"
+  },
+  {
+   "术语": "横移 Tracking",
+   "解释": "摄影机平行于主体移动"
+  },
+  {
+   "术语": "环绕 Orbit",
+   "解释": "摄影机围绕主体做弧线运动"
+  },
+  {
+   "术语": "手持 Handheld",
+   "解释": "手持拍摄的自然晃动"
+  },
+  {
+   "术语": "速度渐变 Speed Ramp",
+   "解释": "镜头内从正常速度平滑过渡到慢动作再恢复"
+  },
+  {
+   "术语": "焦点变换 Rack Focus",
+   "解释": "镜头内把焦点从一个主体转移到另一个"
+  },
+  {
+   "术语": "变形宽银幕 Anamorphic",
+   "解释": "横向压缩成像的电影镜头,产生椭圆散景和横向光晕"
+  },
+  {
+   "术语": "180° 轴线",
+   "解释": "两个主体之间的假想线,机位不可跨越"
+  },
+  {
+   "术语": "正反打",
+   "解释": "对话双方过肩镜头交替剪辑"
+  },
+  {
+   "术语": "本命色",
+   "解释": "角色神力自带的颜色。色彩弧线以本命色为轴做相对变化:开篇压住、觉醒最纯最亮、战斗与反色对撞、收场被暖色压过。"
+  },
+  {
+   "术语": "色彩剧本 Color Script",
+   "解释": "用一排小色块画出全片每个段落的主色与明暗,在生成前确认色彩弧线。"
+  },
+  {
+   "术语": "低调照明 Low-key",
+   "解释": "大面积暗部、少量高光的布光方式,电影感的主要来源之一。"
+  },
+  {
+   "术语": "负辅光 Negative Fill",
+   "解释": "用黑色旗板吸收阴影侧的反光,让阴影更深、光比更大。"
+  },
+  {
+   "术语": "眼神光 Catchlight",
+   "解释": "眼球上的光源反射点,没有眼神光的眼睛会显得空洞。"
+  },
+  {
+   "术语": "画内光源 Practical",
+   "解释": "画面里看得见的光源(蜡烛、火把、灯笼、神力),为布光提供动机。"
+  },
+  {
+   "术语": "光晕 Halation",
+   "解释": "胶片高光边缘的暖红色溢散,后期模拟可减少数码的「硬」。"
+  },
+  {
+   "术语": "黄金时刻 / 蓝调时刻",
+   "解释": "日出后或日落前约 1 小时的低角度暖光;日落后 20–30 分钟无直射光的整体蓝调。"
+  },
+  {
+   "术语": "匹配剪辑 Match Cut",
+   "解释": "上下两镜在形状、动作或颜色上相同,用来跨越时空或联想意象。"
+  },
+  {
+   "术语": "J-cut / L-cut",
+   "解释": "J-cut:下一镜的声音先于画面进入;L-cut:上一镜的声音延续到下一镜。"
+  },
+  {
+   "术语": "推拉变焦 Dolly Zoom",
+   "解释": "机位移动的同时反向变焦,主体大小不变、背景拉伸或压缩,表现内心冲击。"
+  },
+  {
+   "术语": "视线匹配 Eyeline Match",
+   "解释": "上一镜人物看向的方向,与下一镜被看对象的位置一致。"
+  },
+  {
+   "术语": "引导空间 Lead Room",
+   "解释": "人物视线或运动方向前方留出的画面空间。"
+  },
+  {
+   "术语": "拟音 Foley",
+   "解释": "后期录制的脚步、衣料、兵器等动作声音,让画面有重量。"
+  },
+  {
+   "术语": "剪辑余量 Handles",
+   "解释": "镜头头尾多出来的帧,供剪辑时调整剪点。"
+  },
+  {
+   "术语": "三远",
+   "解释": "郭熙的山水画法:高远(自下仰望)、深远(由前窥后)、平远(由近望远),可直接对应仰拍、纵深与极远景。"
+  }
+ ],
+ "图库": {
+  "说明": "样片图按章节归位,只保留可以直接学习的示范与参考。每张图下方的数据由 _src/analyze.swift 自动测量,用来把「感觉」变成可以对照的数字。",
+  "测量说明": [
+   [
+    "画幅",
+    "宽 ÷ 高。16:9 ≈ 1.78;Univisium ≈ 2.00;宽银幕 ≈ 2.39"
+   ],
+   [
+    "亮度跨度(档)",
+    "log2(亮部 P95 ÷ 暗部 P5),衡量整幅画面的明暗反差。1 档 = 亮度差 2 倍。注意:它不等于「光比」(脸部受光面 : 阴影面)"
+   ],
+   [
+    "饱和度",
+    "像素平均饱和度(HSV),0–1"
+   ],
+   [
+    "冷 / 暖",
+    "有色像素中暖色(红橙黄)与冷色(青蓝紫)占全画面的比例"
+   ],
+   [
+    "人物框",
+    "Vision 人体检测框面积占画面比例,可近似「人物占比」;极小或被遮挡的人物可能检测不到"
+   ],
+   [
+    "局限",
+    "测量只能验证可量化的属性(画幅、反差、色温、人物大小),构图意图、表演和叙事仍需人工看片判断"
+   ],
+   [
+    "平均亮度",
+    "0 = 全黑,1 = 全白。电影参考样片平均 0.25,常规叙事目标 0.20–0.30"
+   ]
+  ],
+  "组": [
+   {
+    "id": "why-ref",
+    "章节": "why",
+    "类型": "gallery",
+    "标题": "范例拆解 · 电影感是怎么做出来的",
+    "图": [
+     {
+      "id": "image3",
+      "说明": "光影 · 让光有方向",
+      "点评": "亮度跨度 3.5 档,上半亮于下半:天光从上方压下,画面有轻重。"
+     },
+     {
+      "id": "image4",
+      "说明": "光影 · 用天空做主光",
+      "点评": "整幅暖色 87%:一种色温统治整个画面,情绪立刻统一。"
+     },
+     {
+      "id": "image7",
+      "说明": "色彩 · 把暖推到极致",
+      "点评": "饱和度 0.72、暖色 98%:要暖就暖到底,犹豫的颜色没有情绪。"
+     },
+     {
+      "id": "image8",
+      "说明": "色彩 · 把冷压到极暗",
+      "点评": "平均亮度 0.16、冷色 97%、跨度 4.7 档:冷色配合压暗,才是「阴险」。"
+     },
+     {
+      "id": "image11",
+      "说明": "构图 · 天地分出轻重",
+      "点评": "上半 0.68、下半 0.29:天空亮、大地暗,画面重心落在下方,稳而辽阔。"
+     },
+     {
+      "id": "image12",
+      "说明": "构图 · 剪影与落日",
+      "点评": "暖色 92%,下半压暗成剪影:人物轮廓比人物细节更有力量。"
+     },
+     {
+      "id": "image15",
+      "说明": "镜头 · 升镜揭示世界",
+      "点评": "细节密度 0.32:升镜把丰富的环境一层层展开,观众被带进世界。"
+     },
+     {
+      "id": "image16",
+      "说明": "镜头 · 极暗中的一点光",
+      "点评": "平均亮度 0.12、跨度 6.8 档:全片最暗的一帧,也是最有张力的一帧。"
+     }
+    ],
+    "点评": "八张范例共同的做法:全部是宽银幕(2.34–2.40:1);色温都被推向一个极端;都有明确的明暗方向。"
+   },
+   {
+    "id": "tech-ref",
+    "章节": "tech",
+    "类型": "gallery",
+    "标题": "技术层 · 遮幅示范",
+    "图": [
+     {
+      "id": "image17",
+      "说明": "加宽银幕遮幅 · 仿电影尺寸",
+      "点评": "上下黑边是纯黑(亮度 0):遮幅必须是 #000000,灰色黑边在投影和 OLED 上会露出边框。"
+     }
+    ]
+   },
+   {
+    "id": "color-ref",
+    "章节": "color",
+    "类型": "gallery",
+    "标题": "色彩 · 情绪样片",
+    "图": [
+     {
+      "id": "image20",
+      "说明": "红色调 - 紧张的氛围,害怕 / 恐惧",
+      "点评": "饱和度 0.93,平均亮度仅 0.09——红色要配合压暗才是「恐惧」,高亮的红是「热闹」。"
+     },
+     {
+      "id": "image21",
+      "说明": "一半黄色、一半黑暗 - 对未知的恐惧",
+      "点评": "亮度跨度 5.9 档,画面一半几乎全黑:未知来自看不见的那一半。"
+     },
+     {
+      "id": "image22",
+      "说明": "一个人处在黄色色调中 - 怀旧、安静与淡淡的孤独",
+      "点评": "人物只占 2% 且在正中(x=0.50),饱和度 0.99。证明孤独不一定要偏角构图:人物足够小时,中轴同样孤独。"
+     },
+     {
+      "id": "image23",
+      "说明": "一个人处在蓝色色调中 - 压抑或淡淡的忧伤",
+      "点评": "冷色占 95%,人物占 14% 居中。同样是单人,蓝比黄更压抑,因为暗(0.20 vs 0.45)。"
+     },
+     {
+      "id": "image24",
+      "说明": "外部冰冷月光 × 内部温暖灯光 - 区分不同人物的心情",
+      "点评": "冷 57% / 暖 15% 同框,人物在左侧占 56%。冷暖分区要有画内光源支撑(这里是蜡烛),观众才会读成「情绪」而不是「调色」。"
+     }
+    ]
+   },
+   {
+    "id": "light-ref",
+    "章节": "light",
+    "类型": "gallery",
+    "标题": "光影 · 氛围体感样片",
+    "图": [
+     {
+      "id": "image37",
+      "说明": "背景光 - 搭建严肃的基调",
+      "点评": "平均亮度 0.17,暖色 83%:整体压暗,用背景光定下严肃的基调。"
+     },
+     {
+      "id": "image38",
+      "说明": "侧光 - 半明半暗,神秘与复杂性格",
+      "点评": "亮度跨度 7.5 档(约 180:1):这是整幅画面的反差。光比只量脸,两者不要混用。"
+     },
+     {
+      "id": "image39",
+      "说明": "底光 - 体现人物的阴狠感",
+      "点评": "人脸占画面 33%,下半亮于上半(0.18 vs 0.14),与底光方向吻合。"
+     },
+     {
+      "id": "image40",
+      "说明": "顶光 - 神圣威压,眼窝落入阴影",
+      "点评": "平均亮度只有 0.09:顶光的戏剧性来自大面积暗部。"
+     },
+     {
+      "id": "image41",
+      "说明": "自然光线 - 使画面更加自然",
+      "点评": "饱和度 0.12、冷色调,反差 3.6 档——自然光不等于平光,依然有方向。"
+     }
+    ]
+   },
+   {
+    "id": "comp-ref",
+    "章节": "composition",
+    "类型": "gallery",
+    "标题": "构图 · 线条与形状样片",
+    "图": [
+     {
+      "id": "image25",
+      "说明": "点构图 - 引导观众视线",
+      "点评": "细节密度 0.01,几乎全是留白,视线只能落在那个点上。"
+     },
+     {
+      "id": "image26",
+      "说明": "黄金三角构图 - 画面整体均衡",
+      "点评": ""
+     },
+     {
+      "id": "image27",
+      "说明": "沿水平轴倾斜构图 - 失衡营造紧张",
+      "点评": "细节密度 0.38(全组最高),倾斜 + 密集线条叠加出不安。"
+     },
+     {
+      "id": "image28",
+      "说明": "引导线 - 牵引观众视角",
+      "点评": ""
+     },
+     {
+      "id": "image29",
+      "说明": "垂直线 - 象征高度与力量",
+      "点评": ""
+     },
+     {
+      "id": "image30",
+      "说明": "水平线分割 - 距离与平静",
+      "点评": "反差只有 1.1 档:平静的画面连明暗也是平的。"
+     },
+     {
+      "id": "image31",
+      "说明": "简洁几何形状 - 整洁有序",
+      "点评": ""
+     },
+     {
+      "id": "image32",
+      "说明": "简洁几何形状 - 视觉统一",
+      "点评": ""
+     },
+     {
+      "id": "image33",
+      "说明": "简洁几何形状 - 万物各司其职",
+      "点评": ""
+     },
+     {
+      "id": "image34",
+      "说明": "简洁几何形状 - 秩序感",
+      "点评": ""
+     },
+     {
+      "id": "image35",
+      "说明": "不规则有机形状 - 更加自然",
+      "点评": ""
+     },
+     {
+      "id": "image36",
+      "说明": "满构图 - 感官过载、混乱",
+      "点评": "饱和度 0.73、细节密度 0.21:满构图要「满」在颜色和细节两个层面。"
+     },
+     {
+      "id": "image43",
+      "说明": "俯视视角 - 体现场景惊险",
+      "点评": ""
+     },
+     {
+      "id": "image75",
+      "说明": "引导线构图 - 烘托主角出场",
+      "点评": ""
+     },
+     {
+      "id": "image76",
+      "说明": "静谧 - 万物各司其职的整体氛围",
+      "点评": "平均亮度 0.09,反差 6.2 档:静谧往往是暗的。"
+     }
+    ]
+   },
+   {
+    "id": "comp-space",
+    "章节": "composition",
+    "类型": "gallery",
+    "标题": "留白与 Z 轴纵深 · 示范",
+    "图": [
+     {
+      "id": "image52",
+      "说明": "孤独 / 悲壮 · 负空间 ≥50%",
+      "点评": "人物小到几乎检测不到,画面几乎全是留白。再压暗、加大反差,悲壮感会更强。"
+     },
+     {
+      "id": "image69",
+      "说明": "英雄孤立面对命运 · 远景 + 大负空间",
+      "点评": "人物小到检测不到,天空与大地都是留白:距离本身就在讲渺小。"
+     },
+     {
+      "id": "image59",
+      "说明": "世界观建立 · 极远景",
+      "点评": "亮度跨度 5.2 档、冷色 78%:冷青高反差让世界从「布景」变成「天地」。"
+     },
+     {
+      "id": "image56",
+      "说明": "Z 轴纵深 · 香炉烟 / 角色 / 云山",
+      "点评": "亮度跨度 4.0 档:前景烟雾、中景人物、远景云山三层有明暗区分,纵深靠明暗分层建立。"
+     }
+    ]
+   },
+   {
+    "id": "comp-angle",
+    "章节": "composition",
+    "类型": "gallery",
+    "标题": "视角高度 · 示范",
+    "图": [
+     {
+      "id": "image70",
+      "说明": "仰拍(≥30°)· 神将出场",
+      "点评": "仰拍让天空成为背景,人物压在观众头顶。"
+     },
+     {
+      "id": "image72",
+      "说明": "俯拍(≥30°)· 面对命运",
+      "点评": "平均亮度 0.16:俯拍加压暗,人物被环境吞没。"
+     },
+     {
+      "id": "image74",
+      "说明": "倾斜构图(10–30°)· 危机",
+      "点评": "平均亮度 0.19、跨度 4.7 档:危机感一半来自倾斜,一半来自压暗。"
+     }
+    ]
+   },
+   {
+    "id": "cam-ref",
+    "章节": "camera",
+    "类型": "gallery",
+    "标题": "镜头 · 视角与焦段样片",
+    "图": [
+     {
+      "id": "image42",
+      "说明": "前景 + 中景 + 背景 - 交代环境与心理",
+      "点评": "人物在左三分线(x=0.24),反差 4.8 档:三层空间靠明暗分层。"
+     },
+     {
+      "id": "image43",
+      "说明": "俯拍场景 - 突出场景的危险程度",
+      "点评": ""
+     },
+     {
+      "id": "image44",
+      "说明": "俯拍人物 - 弱化力量感,突出无助",
+      "点评": ""
+     },
+     {
+      "id": "image45",
+      "说明": "仰拍人物 - 强化力量感,突出能力",
+      "点评": "人物在左三分线(x=0.26),上半亮于下半(0.34 vs 0.16),仰拍让天空成为背景。"
+     },
+     {
+      "id": "image46",
+      "说明": "标准镜头 - 平淡的画面(人眼视角)",
+      "点评": "人物在右三分线(x=0.75)。标准镜头的「平淡」是优点:适合不需要强调的叙事段。"
+     },
+     {
+      "id": "image78",
+      "说明": "超广角 - 突出主角的孤独,超现实风格",
+      "点评": "冷色 92%。超广角的孤独来自环境被拉得极大,而不是人物被拍得极小。"
+     }
+    ]
+   },
+   {
+    "id": "cam-move",
+    "章节": "camera",
+    "类型": "pairs",
+    "标题": "镜头运动 · 起幅 / 落幅",
+    "对": [
+     {
+      "标题": "镜头拉近 - 表现重要性",
+      "前": "image79",
+      "后": "image80",
+      "点评": "人物框 34% → 77%,推近一倍多;背景亮度几乎不变,观众的注意力被「挤」到人物身上。"
+     },
+     {
+      "标题": "拉远镜头 - 让观众抽离",
+      "前": "image81",
+      "后": "image82",
+      "点评": "人物框 17% → 7%,饱和度始终在 0.1 左右的低位:拉远配合低饱和,情绪随之退场。"
+     },
+     {
+      "标题": "旋转镜头 - 让人紧张不安",
+      "前": "image83",
+      "后": "image84",
+      "点评": "冷色 75% → 87%,旋转过程中画面越来越冷。"
+     }
+    ],
+    "前标签": "起幅",
+    "后标签": "落幅"
+   },
+   {
+    "id": "cam-shot",
+    "章节": "camera",
+    "类型": "gallery",
+    "标题": "神话景别 · 示范",
+    "图": [
+     {
+      "id": "image57",
+      "说明": "神将降临 / BOSS 出场",
+      "点评": "跨度 3.4 档:先用仰拍全身建立威压,下一镜再切极近景的眼神或法器。"
+     },
+     {
+      "id": "image61",
+      "说明": "觉醒 / 抉择 · 近景",
+      "点评": "人脸约占 8%,这是抉择前的近景;情感最高点要再推近一档到特写(人脸 40–60%)。"
+     },
+     {
+      "id": "image65",
+      "说明": "战斗高潮 · 第 1 镜(中)",
+      "点评": "战斗三连镜:景别中 → 近 → 极近递减,每镜时长同步缩短。"
+     },
+     {
+      "id": "image66",
+      "说明": "战斗高潮 · 第 2 镜(近)",
+      "点评": "细节密度 0.33,三镜中最高:越近,画面越满。"
+     },
+     {
+      "id": "image67",
+      "说明": "战斗高潮 · 第 3 镜(极近)",
+      "点评": "平均亮度 0.16:第三镜压到最暗,把冲击留给下一帧的闪光。"
+     }
+    ]
+   },
+   {
+    "id": "content-ref",
+    "章节": "content",
+    "类型": "gallery",
+    "标题": "画面内容 · 样片",
+    "图": [
+     {
+      "id": "image77",
+      "说明": "重复的图案 - 暗示疯狂的人物内心",
+      "点评": "饱和度 0.81、暖色 95%,人物只占 13%:人被重复的门框吞没,环境替人物说话。"
+     }
+    ]
+   }
+  ]
+ },
+ "导演法则": {
+  "说明": "所有参数表背后只有这 12 条。拿不准的时候,回到这里。",
+  "法则": [
+   {
+    "标题": "一帧只讲一件事",
+    "内容": "电影感是做减法。多余的光、多余的颜色、多余的元素都要拿掉。AIGC 最常见的问题不是「不够」,而是「太多」:每个角落都清晰、每种颜色都饱和、每个元素都在发光。导演的工作是决定观众「不看什么」。",
+    "落地": "写 Prompt 前先写一句:「这一帧观众只需要知道 ____」。写不出来就不生成。"
+   },
+   {
+    "标题": "敢暗",
+    "内容": "电影是给坐在黑暗里的人看的。暗部不是缺陷,是藏信息、制造期待的地方。让光只落在故事需要的地方,其余的交给黑暗。",
+    "落地": "常规叙事平均亮度 0.20–0.30;每帧至少三分之一面积落在暗部;生成时宁可偏暗。"
+   },
+   {
+    "标题": "光要有来源,也要有目的",
+    "内容": "每一束光都要能回答两个问题:它从哪里来(太阳、火、神力、月亮),它在帮这场戏表达什么。没有来源的光叫「照明」,有来源有目的的光才叫「光影」。",
+    "落地": "每个场景先在画面里放一个看得见的光源,再决定主光方向。"
+   },
+   {
+    "标题": "色彩讲的是温度变化",
+    "内容": "观众感知的不是色号,是相对变化:更冷、更暖、更纯、更脏。以角色本命色为轴,开篇压住它,觉醒让它最纯最亮,战斗让它和反色对撞,收场让暮色的暖压过它。",
+    "落地": "先做色彩剧本:五个阶段各一张关键帧缩成一排色块,一眼能看出温度弧线才开始生成。"
+   },
+   {
+    "标题": "距离决定情绪",
+    "内容": "透视由机位到人物的距离决定,焦段只是工具。想要压迫,是机位贴近加广角;想要窥视,是远机位加长焦加前景遮挡。机位高度决定权力:仰视是敬畏,俯视是渺小。",
+    "落地": "Prompt 里写「摄影机离人物多远、在谁的高度」,比只写「85mm」更能控制情绪。"
+   },
+   {
+    "标题": "每个运动都要有动机",
+    "内容": "镜头动,是因为人物在动、信息要揭示、情绪在推进。没有动机的运镜会让观众感觉到「有人在操作摄像机」,电影感立刻消失。",
+    "落地": "运镜方案每一条都补一句「因为 ____」。"
+   },
+   {
+    "标题": "先设计序列,再设计单帧",
+    "内容": "AIGC 已经能生成好看的单帧,真正的难点在镜头之间:角色一致、轴线不跳、景别有节奏、光源方向不乱。单帧好看不等于电影感。",
+    "落地": "分镜表先排景别和时长的节奏,再写每一帧的画面。"
+   },
+   {
+    "标题": "节奏是呼吸",
+    "内容": "长短交替才有呼吸:长、短、长、短短短、极长停顿、爆发。一直快会麻木,一直慢会疲倦。最有力的瞬间往往在最安静之后。",
+    "落地": "爆发前一定留 2–3 秒静默或慢镜。"
+   },
+   {
+    "标题": "声音先行",
+    "内容": "声音占电影感的一半。观众先听到、后看到,情绪就会提前到达。关掉画面只听声音,也应该能听出现在是哪个阶段。",
+    "落地": "先定音乐结构和五阶段的声音设计,再按音乐剪画面。"
+   },
+   {
+    "标题": "让观众等待",
+    "内容": "悬念来自延迟。先给反应再给对象,先看到影子再看到神,先听到龙吟再看到龙。越重要的东西越晚完整露出。",
+    "落地": "主角或神兽第一次出场:先局部(眼睛、手、影子),最后才是全身。"
+   },
+   {
+    "标题": "尺度靠参照物",
+    "内容": "神的巨大、天地的辽阔,必须靠参照物比较出来:人、鸟、树、城池、云层。没有参照物的「巨大」只是「大图」。",
+    "落地": "每个宏大镜头至少放一个观众熟悉尺寸的东西。"
+   },
+   {
+    "标题": "统一比惊艳重要",
+    "内容": "一部作品的高级感来自统一:同一套主色、同一种颗粒、同一个画幅、同一套世界规则。宁可每一帧都 85 分,也不要 100 分和 60 分交替。",
+    "落地": "全局变量 A 锁定后,任何人都不能单镜改风格。"
+   }
+  ]
+ },
+ "参考片单": {
+  "说明": "参考片要拆,不要抄:每次只学一个维度,截图归档时写下「它为什么这样做」。",
+  "片单": [
+   [
+    "《英雄》2002",
+    "张艺谋 / 摄影 杜可风",
+    "色彩",
+    "用不同主色讲同一故事的不同版本",
+    "胡杨林红衣对决;湖面对决"
+   ],
+   [
+    "《末代皇帝》1987",
+    "贝托鲁奇 / 摄影 斯托拉罗",
+    "色彩弧线",
+    "色彩随人物人生阶段变化",
+    "全片的色彩推进"
+   ],
+   [
+    "《影》2018",
+    "张艺谋 / 摄影 赵小丁",
+    "色彩 · 美术",
+    "近乎黑白的水墨色调,东方极简",
+    "雨中伞阵"
+   ],
+   [
+    "《银翼杀手 2049》2017",
+    "维伦纽瓦 / 摄影 罗杰·迪金斯",
+    "色彩 · 光影",
+    "一种色温统治一整场;雾与剪影",
+    "橙色废城段落"
+   ],
+   [
+    "《降临》2016",
+    "维伦纽瓦 / 摄影 布拉德福德·杨",
+    "光影",
+    "低调画面、雾中巨物带来的敬畏",
+    "第一次进入飞船"
+   ],
+   [
+    "《荒野猎人》2015",
+    "伊纳里图 / 摄影 卢贝兹基",
+    "光影 · 镜头",
+    "纯自然光、广角贴近人物的长镜头",
+    "熊袭击长镜头"
+   ],
+   [
+    "《刺客聂隐娘》2015",
+    "侯孝贤 / 摄影 李屏宾",
+    "节奏 · 表演",
+    "长镜头、自然光、克制的表演",
+    "开场黑白段落"
+   ],
+   [
+    "《卧虎藏龙》2000",
+    "李安 / 摄影 鲍德熹",
+    "构图 · 动作",
+    "东方意境的空间调度与留白",
+    "竹林打斗"
+   ],
+   [
+    "《沙丘》2021",
+    "维伦纽瓦 / 摄影 格雷格·弗雷泽",
+    "构图 · 尺度",
+    "巨物尺度感、单色调世界",
+    "沙虫第一次出现"
+   ],
+   [
+    "《指环王》三部曲 2001–2003",
+    "彼得·杰克逊 / 摄影 安德鲁·莱斯尼",
+    "镜头",
+    "极远景建立世界观的史诗大场面",
+    "烽火台传递"
+   ],
+   [
+    "《疯狂的麦克斯:狂暴之路》2015",
+    "乔治·米勒 / 摄影 约翰·西尔",
+    "剪辑 · 动作",
+    "主体始终在画面中心,快剪依然看得懂",
+    "沙暴追逐"
+   ],
+   [
+    "《300 勇士》2006",
+    "扎克·施奈德 / 摄影 拉里·方",
+    "镜头",
+    "速度渐变与强风格化调色",
+    "温泉关方阵"
+   ],
+   [
+    "《绿衣骑士》2021",
+    "大卫·洛维 / 摄影 安德鲁·德罗兹·帕勒莫",
+    "色彩 · 节奏",
+    "神话氛围,颜色的象征,缓慢的节奏",
+    "巨人行走"
+   ],
+   [
+    "《封神第一部》2023",
+    "乌尔善",
+    "画面内容",
+    "实拍东方神话的服化道与世界观",
+    "朝歌城与神界段落"
+   ]
+  ]
+ }
+}</script>
+<script id="metrics" type="application/json">{
+ "image1": {
+  "宽": 1280,
+  "高": 720,
+  "画幅": 1.778,
+  "平均亮度": 0.532,
+  "动态范围档": 1.87,
+  "饱和度": 0.192,
+  "暖色占比": 0.047,
+  "冷色占比": 0.465,
+  "主色相": "青",
+  "人物框占比": 0.275,
+  "人物中心x": 0.51,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.129,
+  "上半亮度": 0.531,
+  "下半亮度": 0.534,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "gown",
+   "celebration"
+  ]
+ },
+ "image2": {
+  "宽": 1280,
+  "高": 720,
+  "画幅": 1.778,
+  "平均亮度": 0.364,
+  "动态范围档": 3.851,
+  "饱和度": 0.386,
+  "暖色占比": 0.032,
+  "冷色占比": 0.813,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.255,
+  "上半亮度": 0.418,
+  "下半亮度": 0.31,
+  "识别标签": [
+   "art",
+   "statue",
+   "celebration",
+   "costume",
+   "mask"
+  ]
+ },
+ "image3": {
+  "宽": 2872,
+  "高": 1202,
+  "画幅": 2.389,
+  "平均亮度": 0.418,
+  "动态范围档": 3.459,
+  "饱和度": 0.377,
+  "暖色占比": 0.968,
+  "冷色占比": 0,
+  "主色相": "黄",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.27,
+  "上半亮度": 0.472,
+  "下半亮度": 0.365,
+  "识别标签": [
+   "outdoor",
+   "grass",
+   "land",
+   "plant",
+   "foliage"
+  ]
+ },
+ "image4": {
+  "宽": 2878,
+  "高": 1206,
+  "画幅": 2.386,
+  "平均亮度": 0.459,
+  "动态范围档": 2.228,
+  "饱和度": 0.408,
+  "暖色占比": 0.874,
+  "冷色占比": 0.011,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.03,
+  "上半亮度": 0.492,
+  "下半亮度": 0.425,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "boat",
+   "machine"
+  ]
+ },
+ "image5": {
+  "宽": 2878,
+  "高": 1626,
+  "画幅": 1.77,
+  "平均亮度": 0.218,
+  "动态范围档": 2.426,
+  "饱和度": 0.442,
+  "暖色占比": 0,
+  "冷色占比": 0.978,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.075,
+  "上半亮度": 0.252,
+  "下半亮度": 0.185,
+  "识别标签": [
+   "art"
+  ]
+ },
+ "image6": {
+  "宽": 2874,
+  "高": 1636,
+  "画幅": 1.757,
+  "平均亮度": 0.403,
+  "动态范围档": 2.637,
+  "饱和度": 0.487,
+  "暖色占比": 0.968,
+  "冷色占比": 0.001,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.126,
+  "上半亮度": 0.395,
+  "下半亮度": 0.41,
+  "识别标签": [
+   "art"
+  ]
+ },
+ "image7": {
+  "宽": 2878,
+  "高": 1230,
+  "画幅": 2.34,
+  "平均亮度": 0.351,
+  "动态范围档": 2.606,
+  "饱和度": 0.718,
+  "暖色占比": 0.983,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0.021,
+  "人物中心x": 0.07,
+  "最大人脸占比": 0,
+  "细节密度": 0.179,
+  "上半亮度": 0.382,
+  "下半亮度": 0.319,
+  "识别标签": [
+   "people",
+   "adult",
+   "crowd",
+   "structure",
+   "conveyance"
+  ]
+ },
+ "image8": {
+  "宽": 2846,
+  "高": 1192,
+  "画幅": 2.388,
+  "平均亮度": 0.157,
+  "动态范围档": 4.686,
+  "饱和度": 0.686,
+  "暖色占比": 0,
+  "冷色占比": 0.967,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.016,
+  "上半亮度": 0.185,
+  "下半亮度": 0.129,
+  "识别标签": [
+   "liquid",
+   "water",
+   "underwater",
+   "people",
+   "adult"
+  ]
+ },
+ "image9": {
+  "宽": 2878,
+  "高": 1614,
+  "画幅": 1.783,
+  "平均亮度": 0.586,
+  "动态范围档": 1.18,
+  "饱和度": 0.103,
+  "暖色占比": 0.02,
+  "冷色占比": 0.174,
+  "主色相": "蓝",
+  "人物框占比": 0.064,
+  "人物中心x": 0.49,
+  "最大人脸占比": 0,
+  "细节密度": 0.044,
+  "上半亮度": 0.639,
+  "下半亮度": 0.532,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "people",
+   "adult"
+  ]
+ },
+ "image10": {
+  "宽": 2840,
+  "高": 1622,
+  "画幅": 1.751,
+  "平均亮度": 0.339,
+  "动态范围档": 2.859,
+  "饱和度": 0.329,
+  "暖色占比": 0.034,
+  "冷色占比": 0.837,
+  "主色相": "蓝",
+  "人物框占比": 0.211,
+  "人物中心x": 0.75,
+  "最大人脸占比": 0.01,
+  "细节密度": 0.159,
+  "上半亮度": 0.347,
+  "下半亮度": 0.332,
+  "识别标签": [
+   "people",
+   "adult",
+   "celebration",
+   "costume",
+   "art"
+  ]
+ },
+ "image11": {
+  "宽": 2878,
+  "高": 1202,
+  "画幅": 2.394,
+  "平均亮度": 0.485,
+  "动态范围档": 2.779,
+  "饱和度": 0.4,
+  "暖色占比": 0.702,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.036,
+  "上半亮度": 0.675,
+  "下半亮度": 0.294,
+  "识别标签": [
+   "outdoor",
+   "land",
+   "hill",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image12": {
+  "宽": 2870,
+  "高": 1196,
+  "画幅": 2.4,
+  "平均亮度": 0.322,
+  "动态范围档": 2.789,
+  "饱和度": 0.45,
+  "暖色占比": 0.923,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.171,
+  "上半亮度": 0.413,
+  "下半亮度": 0.231,
+  "识别标签": [
+   "people",
+   "adult",
+   "outdoor",
+   "sky",
+   "sunset_sunrise"
+  ]
+ },
+ "image13": {
+  "宽": 2878,
+  "高": 1616,
+  "画幅": 1.781,
+  "平均亮度": 0.608,
+  "动态范围档": 1.238,
+  "饱和度": 0.13,
+  "暖色占比": 0.078,
+  "冷色占比": 0.263,
+  "主色相": "青",
+  "人物框占比": 0.404,
+  "人物中心x": 0.62,
+  "最大人脸占比": 0.013,
+  "细节密度": 0.085,
+  "上半亮度": 0.624,
+  "下半亮度": 0.593,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "people",
+   "adult"
+  ]
+ },
+ "image14": {
+  "宽": 2880,
+  "高": 1636,
+  "画幅": 1.76,
+  "平均亮度": 0.541,
+  "动态范围档": 1.308,
+  "饱和度": 0.316,
+  "暖色占比": 0.949,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.003,
+  "细节密度": 0.054,
+  "上半亮度": 0.536,
+  "下半亮度": 0.546,
+  "识别标签": [
+   "adult",
+   "people",
+   "outdoor",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image15": {
+  "宽": 2878,
+  "高": 1204,
+  "画幅": 2.39,
+  "平均亮度": 0.434,
+  "动态范围档": 2.936,
+  "饱和度": 0.565,
+  "暖色占比": 0.653,
+  "冷色占比": 0.017,
+  "主色相": "黄",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.323,
+  "上半亮度": 0.422,
+  "下半亮度": 0.445,
+  "识别标签": [
+   "outdoor",
+   "grass",
+   "land",
+   "animal",
+   "mammal"
+  ]
+ },
+ "image16": {
+  "宽": 2878,
+  "高": 1222,
+  "画幅": 2.355,
+  "平均亮度": 0.125,
+  "动态范围档": 6.773,
+  "饱和度": 0.595,
+  "暖色占比": 0.138,
+  "冷色占比": 0.473,
+  "主色相": "蓝",
+  "人物框占比": 0.026,
+  "人物中心x": 0.35,
+  "最大人脸占比": 0,
+  "细节密度": 0.067,
+  "上半亮度": 0.076,
+  "下半亮度": 0.175,
+  "识别标签": [
+   "people",
+   "adult",
+   "liquid",
+   "water",
+   "underwater"
+  ]
+ },
+ "image17": {
+  "宽": 2878,
+  "高": 1536,
+  "画幅": 1.874,
+  "平均亮度": 0.211,
+  "动态范围档": 7.401,
+  "饱和度": 0.175,
+  "暖色占比": 0.44,
+  "冷色占比": 0.003,
+  "主色相": "黄",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.12,
+  "上半亮度": 0.251,
+  "下半亮度": 0.171,
+  "识别标签": [
+   "outdoor",
+   "land",
+   "hill",
+   "structure",
+   "fence"
+  ]
+ },
+ "image18": {
+  "宽": 2878,
+  "高": 1196,
+  "画幅": 2.406,
+  "平均亮度": 0.452,
+  "动态范围档": 1.841,
+  "饱和度": 0.155,
+  "暖色占比": 0.198,
+  "冷色占比": 0.243,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.075,
+  "上半亮度": 0.515,
+  "下半亮度": 0.39,
+  "识别标签": [
+   "outdoor",
+   "land",
+   "hill",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image19": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.575,
+  "动态范围档": 1.656,
+  "饱和度": 0.171,
+  "暖色占比": 0.037,
+  "冷色占比": 0.416,
+  "主色相": "青",
+  "人物框占比": 0.252,
+  "人物中心x": 0.49,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.121,
+  "上半亮度": 0.571,
+  "下半亮度": 0.579,
+  "识别标签": [
+   "adult",
+   "people",
+   "clothing",
+   "gown",
+   "art"
+  ]
+ },
+ "image20": {
+  "宽": 2878,
+  "高": 1420,
+  "画幅": 2.027,
+  "平均亮度": 0.088,
+  "动态范围档": 4.964,
+  "饱和度": 0.925,
+  "暖色占比": 0.819,
+  "冷色占比": 0,
+  "主色相": "红",
+  "人物框占比": 0.177,
+  "人物中心x": 0.66,
+  "最大人脸占比": 0.008,
+  "细节密度": 0.027,
+  "上半亮度": 0.101,
+  "下半亮度": 0.075,
+  "识别标签": [
+   "people",
+   "adult",
+   "structure",
+   "furniture",
+   "cabinet"
+  ]
+ },
+ "image21": {
+  "宽": 2876,
+  "高": 1412,
+  "画幅": 2.037,
+  "平均亮度": 0.113,
+  "动态范围档": 5.867,
+  "饱和度": 0.859,
+  "暖色占比": 0.578,
+  "冷色占比": 0.001,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.091,
+  "细节密度": 0.02,
+  "上半亮度": 0.145,
+  "下半亮度": 0.081,
+  "识别标签": [
+   "people",
+   "adult",
+   "art",
+   "decoration",
+   "frame"
+  ]
+ },
+ "image22": {
+  "宽": 2878,
+  "高": 1212,
+  "画幅": 2.375,
+  "平均亮度": 0.449,
+  "动态范围档": 1.363,
+  "饱和度": 0.988,
+  "暖色占比": 0.992,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0.018,
+  "人物中心x": 0.5,
+  "最大人脸占比": 0,
+  "细节密度": 0.014,
+  "上半亮度": 0.553,
+  "下半亮度": 0.345,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "sunset_sunrise",
+   "people",
+   "adult"
+  ]
+ },
+ "image23": {
+  "宽": 2878,
+  "高": 1234,
+  "画幅": 2.332,
+  "平均亮度": 0.203,
+  "动态范围档": 3.501,
+  "饱和度": 0.948,
+  "暖色占比": 0,
+  "冷色占比": 0.948,
+  "主色相": "蓝",
+  "人物框占比": 0.137,
+  "人物中心x": 0.51,
+  "最大人脸占比": 0,
+  "细节密度": 0.022,
+  "上半亮度": 0.213,
+  "下半亮度": 0.193,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "blue_sky",
+   "liquid",
+   "ocean"
+  ]
+ },
+ "image24": {
+  "宽": 2872,
+  "高": 1114,
+  "画幅": 2.578,
+  "平均亮度": 0.126,
+  "动态范围档": 5.309,
+  "饱和度": 0.654,
+  "暖色占比": 0.154,
+  "冷色占比": 0.568,
+  "主色相": "蓝",
+  "人物框占比": 0.556,
+  "人物中心x": 0.28,
+  "最大人脸占比": 0.058,
+  "细节密度": 0.027,
+  "上半亮度": 0.124,
+  "下半亮度": 0.128,
+  "识别标签": [
+   "people",
+   "adult",
+   "candle",
+   "light",
+   "material"
+  ]
+ },
+ "image25": {
+  "宽": 2872,
+  "高": 1304,
+  "画幅": 2.202,
+  "平均亮度": 0.408,
+  "动态范围档": 2.389,
+  "饱和度": 0.173,
+  "暖色占比": 0.211,
+  "冷色占比": 0.36,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.012,
+  "上半亮度": 0.53,
+  "下半亮度": 0.287,
+  "识别标签": [
+   "material",
+   "document",
+   "screenshot"
+  ]
+ },
+ "image26": {
+  "宽": 2512,
+  "高": 1082,
+  "画幅": 2.322,
+  "平均亮度": 0.301,
+  "动态范围档": 2.924,
+  "饱和度": 0.467,
+  "暖色占比": 0.826,
+  "冷色占比": 0.033,
+  "主色相": "橙",
+  "人物框占比": 0.189,
+  "人物中心x": 0.26,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.176,
+  "上半亮度": 0.282,
+  "下半亮度": 0.32,
+  "识别标签": [
+   "people",
+   "adult",
+   "interior_room",
+   "restaurant",
+   "structure"
+  ]
+ },
+ "image27": {
+  "宽": 2506,
+  "高": 1066,
+  "画幅": 2.351,
+  "平均亮度": 0.433,
+  "动态范围档": 3.392,
+  "饱和度": 0.24,
+  "暖色占比": 0.669,
+  "冷色占比": 0.033,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.378,
+  "上半亮度": 0.394,
+  "下半亮度": 0.472,
+  "识别标签": [
+   "outdoor",
+   "land",
+   "road",
+   "street",
+   "structure"
+  ]
+ },
+ "image28": {
+  "宽": 2510,
+  "高": 1110,
+  "画幅": 2.261,
+  "平均亮度": 0.237,
+  "动态范围档": 2.993,
+  "饱和度": 0.176,
+  "暖色占比": 0.222,
+  "冷色占比": 0.175,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.147,
+  "上半亮度": 0.254,
+  "下半亮度": 0.22,
+  "识别标签": [
+   "material",
+   "brick",
+   "structure",
+   "fence",
+   "conveyance"
+  ]
+ },
+ "image29": {
+  "宽": 2514,
+  "高": 1046,
+  "画幅": 2.403,
+  "平均亮度": 0.47,
+  "动态范围档": 3.114,
+  "饱和度": 0.358,
+  "暖色占比": 0.653,
+  "冷色占比": 0.122,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.132,
+  "上半亮度": 0.55,
+  "下半亮度": 0.39,
+  "识别标签": [
+   "structure",
+   "outdoor",
+   "building",
+   "cityscape",
+   "skyscraper"
+  ]
+ },
+ "image30": {
+  "宽": 2380,
+  "高": 1194,
+  "画幅": 1.993,
+  "平均亮度": 0.506,
+  "动态范围档": 1.107,
+  "饱和度": 0.492,
+  "暖色占比": 0.048,
+  "冷色占比": 0.104,
+  "主色相": "绿",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.043,
+  "上半亮度": 0.602,
+  "下半亮度": 0.409,
+  "识别标签": [
+   "outdoor",
+   "land",
+   "grass",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image31": {
+  "宽": 2502,
+  "高": 1098,
+  "画幅": 2.279,
+  "平均亮度": 0.091,
+  "动态范围档": 6.345,
+  "饱和度": 0.301,
+  "暖色占比": 0.157,
+  "冷色占比": 0.002,
+  "主色相": "绿",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.07,
+  "上半亮度": 0.067,
+  "下半亮度": 0.114,
+  "识别标签": [
+   "outdoor",
+   "night_sky",
+   "sky"
+  ]
+ },
+ "image32": {
+  "宽": 2508,
+  "高": 1100,
+  "画幅": 2.28,
+  "平均亮度": 0.142,
+  "动态范围档": 7.498,
+  "饱和度": 0.523,
+  "暖色占比": 0.014,
+  "冷色占比": 0.194,
+  "主色相": "蓝",
+  "人物框占比": 0.065,
+  "人物中心x": 0.57,
+  "最大人脸占比": 0,
+  "细节密度": 0.054,
+  "上半亮度": 0.157,
+  "下半亮度": 0.126,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image33": {
+  "宽": 2508,
+  "高": 1080,
+  "画幅": 2.322,
+  "平均亮度": 0.156,
+  "动态范围档": 4.267,
+  "饱和度": 0.409,
+  "暖色占比": 0.539,
+  "冷色占比": 0.004,
+  "主色相": "橙",
+  "人物框占比": 0.118,
+  "人物中心x": 0.48,
+  "最大人脸占比": 0,
+  "细节密度": 0.062,
+  "上半亮度": 0.229,
+  "下半亮度": 0.084,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image34": {
+  "宽": 2504,
+  "高": 1084,
+  "画幅": 2.31,
+  "平均亮度": 0.093,
+  "动态范围档": 5.176,
+  "饱和度": 0.14,
+  "暖色占比": 0.062,
+  "冷色占比": 0.057,
+  "主色相": "绿",
+  "人物框占比": 0.091,
+  "人物中心x": 0.48,
+  "最大人脸占比": 0.005,
+  "细节密度": 0.084,
+  "上半亮度": 0.084,
+  "下半亮度": 0.102,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "necktie"
+  ]
+ },
+ "image35": {
+  "宽": 2878,
+  "高": 1400,
+  "画幅": 2.056,
+  "平均亮度": 0.173,
+  "动态范围档": 3.297,
+  "饱和度": 0.457,
+  "暖色占比": 0.795,
+  "冷色占比": 0.005,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.032,
+  "上半亮度": 0.167,
+  "下半亮度": 0.179,
+  "识别标签": [
+   "people",
+   "adult",
+   "outdoor",
+   "sky",
+   "night_sky"
+  ]
+ },
+ "image36": {
+  "宽": 2876,
+  "高": 1398,
+  "画幅": 2.057,
+  "平均亮度": 0.262,
+  "动态范围档": 4.976,
+  "饱和度": 0.728,
+  "暖色占比": 0.937,
+  "冷色占比": 0.004,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.213,
+  "上半亮度": 0.197,
+  "下半亮度": 0.326,
+  "识别标签": [
+   "dial",
+   "machine",
+   "timepiece",
+   "watch",
+   "clock"
+  ]
+ },
+ "image37": {
+  "宽": 2876,
+  "高": 1216,
+  "画幅": 2.365,
+  "平均亮度": 0.17,
+  "动态范围档": 5.128,
+  "饱和度": 0.611,
+  "暖色占比": 0.83,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.01,
+  "细节密度": 0.043,
+  "上半亮度": 0.182,
+  "下半亮度": 0.158,
+  "识别标签": [
+   "adult",
+   "people",
+   "tableware",
+   "utensil",
+   "drinking_glass"
+  ]
+ },
+ "image38": {
+  "宽": 2826,
+  "高": 1120,
+  "画幅": 2.523,
+  "平均亮度": 0.325,
+  "动态范围档": 7.531,
+  "饱和度": 0.517,
+  "暖色占比": 0.86,
+  "冷色占比": 0.001,
+  "主色相": "橙",
+  "人物框占比": 0.437,
+  "人物中心x": 0.53,
+  "最大人脸占比": 0.036,
+  "细节密度": 0.059,
+  "上半亮度": 0.36,
+  "下半亮度": 0.291,
+  "识别标签": [
+   "people",
+   "adult",
+   "art",
+   "illustrations"
+  ]
+ },
+ "image39": {
+  "宽": 2752,
+  "高": 1404,
+  "画幅": 1.96,
+  "平均亮度": 0.162,
+  "动态范围档": 4.355,
+  "饱和度": 0.634,
+  "暖色占比": 0.46,
+  "冷色占比": 0.015,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.328,
+  "细节密度": 0.038,
+  "上半亮度": 0.145,
+  "下半亮度": 0.178,
+  "识别标签": [
+   "people",
+   "adult",
+   "art",
+   "decoration",
+   "jewelry"
+  ]
+ },
+ "image40": {
+  "宽": 2824,
+  "高": 1410,
+  "画幅": 2.003,
+  "平均亮度": 0.09,
+  "动态范围档": 6.432,
+  "饱和度": 0.731,
+  "暖色占比": 0.323,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0.415,
+  "人物中心x": 0.47,
+  "最大人脸占比": 0.029,
+  "细节密度": 0.086,
+  "上半亮度": 0.098,
+  "下半亮度": 0.082,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "necktie"
+  ]
+ },
+ "image41": {
+  "宽": 2866,
+  "高": 976,
+  "画幅": 2.936,
+  "平均亮度": 0.226,
+  "动态范围档": 3.569,
+  "饱和度": 0.122,
+  "暖色占比": 0.023,
+  "冷色占比": 0.234,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.123,
+  "上半亮度": 0.303,
+  "下半亮度": 0.149,
+  "识别标签": [
+   "people",
+   "adult",
+   "plant",
+   "branch",
+   "structure"
+  ]
+ },
+ "image42": {
+  "宽": 2878,
+  "高": 1248,
+  "画幅": 2.306,
+  "平均亮度": 0.368,
+  "动态范围档": 4.832,
+  "饱和度": 0.265,
+  "暖色占比": 0.313,
+  "冷色占比": 0.095,
+  "主色相": "黄",
+  "人物框占比": 0.411,
+  "人物中心x": 0.24,
+  "最大人脸占比": 0,
+  "细节密度": 0.078,
+  "上半亮度": 0.427,
+  "下半亮度": 0.309,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "blue_sky",
+   "material",
+   "textile"
+  ]
+ },
+ "image43": {
+  "宽": 2862,
+  "高": 1468,
+  "画幅": 1.95,
+  "平均亮度": 0.088,
+  "动态范围档": 4.19,
+  "饱和度": 0.632,
+  "暖色占比": 0.127,
+  "冷色占比": 0.035,
+  "主色相": "绿",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.089,
+  "上半亮度": 0.078,
+  "下半亮度": 0.098,
+  "识别标签": []
+ },
+ "image44": {
+  "宽": 960,
+  "高": 455,
+  "画幅": 2.11,
+  "平均亮度": 0.263,
+  "动态范围档": 7.755,
+  "饱和度": 0.147,
+  "暖色占比": 0.019,
+  "冷色占比": 0.005,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.302,
+  "上半亮度": 0.27,
+  "下半亮度": 0.256,
+  "识别标签": [
+   "people",
+   "adult",
+   "material"
+  ]
+ },
+ "image45": {
+  "宽": 2878,
+  "高": 1236,
+  "画幅": 2.328,
+  "平均亮度": 0.25,
+  "动态范围档": 4.206,
+  "饱和度": 0.267,
+  "暖色占比": 0.174,
+  "冷色占比": 0.191,
+  "主色相": "绿",
+  "人物框占比": 0.312,
+  "人物中心x": 0.26,
+  "最大人脸占比": 0.038,
+  "细节密度": 0.142,
+  "上半亮度": 0.342,
+  "下半亮度": 0.159,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "plant"
+  ]
+ },
+ "image46": {
+  "宽": 2864,
+  "高": 1188,
+  "画幅": 2.411,
+  "平均亮度": 0.574,
+  "动态范围档": 2.171,
+  "饱和度": 0.563,
+  "暖色占比": 0.989,
+  "冷色占比": 0.003,
+  "主色相": "橙",
+  "人物框占比": 0.426,
+  "人物中心x": 0.75,
+  "最大人脸占比": 0.042,
+  "细节密度": 0.054,
+  "上半亮度": 0.704,
+  "下半亮度": 0.443,
+  "识别标签": [
+   "clothing",
+   "suit",
+   "people",
+   "adult",
+   "eyeglasses"
+  ]
+ },
+ "image47": {
+  "宽": 2880,
+  "高": 1636,
+  "画幅": 1.76,
+  "平均亮度": 0.565,
+  "动态范围档": 1.769,
+  "饱和度": 0.179,
+  "暖色占比": 0.039,
+  "冷色占比": 0.43,
+  "主色相": "青",
+  "人物框占比": 0.252,
+  "人物中心x": 0.5,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.132,
+  "上半亮度": 0.562,
+  "下半亮度": 0.567,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "gown",
+   "art"
+  ]
+ },
+ "image48": {
+  "宽": 2880,
+  "高": 1636,
+  "画幅": 1.76,
+  "平均亮度": 0.466,
+  "动态范围档": 2.405,
+  "饱和度": 0.133,
+  "暖色占比": 0.031,
+  "冷色占比": 0.313,
+  "主色相": "青",
+  "人物框占比": 0.204,
+  "人物中心x": 0.5,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.098,
+  "上半亮度": 0.465,
+  "下半亮度": 0.466,
+  "识别标签": [
+   "adult",
+   "people",
+   "document",
+   "screenshot",
+   "art"
+  ]
+ },
+ "image49": {
+  "宽": 2880,
+  "高": 1636,
+  "画幅": 1.76,
+  "平均亮度": 0.671,
+  "动态范围档": 1.565,
+  "饱和度": 0.203,
+  "暖色占比": 0.044,
+  "冷色占比": 0.461,
+  "主色相": "青",
+  "人物框占比": 0.248,
+  "人物中心x": 0.49,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.165,
+  "上半亮度": 0.661,
+  "下半亮度": 0.681,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "gown",
+   "art"
+  ]
+ },
+ "image50": {
+  "宽": 960,
+  "高": 545,
+  "画幅": 1.761,
+  "平均亮度": 0.562,
+  "动态范围档": 1.774,
+  "饱和度": 0.179,
+  "暖色占比": 0.039,
+  "冷色占比": 0.431,
+  "主色相": "青",
+  "人物框占比": 0.251,
+  "人物中心x": 0.49,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.128,
+  "上半亮度": 0.558,
+  "下半亮度": 0.567,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "gown",
+   "art"
+  ]
+ },
+ "image51": {
+  "宽": 960,
+  "高": 544,
+  "画幅": 1.765,
+  "平均亮度": 0.573,
+  "动态范围档": 1.66,
+  "饱和度": 0.171,
+  "暖色占比": 0.037,
+  "冷色占比": 0.417,
+  "主色相": "青",
+  "人物框占比": 0.251,
+  "人物中心x": 0.49,
+  "最大人脸占比": 0.006,
+  "细节密度": 0.119,
+  "上半亮度": 0.569,
+  "下半亮度": 0.577,
+  "识别标签": [
+   "adult",
+   "people",
+   "clothing",
+   "gown",
+   "art"
+  ]
+ },
+ "image52": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.323,
+  "动态范围档": 1.471,
+  "饱和度": 0.493,
+  "暖色占比": 0,
+  "冷色占比": 1,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.007,
+  "上半亮度": 0.317,
+  "下半亮度": 0.329,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "people",
+   "adult",
+   "cloudy"
+  ]
+ },
+ "image53": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.617,
+  "动态范围档": 1.576,
+  "饱和度": 0.31,
+  "暖色占比": 0.001,
+  "冷色占比": 0.695,
+  "主色相": "蓝",
+  "人物框占比": 0.265,
+  "人物中心x": 0.55,
+  "最大人脸占比": 0.004,
+  "细节密度": 0.066,
+  "上半亮度": 0.687,
+  "下半亮度": 0.547,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "daytime",
+   "sun"
+  ]
+ },
+ "image54": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.534,
+  "动态范围档": 2.448,
+  "饱和度": 0.383,
+  "暖色占比": 0.002,
+  "冷色占比": 0.833,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.228,
+  "上半亮度": 0.574,
+  "下半亮度": 0.493,
+  "识别标签": []
+ },
+ "image55": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.322,
+  "动态范围档": 1.813,
+  "饱和度": 0.592,
+  "暖色占比": 0,
+  "冷色占比": 1,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.001,
+  "上半亮度": 0.273,
+  "下半亮度": 0.371,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "liquid",
+   "water"
+  ]
+ },
+ "image56": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.322,
+  "动态范围档": 3.966,
+  "饱和度": 0.32,
+  "暖色占比": 0.094,
+  "冷色占比": 0.622,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.004,
+  "细节密度": 0.2,
+  "上半亮度": 0.341,
+  "下半亮度": 0.303,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image57": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.433,
+  "动态范围档": 3.399,
+  "饱和度": 0.31,
+  "暖色占比": 0.038,
+  "冷色占比": 0.538,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.12,
+  "上半亮度": 0.444,
+  "下半亮度": 0.422,
+  "识别标签": [
+   "celebration",
+   "mask",
+   "people",
+   "adult",
+   "costume"
+  ]
+ },
+ "image58": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.465,
+  "动态范围档": 1.817,
+  "饱和度": 0.263,
+  "暖色占比": 0.788,
+  "冷色占比": 0.001,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.084,
+  "上半亮度": 0.479,
+  "下半亮度": 0.451,
+  "识别标签": [
+   "people",
+   "adult",
+   "outdoor",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image59": {
+  "宽": 1546,
+  "高": 874,
+  "画幅": 1.769,
+  "平均亮度": 0.335,
+  "动态范围档": 5.243,
+  "饱和度": 0.446,
+  "暖色占比": 0.002,
+  "冷色占比": 0.782,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.17,
+  "上半亮度": 0.369,
+  "下半亮度": 0.3,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "liquid",
+   "water"
+  ]
+ },
+ "image60": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.497,
+  "动态范围档": 1.58,
+  "饱和度": 0.313,
+  "暖色占比": 0.748,
+  "冷色占比": 0.018,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.061,
+  "上半亮度": 0.507,
+  "下半亮度": 0.488,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "fire",
+   "pyrotechnics"
+  ]
+ },
+ "image61": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.386,
+  "动态范围档": 4.787,
+  "饱和度": 0.545,
+  "暖色占比": 0.005,
+  "冷色占比": 0.784,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.078,
+  "细节密度": 0.215,
+  "上半亮度": 0.292,
+  "下半亮度": 0.481,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image62": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.511,
+  "动态范围档": 1.888,
+  "饱和度": 0.127,
+  "暖色占比": 0.344,
+  "冷色占比": 0.006,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.002,
+  "细节密度": 0.112,
+  "上半亮度": 0.507,
+  "下半亮度": 0.515,
+  "识别标签": [
+   "adult",
+   "people",
+   "art",
+   "statue"
+  ]
+ },
+ "image63": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.564,
+  "动态范围档": 1.741,
+  "饱和度": 0.112,
+  "暖色占比": 0.019,
+  "冷色占比": 0.232,
+  "主色相": "青",
+  "人物框占比": 0.456,
+  "人物中心x": 0.54,
+  "最大人脸占比": 0.008,
+  "细节密度": 0.158,
+  "上半亮度": 0.57,
+  "下半亮度": 0.557,
+  "识别标签": [
+   "people",
+   "adult",
+   "celebration",
+   "costume",
+   "clothing"
+  ]
+ },
+ "image64": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.531,
+  "动态范围档": 1.922,
+  "饱和度": 0.176,
+  "暖色占比": 0.083,
+  "冷色占比": 0.455,
+  "主色相": "青",
+  "人物框占比": 0.874,
+  "人物中心x": 0.51,
+  "最大人脸占比": 0.034,
+  "细节密度": 0.162,
+  "上半亮度": 0.505,
+  "下半亮度": 0.557,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image65": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.308,
+  "动态范围档": 4.227,
+  "饱和度": 0.452,
+  "暖色占比": 0.146,
+  "冷色占比": 0.593,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.241,
+  "上半亮度": 0.304,
+  "下半亮度": 0.313,
+  "识别标签": [
+   "people",
+   "adult",
+   "art",
+   "painting"
+  ]
+ },
+ "image66": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.33,
+  "动态范围档": 4.609,
+  "饱和度": 0.536,
+  "暖色占比": 0.063,
+  "冷色占比": 0.535,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.053,
+  "细节密度": 0.329,
+  "上半亮度": 0.344,
+  "下半亮度": 0.317,
+  "识别标签": [
+   "people",
+   "adult",
+   "outdoor",
+   "sky",
+   "storm"
+  ]
+ },
+ "image67": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.158,
+  "动态范围档": 3.713,
+  "饱和度": 0.587,
+  "暖色占比": 0,
+  "冷色占比": 0.749,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.163,
+  "上半亮度": 0.161,
+  "下半亮度": 0.155,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "night_sky"
+  ]
+ },
+ "image68": {
+  "宽": 2878,
+  "高": 1622,
+  "画幅": 1.774,
+  "平均亮度": 0.65,
+  "动态范围档": 1.131,
+  "饱和度": 0.073,
+  "暖色占比": 0.08,
+  "冷色占比": 0.036,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.092,
+  "上半亮度": 0.696,
+  "下半亮度": 0.604,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image69": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.467,
+  "动态范围档": 2.706,
+  "饱和度": 0.404,
+  "暖色占比": 0.006,
+  "冷色占比": 0.828,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.121,
+  "上半亮度": 0.459,
+  "下半亮度": 0.475,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "cloudy",
+   "land",
+   "grass"
+  ]
+ },
+ "image70": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.398,
+  "动态范围档": 3.11,
+  "饱和度": 0.301,
+  "暖色占比": 0.031,
+  "冷色占比": 0.68,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.159,
+  "上半亮度": 0.4,
+  "下半亮度": 0.396,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "people",
+   "adult",
+   "night_sky"
+  ]
+ },
+ "image71": {
+  "宽": 960,
+  "高": 544,
+  "画幅": 1.765,
+  "平均亮度": 0.529,
+  "动态范围档": 1.926,
+  "饱和度": 0.177,
+  "暖色占比": 0.083,
+  "冷色占比": 0.457,
+  "主色相": "青",
+  "人物框占比": 0.88,
+  "人物中心x": 0.5,
+  "最大人脸占比": 0.034,
+  "细节密度": 0.159,
+  "上半亮度": 0.503,
+  "下半亮度": 0.555,
+  "识别标签": [
+   "people",
+   "adult"
+  ]
+ },
+ "image72": {
+  "宽": 960,
+  "高": 540,
+  "画幅": 1.778,
+  "平均亮度": 0.156,
+  "动态范围档": 3.7,
+  "饱和度": 0.596,
+  "暖色占比": 0,
+  "冷色占比": 0.743,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.154,
+  "上半亮度": 0.159,
+  "下半亮度": 0.153,
+  "识别标签": [
+   "outdoor",
+   "sky",
+   "night_sky"
+  ]
+ },
+ "image73": {
+  "宽": 2880,
+  "高": 1632,
+  "画幅": 1.765,
+  "平均亮度": 0.413,
+  "动态范围档": 2.11,
+  "饱和度": 0.161,
+  "暖色占比": 0.372,
+  "冷色占比": 0.038,
+  "主色相": "橙",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.126,
+  "上半亮度": 0.434,
+  "下半亮度": 0.392,
+  "识别标签": [
+   "structure",
+   "rocks",
+   "outdoor",
+   "sky",
+   "cloudy"
+  ]
+ },
+ "image74": {
+  "宽": 2560,
+  "高": 1440,
+  "画幅": 1.778,
+  "平均亮度": 0.187,
+  "动态范围档": 4.652,
+  "饱和度": 0.397,
+  "暖色占比": 0.007,
+  "冷色占比": 0.487,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.129,
+  "上半亮度": 0.226,
+  "下半亮度": 0.148,
+  "识别标签": [
+   "structure",
+   "wood_natural"
+  ]
+ },
+ "image75": {
+  "宽": 2862,
+  "高": 1264,
+  "画幅": 2.264,
+  "平均亮度": 0.23,
+  "动态范围档": 3.067,
+  "饱和度": 0.162,
+  "暖色占比": 0.198,
+  "冷色占比": 0.179,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.131,
+  "上半亮度": 0.249,
+  "下半亮度": 0.212,
+  "识别标签": [
+   "material",
+   "brick",
+   "adult",
+   "people",
+   "structure"
+  ]
+ },
+ "image76": {
+  "宽": 2878,
+  "高": 1266,
+  "画幅": 2.273,
+  "平均亮度": 0.087,
+  "动态范围档": 6.178,
+  "饱和度": 0.288,
+  "暖色占比": 0.145,
+  "冷色占比": 0.002,
+  "主色相": "绿",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.05,
+  "上半亮度": 0.064,
+  "下半亮度": 0.11,
+  "识别标签": [
+   "material",
+   "raw_glass"
+  ]
+ },
+ "image77": {
+  "宽": 2878,
+  "高": 1200,
+  "画幅": 2.398,
+  "平均亮度": 0.282,
+  "动态范围档": 3.304,
+  "饱和度": 0.806,
+  "暖色占比": 0.95,
+  "冷色占比": 0.007,
+  "主色相": "橙",
+  "人物框占比": 0.133,
+  "人物中心x": 0.45,
+  "最大人脸占比": 0,
+  "细节密度": 0.208,
+  "上半亮度": 0.323,
+  "下半亮度": 0.242,
+  "识别标签": [
+   "structure",
+   "conveyance",
+   "door",
+   "portal",
+   "people"
+  ]
+ },
+ "image78": {
+  "宽": 2864,
+  "高": 1090,
+  "画幅": 2.628,
+  "平均亮度": 0.352,
+  "动态范围档": 5.336,
+  "饱和度": 0.43,
+  "暖色占比": 0,
+  "冷色占比": 0.916,
+  "主色相": "蓝",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0.114,
+  "细节密度": 0.047,
+  "上半亮度": 0.432,
+  "下半亮度": 0.271,
+  "识别标签": [
+   "liquid",
+   "water",
+   "underwater",
+   "frozen",
+   "snow"
+  ]
+ },
+ "image79": {
+  "宽": 2764,
+  "高": 1232,
+  "画幅": 2.244,
+  "平均亮度": 0.085,
+  "动态范围档": 3.452,
+  "饱和度": 0.551,
+  "暖色占比": 0.211,
+  "冷色占比": 0,
+  "主色相": "橙",
+  "人物框占比": 0.339,
+  "人物中心x": 0.66,
+  "最大人脸占比": 0.012,
+  "细节密度": 0.057,
+  "上半亮度": 0.101,
+  "下半亮度": 0.07,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "necktie"
+  ]
+ },
+ "image80": {
+  "宽": 2782,
+  "高": 1244,
+  "画幅": 2.236,
+  "平均亮度": 0.109,
+  "动态范围档": 3.839,
+  "饱和度": 0.485,
+  "暖色占比": 0.349,
+  "冷色占比": 0.007,
+  "主色相": "橙",
+  "人物框占比": 0.772,
+  "人物中心x": 0.42,
+  "最大人脸占比": 0.06,
+  "细节密度": 0.046,
+  "上半亮度": 0.109,
+  "下半亮度": 0.108,
+  "识别标签": [
+   "adult",
+   "people",
+   "clothing",
+   "suit",
+   "necktie"
+  ]
+ },
+ "image81": {
+  "宽": 2804,
+  "高": 1228,
+  "画幅": 2.283,
+  "平均亮度": 0.343,
+  "动态范围档": 3.326,
+  "饱和度": 0.107,
+  "暖色占比": 0.153,
+  "冷色占比": 0.085,
+  "主色相": "橙",
+  "人物框占比": 0.168,
+  "人物中心x": 0.91,
+  "最大人脸占比": 0.013,
+  "细节密度": 0.167,
+  "上半亮度": 0.454,
+  "下半亮度": 0.232,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "structure"
+  ]
+ },
+ "image82": {
+  "宽": 2846,
+  "高": 1222,
+  "画幅": 2.329,
+  "平均亮度": 0.365,
+  "动态范围档": 3.335,
+  "饱和度": 0.093,
+  "暖色占比": 0.133,
+  "冷色占比": 0.047,
+  "主色相": "黄",
+  "人物框占比": 0.07,
+  "人物中心x": 0.27,
+  "最大人脸占比": 0.008,
+  "细节密度": 0.221,
+  "上半亮度": 0.481,
+  "下半亮度": 0.249,
+  "识别标签": [
+   "people",
+   "adult",
+   "clothing",
+   "suit",
+   "structure"
+  ]
+ },
+ "image83": {
+  "宽": 2848,
+  "高": 1162,
+  "画幅": 2.451,
+  "平均亮度": 0.284,
+  "动态范围档": 3.992,
+  "饱和度": 0.604,
+  "暖色占比": 0.002,
+  "冷色占比": 0.749,
+  "主色相": "青",
+  "人物框占比": 0.118,
+  "人物中心x": 0.44,
+  "最大人脸占比": 0,
+  "细节密度": 0.095,
+  "上半亮度": 0.366,
+  "下半亮度": 0.202,
+  "识别标签": [
+   "people",
+   "adult",
+   "material",
+   "raw_glass",
+   "structure"
+  ]
+ },
+ "image84": {
+  "宽": 2868,
+  "高": 1158,
+  "画幅": 2.477,
+  "平均亮度": 0.201,
+  "动态范围档": 3.096,
+  "饱和度": 0.704,
+  "暖色占比": 0,
+  "冷色占比": 0.874,
+  "主色相": "青",
+  "人物框占比": 0,
+  "人物中心x": null,
+  "最大人脸占比": 0,
+  "细节密度": 0.078,
+  "上半亮度": 0.196,
+  "下半亮度": 0.205,
+  "识别标签": [
+   "people",
+   "adult",
+   "document",
+   "screenshot"
+  ]
+ }
+}</script>
+<script>
+const DB = JSON.parse(document.getElementById('db').textContent);
+const MET = JSON.parse(document.getElementById('metrics').textContent);
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => (s == null ? '' : String(s)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const isHex = s => typeof s === 'string' && /^#[0-9A-Fa-f]{6}$/.test(s.trim());
+const DIM_C = Object.fromEntries([...DB.四维度, ...DB.辅助维度].map(d => [d.id, d.主题色]));
+const STAGE_C = DB.五叙事阶段.阶段.map(s => s.主题色);
+
+/* ---------- 通用组件 ---------- */
+function cell(v) {
+  if (isHex(v)) return `<span class="sw" style="background:${v}"></span><span class="mono">${esc(v)}</span>`;
+  return esc(v).replace(/(#[0-9A-Fa-f]{6})/g, '<span class="sw" style="background:$1"></span>$1');
+}
+function table(cols, rows, cls = '') {
+  return `<div class="tbl"><table class="${cls}"><thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr>${r.map(v => `<td>${cell(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function objTable(arr, keys, heads) {
+  return table(heads || keys, arr.map(o => keys.map(k => o[k])));
+}
+function flow(steps) {
+  return `<div class="flow">${steps.map((s, i) => `${i ? '<span class="ar">→</span>' : ''}<span class="st">${esc(s)}</span>`).join('')}</div>`;
+}
+function block(b) {
+  let body = '';
+  switch (b.类型) {
+    case 'text': body = `<p class="t">${esc(b.内容)}</p>`; break;
+    case 'list': body = `<ul class="lst">${b.条目.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`; break;
+    case 'table': body = table(b.列, b.行); break;
+    case 'flow': body = flow(b.步骤); break;
+    case 'code': body = `<pre class="code">${esc(b.内容)}</pre>`; break;
+    case 'cards': body = `<div class="cards">${b.卡片.map(c => `<div class="card"><h4>${esc(c.标题)}</h4><p>${esc(c.内容)}</p></div>`).join('')}</div>`; break;
+  }
+  const n = b.类型 === 'table' ? `${b.行.length} 行` : b.类型 === 'list' ? `${b.条目.length} 条` : b.类型 === 'flow' ? `${b.步骤.length} 步` : b.类型 === 'cards' ? `${b.卡片.length} 张` : '';
+  return `<details class="blk" open data-t="${esc(b.标题)}">
+    <summary class="blk-h">${esc(b.标题)}${n ? `<span class="cnt">${n}</span>` : ''}</summary>
+    ${b.备注 ? `<div class="blk-n">${esc(b.备注)}</div>` : ''}${body}</details>`;
+}
+function section(id, idx, title, sub, inner) {
+  return `<section id="${id}" data-title="${esc(title)}"><div class="wrap reveal">
+    <div class="sec-head"><span class="sec-idx">${idx}</span><h2>${esc(title)}</h2></div>
+    ${sub ? `<p class="sec-sub">${sub}</p>` : ''}${inner}</div></section>`;
+}
+
+
+/* ---------- 图库 ---------- */
+const FIGS = [];
+function arLabel(a) {
+  if (a < 1.82) return ['16:9', 'narrow'];
+  if (a < 1.92) return ['1.85:1', ''];
+  if (a < 2.15) return ['2.00:1', 'wide'];
+  if (a < 2.5) return ['2.39:1', 'wide'];
+  return [a.toFixed(2) + ':1', 'wide'];
+}
+function chips(id) {
+  const m = MET[id]; if (!m) return '';
+  const [ar, cls] = arLabel(m.画幅);
+  const c = [`<span class="chip ${cls}">${ar}</span>`, `<span class="chip">跨度 ${m.动态范围档.toFixed(1)} 档</span>`,
+    `<span class="chip">亮 ${m.平均亮度.toFixed(2)}</span>`, `<span class="chip">饱 ${m.饱和度.toFixed(2)}</span>`,
+    `<span class="chip">暖 ${Math.round(m.暖色占比 * 100)}% · 冷 ${Math.round(m.冷色占比 * 100)}%</span>`];
+  if (m.人物框占比 > 0.01) c.push(`<span class="chip">人物 ${Math.round(m.人物框占比 * 100)}%${m.人物中心x != null ? ' @x' + m.人物中心x.toFixed(2) : ''}</span>`);
+  return `<div class="chips">${c.join('')}</div>`;
+}
+function fig(id, cap, cm) {
+  const i = FIGS.push({ id, cap, cm }) - 1;
+  const m = MET[id];
+  return `<figure class="fig"><div class="im" data-fig="${i}"><img src="assets/cinematic/${id}.jpg" alt="${esc(cap || id)}" loading="lazy"
+      ${m ? `width="${m.宽}" height="${m.高}"` : ''}></div>
+    <figcaption>${cap ? `<span class="cap">${esc(cap)}</span>` : ''}${chips(id)}${cm ? `<span class="cm">${esc(cm)}</span>` : ''}</figcaption></figure>`;
+}
+function galGroup(g) {
+  let body = '';
+  if (g.类型 === 'versus') {
+    const side = (s, cls) => `<div class="side ${cls}"><div class="lb">${esc(s.标签)}</div>${s.图.map(id => fig(id, '', '')).join('')}</div>`;
+    body = `<div class="vs">${side(g.左, 'l')}${side(g.右, 'r')}</div>`;
+  } else if (g.类型 === 'pairs') {
+    body = `<div class="pairs">${g.对.map(p => `<div class="pair"><div class="pair-h">${esc(p.标题)}</div>
+      <div class="pair-g"><div><div class="tag">${esc(g.前标签)}</div>${fig(p.前, p.标题 + ' · ' + g.前标签, p.点评)}</div><span class="ar">→</span>
+      <div><div class="tag">${esc(g.后标签)}</div>${fig(p.后, p.标题 + ' · ' + g.后标签, p.点评)}</div></div>
+      ${p.点评 ? `<div class="cm"><b style="color:var(--accent);font-weight:400">要点 · </b>${esc(p.点评)}</div>` : ''}</div>`).join('')}</div>`;
+  } else {
+    body = `<div class="wall${g.图.length > 6 ? ' clip' : ''}">${g.图.map(x => fig(x.id, x.说明, x.点评)).join('')}</div>
+      ${g.图.length > 6 ? `<button class="btn more">展开全部 ${g.图.length} 张</button>` : ''}`;
+  }
+  return `<div class="gal blk"><div class="gal-h">${esc(g.标题)}</div>${body}
+    ${g.点评 ? `<div class="gal-c"><b>要点</b>${esc(g.点评)}</div>` : ''}</div>`;
+}
+const galFor = ch => DB.图库.组.filter(g => g.章节 === ch).map(galGroup).join('');
+
+/* ---------- Hero ---------- */
+function hero() {
+  const g = DB.导读, m = DB.meta;
+  const S = DB.五叙事阶段.阶段;
+  $('#heroWrap').innerHTML = `<div class="hero-col">
+    <div class="eyebrow">${esc(m.副标题)} · ${esc(m.版本)}</div>
+    <h1 class="hero-t">电影感</h1>
+    <div class="hero-q">关掉声音——<span class="q">${esc(g.唯一判断标准)}</span></div>
+    <p class="lede">${esc(g.一句话定义)}</p>
+    <div class="cta">
+      <button class="pri" id="ctaPresent">▶ 开始讲解</button>
+      <a href="#rules">导演法则</a><a href="#arc">五叙事阶段</a><a href="#case">示范分镜</a><a href="#check">验收清单</a>
+    </div>
+    <div class="reel">${S.map((s, i) => `<button class="frame" data-stage="${i}" style="--c:${s.主题色}" title="${esc(s.名称)}">
+      <img src="assets/cinematic/key/stage-${i + 1}.jpg" alt="" onerror="this.remove()"><i></i><span>${esc(s.名称.split('·')[1] || s.名称)}</span></button>`).join('')}</div>
+    <div class="reel-cap"><span>情绪弧线 · 冷 → 暖 → 极端 → 温</span><span>P 讲解 · G 总览</span></div></div>`;
+  const hi = $('#heroImg'), wide = innerWidth / innerHeight > 1;
+  const tries = [wide ? 'assets/cinematic/key/hero.jpg' : 'assets/cinematic/key/hero-m.jpg', 'assets/cinematic/key/hero.jpg'];
+  hi.onload = () => hi.classList.add('on');
+  hi.onerror = () => { tries.shift(); if (tries.length) hi.src = tries[0]; else hi.remove(); };
+  hi.src = tries[0];
+  $('#footMeta').textContent = `${m.标题} ${m.版本} · ${m.数据来源} · ${m.整理日期}`;
+}
+
+/* ---------- 01 是什么 ---------- */
+function secWhat() {
+  const w = DB.是什么, g = DB.导读;
+  return section('what', '01', '什么是电影感', esc(w.原文定义), `
+    <div class="verdict-box">判断标准只有一个 · ${esc(w.判断标准)}</div>
+    <div class="grid2">${w.两层构成.map(l => `<div class="def-card"><div class="k">${esc(l.层)}</div>
+      <div class="role">${esc(l.内容)}</div><p>${esc(l.作用)}</p></div>`).join('')}</div>
+    <h3 class="sub">四维度速览</h3>
+    <div class="quad">${g.四维度速览.map(d => `<div class="qd" style="--c:${DIM_C[d.id]}" data-go="${d.id}">
+      <div class="n">${esc(d.维度)}</div><div class="o">${esc(d.一句话)}</div><p>${esc(d.核心)}</p></div>`).join('')}</div>`);
+}
+
+/* ---------- 02 导演法则 ---------- */
+function secRules() {
+  const R = DB.导演法则;
+  return section('rules', '02', '导演法则 · 电影感的底层逻辑', esc(R.说明), `
+    <div class="rules">${R.法则.map((r, i) => `<div class="rule"><div class="no">LAW ${String(i + 1).padStart(2, '0')}</div>
+      <h4>${esc(r.标题)}</h4><p>${esc(r.内容)}</p><div class="do"><b>怎么做</b>${esc(r.落地)}</div></div>`).join('')}</div>
+    ${galFor('why')}
+    ${block({ 标题: '样片数据怎么看', 类型: 'table', 备注: DB.图库.说明, 列: ['指标', '含义'], 行: DB.图库.测量说明 })}`);
+}
+
+/* ---------- 03 技术层 ---------- */
+function secTech() {
+  const t = DB.技术层;
+  return section('tech', '03', '技术层 · 低成本高回报', esc(t.原则), `
+    <div class="tech-grid">${t.四项低成本高回报.map(x => `<div class="tech">
+      <div class="op">${esc(x.操作)}</div><div class="how">${esc(x.实现方式)}</div><div class="ef">${esc(x.效果)}</div></div>`).join('')}</div>
+    ${galFor('tech')}${t.模块.map(block).join('')}`);
+}
+
+/* ---------- 04 五阶段 ---------- */
+function secArc() {
+  const S = DB.五叙事阶段;
+  const sig = S.推进信号.filter(x => x.从到 !== '不明确时');
+  return section('arc', '04', '五叙事阶段 · 情绪弧线', esc(S.说明) + ' 点选任一阶段查看它的四维度参数与运镜规则。', `
+    <div class="arc-track" role="tablist">${S.阶段.map((s, i) => `<button class="arc-seg" data-i="${i}" role="tab" aria-selected="${i === 0}"
+      style="background:${s.主题色}"><span class="num">${s.编号}</span><span class="nm">${esc(s.名称)}</span></button>`).join('')}</div>
+    <div class="arc-sig">${sig.map(x => `<div><b>${esc(x.从到)}</b> ${esc(x.信号)}</div>`).join('')}</div>
+    <div class="stage" id="stageView"></div>`);
+}
+function renderStage(i) {
+  const s = DB.五叙事阶段.阶段[i];
+  const cols = [['色彩', 'color', 'Color'], ['光影', 'light', 'Light'], ['构图', 'composition', 'Composition'], ['镜头', 'camera', 'Camera'], ['运镜', 'camera', 'Movement']];
+  const dl = o => Object.entries(o).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${cell(v)}</dd>`).join('');
+  $('#stageView').innerHTML = `
+    <img class="stage-key" src="assets/cinematic/key/stage-${i + 1}.jpg" alt="${esc(s.名称)}关键帧" onerror="this.remove()">
+    <div class="stage-top">
+      <div class="stage-swatch" style="background:${s.主题色}"></div>
+      <div class="stage-title"><span class="num">阶段 ${s.编号} · ${esc(s.标签)}</span><h3>${esc(s.名称)}</h3>
+        <div class="feat">情节:${esc(s.情节特征)}<br>画面:${esc(s.典型画面特征)}</div></div>
+      <div class="stage-fore"><span class="lb">情绪预告功能</span><span class="tx">${esc(s.情绪预告功能)}</span></div>
+    </div>
+    <div class="dims">${cols.map(([zh, id, en]) => `<div class="dim">
+      <div class="dh"><span class="dot" style="background:${zh === '运镜' ? 'var(--accent)' : DIM_C[id]}"></span><span class="nm">${zh}</span><span class="en">${en}</span></div>
+      <dl>${dl(s[zh])}</dl></div>`).join('')}</div>
+    <div class="dims ext">${[['声音', 'sound', 'Sound'], ['表演', 'acting', 'Performance'], ['环境特效', 'content', 'Environment & FX'], ['剪辑', 'edit', 'Editing']].map(([zh, id, en]) => `<div class="dim">
+      <div class="dh"><span class="dot" style="background:${DIM_C[id]}"></span><span class="nm">${zh}</span><span class="en">${en}</span></div>
+      <dl>${dl(s[zh])}</dl></div>`).join('')}</div>
+    <div class="stage-more"><div class="lb">镜头清单 · 这一阶段的典型拍法</div>
+      ${table(['镜', '景别 / 角度', '运镜', '时长', '画面'], s.镜头清单, 'shots')}
+      <div class="lb" style="margin-top:18px">PROMPT 片段 · 直接拼进第二层声明</div><pre class="code">${esc(s.Prompt片段)}</pre></div>
+    <div class="stage-foot"><b>环境升华示例 · </b>${esc(s.环境升华示例)}</div>`;
+  document.documentElement.style.setProperty('--accent', s.主题色 === '#1A3A4F' ? '#4F86A8' : s.主题色);
+  $('#brandStage').textContent = s.名称;
+  document.body.style.background = `linear-gradient(180deg, ${s.主题色}18, var(--ink) 420px)`;
+  $$('.arc-seg').forEach((b, bi) => b.setAttribute('aria-selected', bi === i));
+}
+
+/* ---------- 05 四维度 ---------- */
+function dimPane(d) {
+  return `<div class="pane-hero">
+      <div><div class="one">${esc(d.一句话)}</div><p class="def">${esc(d.定义)}</p></div>
+      <div class="kv"><div><span class="k">核心原则</span><span class="v">${esc(d.核心原则)}</span></div>
+        <div><span class="k">验收标准</span><span class="v">${esc(d.验收标准)}</span></div></div>
+    </div>
+    <img class="key-banner" src="assets/cinematic/key/dim-${d.id}.jpg" alt="" onerror="this.remove()">
+    ${galFor(d.id)}
+    ${d.模块.map(block).join('')}
+    ${d.分镜间规则.length ? `<div class="between"><div class="lb">分镜间规则 · 跨镜头怎么变</div>${d.分镜间规则.map(block).join('')}</div>` : ''}`;
+}
+function secDims() {
+  const D = DB.四维度;
+  return section('dims', '05', '四维度 · 色彩 光影 构图 镜头', '每一维都有核心原则、可执行的参数与配方、样片示范,以及跨镜头怎么变。', `
+    <div class="tabs" role="tablist">${D.map((d, i) => `<button class="tab" role="tab" data-id="${d.id}" style="--c:${d.主题色}" aria-selected="${i === 0}">${esc(d.名称)}<small>${esc(d.英文)}</small></button>`).join('')}</div>
+    ${D.map((d, i) => `<div class="pane${i === 0 ? ' on' : ''}" data-id="${d.id}" style="--c:${d.主题色}">${dimPane(d)}</div>`).join('')}`);
+}
+function openDim(id, sec = 'dims') {
+  $$(`#${sec} .tab`).forEach(t => t.setAttribute('aria-selected', t.dataset.id === id));
+  $$(`#${sec} .pane`).forEach(p => p.classList.toggle('on', p.dataset.id === id));
+}
+
+/* ---------- 06 辅助维度 ---------- */
+function auxPane(d) {
+  return `<div class="pane-hero"><div><div class="one">${esc(d.一句话)}</div></div>
+      <div class="kv"><div><span class="k">核心原则</span><span class="v">${esc(d.核心原则)}</span></div></div></div>
+    ${galFor(d.id)}${d.模块.map(block).join('')}`;
+}
+function secAux() {
+  const A = DB.辅助维度;
+  return section('aux', '06', '辅助维度 · 美术 表演 声音 剪辑', '四维度决定一帧画面,这四条线决定画面里放什么、人怎么演、观众听到什么、镜头怎么接。', `
+    <div class="tabs" role="tablist">${A.map((d, i) => `<button class="tab" role="tab" data-id="${d.id}" style="--c:${d.主题色}" aria-selected="${i === 0}">${esc(d.名称)}<small>${esc(d.英文)}</small></button>`).join('')}</div>
+    ${A.map((d, i) => `<div class="pane${i === 0 ? ' on' : ''}" data-id="${d.id}" style="--c:${d.主题色}">${auxPane(d)}</div>`).join('')}`);
+}
+
+/* ---------- 07 协同矩阵 ---------- */
+function secMatrix() {
+  const M = DB.四维协同矩阵;
+  return section('matrix', '07', '四维协同矩阵', esc(M.说明), `
+    ${table(['阶段跨越', '色彩', '光影', '构图', '景别 / 节奏', '叙事效果'], M.阶段跨越.map(r => [r.跨越, r.色彩, r.光影, r.构图, r.景别节奏, r.叙事效果]), 'matrix')}
+    <h3 class="sub">全片弧线</h3>
+    <div class="arcline">${M.全片弧线.map(a => `<div class="cell"><b>${esc(a.维度)}</b>${esc(a.弧线)}</div>`).join('')}</div>`);
+}
+
+/* ---------- 08 产线 ---------- */
+function secLine() {
+  const L = DB.产线方法论;
+  const ab = v => `<div class="def-card"><div class="k">${esc(v.名称)}</div><p style="margin:8px 0 12px">${esc(v.定义)}</p>
+    <div class="blk" style="margin-top:0"><div class="blk-h" style="font-size:14px">字段模板</div>${table(['字段', '示例'], v.字段模板.字段)}</div></div>`;
+  return section('line', '08', '产线方法论', esc(L.说明), `
+    ${block(L.产线流程)}
+    <div class="grid2" style="margin-top:30px">${ab(L.全局变量A)}${ab(L.分镜色彩B)}</div>
+    ${block(L.迭代循环)}${block(L.待解决问题)}${block(L.AIGC落地要点)}${block(L.资产库)}${block(L.角色分工)}`);
+}
+
+/* ---------- 09 Prompt ---------- */
+function secPrompt() {
+  const P = DB.Prompt工程;
+  return section('prompt', '09', 'Prompt 工程', esc(P.说明), `
+    <div class="nodes">${P.三个提示词节点.map(n => `<div class="card"><h4>${esc(n.节点)}</h4>
+      <p style="color:var(--bone-faint);font-size:12.5px;margin-bottom:6px">${esc(n.角色)}</p><p>${esc(n.职责)}</p></div>`).join('')}</div>
+    <h3 class="sub">三层强制冗余机制</h3>
+    <div class="layers">${P.三层强制冗余机制.map(l => `<div class="layer"><div class="l">${esc(l.层)}</div><div class="c">${esc(l.内容)}</div></div>`).join('')}</div>
+    ${P.模块.map(block).join('')}
+    ${block({ 标题: '内容硬约束', 类型: 'list', 条目: P.内容硬约束 })}`);
+}
+
+/* ---------- 10 验收 ---------- */
+function secCheck() {
+  const C = DB.验收清单;
+  const list = (name, arr) => `<div><h3 class="sub" style="margin-top:0">${name}</h3>
+    ${arr.map((x, i) => `<label class="ck"><input type="checkbox" data-k="${name}-${i}"><span class="d">${esc(x.维度)}</span><span>${esc(x.检查项)}</span></label>`).join('')}</div>`;
+  return section('check', '11', '验收清单', esc(C.说明) + ' 勾选状态会保存在本机浏览器。', `
+    <div class="checks">${list('单镜验收', C.单镜验收)}${list('全片验收', C.全片验收)}</div>
+    <div class="progress" id="ckProg"></div> <button class="btn" id="ckReset" style="margin-top:10px">清空勾选</button>`);
+}
+
+/* ---------- 10 示范分镜 ---------- */
+function secCase() {
+  return section('case', '10', '示范分镜 · 把规则拍出来', '两个可以直接照着做的示范:一条 60 秒完整短片的分镜表,一条 12 秒的连续长镜头。', DB.案例.map(c => `
+    <h3 class="case-h">${esc(c.名称)}</h3><p class="case-d">${esc(c.说明)}</p>
+    <div class="mono" style="font-size:12px;color:var(--bone-faint)">样片:${esc(c.样片)}</div>
+    <div class="timeline">${c.分段.map(p => `<div class="tl" style="--c:${STAGE_C[p.阶段序号]}">
+      <div class="tm">${esc(p.时间)}</div><h4>${esc(p.对应阶段)}</h4><p>${esc(p.画面)}</p><div class="pt">${esc(p.四维度要点)}</div></div>`).join('')}</div>
+    ${c.分镜表 ? block({ 标题: `分镜表 · ${c.分镜表.行.length} 镜`, 类型: 'table', 列: c.分镜表.列, 行: c.分镜表.行 }) : ''}
+    <details><summary>查看完整提示词</summary><p style="white-space:pre-line">${esc(c.提示词)}</p></details>`).join(''));
+}
+
+/* ---------- 12 参考片单 ---------- */
+function secRef() {
+  const R = DB.参考片单;
+  return section('ref', '12', '参考片单 · 拆着看', esc(R.说明),
+    table(['影片', '导演 / 摄影', '学哪一维', '学什么', '看哪一段'], R.片单));
+}
+
+/* ---------- 13 术语 ---------- */
+function secGloss() {
+  return section('gloss', '13', '术语表', `讲解中会用到的 ${DB.术语表.length} 个专业术语。`, `
+    <input class="search" id="glossQ" placeholder="搜索术语…" aria-label="搜索术语">
+    <div class="gloss">${DB.术语表.map(t => `<div class="gl"><b>${esc(t.术语)}</b><span>${esc(t.解释)}</span></div>`).join('')}</div>`);
+}
+
+/* ---------- 组装 ---------- */
+hero();
+$('#app').innerHTML = [secWhat(), secRules(), secTech(), secArc(), secDims(), secAux(), secMatrix(), secLine(), secPrompt(), secCase(), secCheck(), secRef(), secGloss()].join('');
+renderStage(0);
+
+const SECS = $$('main section');
+$('#navLinks').innerHTML = SECS.map(s => `<a href="#${s.id}" data-id="${s.id}">${esc(s.dataset.title.split(' · ')[0])}</a>`).join('');
+
+$$('.arc-seg').forEach(b => b.addEventListener('click', () => renderStage(+b.dataset.i)));
+
+/* 长章节:前 3 个模块展开,其余折叠 + 本页目录 */
+const FOLD_IN = ['#dims .pane', '#aux .pane', '#prompt .wrap', '#tech .wrap', '#line .wrap'];
+FOLD_IN.forEach(sel => $$(sel).forEach(box => {
+  const ds = $$(':scope > details.blk', box);
+  if (ds.length < 5) return;
+  ds.forEach((d, i) => { if (i >= 3) d.open = false; d.id = d.id || `m-${Math.random().toString(36).slice(2, 8)}`; });
+  const toc = document.createElement('div'); toc.className = 'mtoc';
+  toc.innerHTML = `<b>本页 ${ds.length} 个模块</b>${ds.map(d => `<button data-to="${d.id}">${esc(d.dataset.t)}</button>`).join('')}<button class="all">全部展开</button>`;
+  ds[0].before(toc);
+  toc.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.classList.contains('all')) { const open = b.textContent === '全部展开'; ds.forEach(d => d.open = open); b.textContent = open ? '全部收起' : '全部展开'; return; }
+    const d = document.getElementById(b.dataset.to); d.open = true; d.scrollIntoView({ behavior: 'smooth' });
+  });
+}));
+$('#btnFold').addEventListener('click', e => {
+  const on = e.currentTarget.getAttribute('aria-pressed') !== 'true';
+  e.currentTarget.setAttribute('aria-pressed', on); e.currentTarget.textContent = on ? '全部收起' : '全部展开';
+  $$('details.blk').forEach(d => d.open = on);
+  $$('.mtoc .all').forEach(b => b.textContent = on ? '全部收起' : '全部展开');
+});
+
+$$('.gal .more').forEach(b => b.addEventListener('click', () => {
+  const w = b.previousElementSibling, on = w.classList.toggle('clip');
+  b.textContent = on ? `展开全部 ${w.children.length} 张` : '收起';
+}));
+
+/* Hero 交互 */
+$('#ctaPresent').addEventListener('click', () => setPresent(true));
+$$('.frame').forEach(f => f.addEventListener('click', () => { renderStage(+f.dataset.stage); $('#arc').scrollIntoView({ behavior: 'smooth' }); }));
+
+/* 右侧章节导轨、总览、进度条、回到顶部 */
+$('#rail').innerHTML = SECS.map(s => `<a href="#${s.id}" data-id="${s.id}">${esc(s.dataset.title.split(' · ')[0])}<i></i></a>`).join('');
+$('#ovG').innerHTML = SECS.map(s => `<a href="#${s.id}"><div class="i">${esc($('.sec-idx', s).textContent)}</div><h4>${esc(s.dataset.title)}</h4>
+  <p>${esc(($('.sec-sub', s) || {}).textContent || '')}</p></a>`).join('');
+const ov = $('#ov');
+const ovToggle = on => ov.classList.toggle('on', on ?? !ov.classList.contains('on'));
+$('#btnToc').addEventListener('click', () => ovToggle());
+$('#ovG').addEventListener('click', e => { if (e.target.closest('a')) ovToggle(false); });
+document.addEventListener('keydown', e => {
+  if (e.target.matches?.('input,textarea')) return;
+  if (e.key === 'g' || e.key === 'G') ovToggle();
+  if (e.key === 'Escape' && ov.classList.contains('on')) { ovToggle(false); e.stopImmediatePropagation(); }
+}, true);
+$('#totop').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  $('#prog').style.width = (max > 0 ? scrollY / max * 100 : 0) + '%';
+  $('#totop').classList.toggle('on', scrollY > innerHeight);
+}, { passive: true });
+$$('.tabs .tab').forEach(t => t.addEventListener('click', () => openDim(t.dataset.id, t.closest('section').id)));
+$$('.qd').forEach(q => q.addEventListener('click', () => { openDim(q.dataset.go); $('#dims').scrollIntoView(); }));
+
+$('#glossQ').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  $$('.gl').forEach(g => g.style.display = !q || g.textContent.toLowerCase().includes(q) ? '' : 'none');
+});
+
+const CK_KEY = 'cine-kb-checks';
+const ckState = JSON.parse(localStorage.getItem(CK_KEY) || '{}');
+function ckUpdate() {
+  const all = $$('.ck input'), done = all.filter(x => x.checked);
+  all.forEach(x => x.closest('.ck').classList.toggle('done', x.checked));
+  $('#ckProg').textContent = `已完成 ${done.length} / ${all.length}`;
+}
+$$('.ck input').forEach(x => {
+  x.checked = !!ckState[x.dataset.k];
+  x.addEventListener('change', () => { ckState[x.dataset.k] = x.checked; localStorage.setItem(CK_KEY, JSON.stringify(ckState)); ckUpdate(); });
+});
+$('#ckReset').addEventListener('click', () => { $$('.ck input').forEach(x => x.checked = false); localStorage.removeItem(CK_KEY); for (const k in ckState) delete ckState[k]; ckUpdate(); });
+ckUpdate();
+
+
+
+/* 灯箱 */
+let lbI = -1;
+function lbShow(i) {
+  lbI = (i + FIGS.length) % FIGS.length;
+  const f = FIGS[lbI];
+  $('#lbImg').src = `assets/cinematic/${f.id}.jpg`; $('#lbImg').alt = f.cap || f.id;
+  $('#lbMeta').innerHTML = `${f.cap ? `<span class="cap">${esc(f.cap)}</span>` : ''}${chips(f.id)}${f.cm ? `<div>${esc(f.cm)}</div>` : ''}
+    <div class="mono" style="font-size:11px;color:var(--bone-faint);margin-top:8px">${f.id} · ${lbI + 1} / ${FIGS.length}</div>`;
+  $('#lightbox').classList.add('on');
+}
+function lbClose() { $('#lightbox').classList.remove('on'); lbI = -1; }
+document.addEventListener('click', e => {
+  const im = e.target.closest('[data-fig]'); if (im) { lbShow(+im.dataset.fig); return; }
+  if (e.target.id === 'lightbox' || e.target.id === 'lbX') lbClose();
+});
+document.addEventListener('keydown', e => {
+  if (lbI < 0) return;
+  e.stopImmediatePropagation(); e.preventDefault();
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowRight') lbShow(lbI + 1);
+  if (e.key === 'ArrowLeft') lbShow(lbI - 1);
+}, true);
+
+/* 讲解模式 */
+const PAGES = [$('#top'), ...SECS];
+let cur = 0;
+function curIndex() {
+  const y = window.scrollY + window.innerHeight * 0.35;
+  let i = 0; PAGES.forEach((p, k) => { if (p.offsetTop <= y) i = k; }); return i;
+}
+function go(i) {
+  cur = Math.max(0, Math.min(PAGES.length - 1, i));
+  PAGES[cur].scrollIntoView({ behavior: 'smooth' });
+}
+function setPresent(on) {
+  document.body.classList.toggle('present', on);
+  $('#btnPresent').setAttribute('aria-pressed', on);
+  if (on) go(curIndex());
+}
+$('#btnPresent').addEventListener('click', () => setPresent(!document.body.classList.contains('present')));
+document.addEventListener('keydown', e => {
+  if (e.target.matches?.('input,textarea')) return;
+  const present = document.body.classList.contains('present');
+  if ($('#ov').classList.contains('on')) return;
+  if (e.key === 'p' || e.key === 'P') { setPresent(!present); return; }
+  if (e.key === 'Escape' && present) { setPresent(false); return; }
+  if (!present) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(curIndex() + 1); }
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(curIndex() - 1); }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    const s = $('#arc'); if (curIndex() === PAGES.indexOf(s)) {
+      e.preventDefault();
+      const i = $$('.arc-seg').findIndex(b => b.getAttribute('aria-selected') === 'true');
+      renderStage((i + (e.key === 'ArrowDown' ? 1 : 4)) % 5);
+    }
+  }
+});
+
+/* 导航高亮 + 页码 */
+const navObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  $$('#navLinks a, #rail a').forEach(a => a.classList.toggle('on', a.dataset.id === e.target.id));
+  const i = PAGES.indexOf(e.target);
+  $('#pagerTx').textContent = `${String(i).padStart(2, '0')} / ${String(PAGES.length - 1).padStart(2, '0')} ${e.target.dataset.title || '导读'}`;
+}), { rootMargin: '-40% 0px -55% 0px' });
+PAGES.forEach(p => navObs.observe(p));
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .05 });
+$$('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

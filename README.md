@@ -1,13 +1,16 @@
-# Forma · 郭江硕
+# Forma · GitHub Pages 发布版
 
-GitHub Pages production release for the Forma portfolio.
+国庆假期愉快！
 
-## Release
+作者是 joooooos&Claude
 
-- Version: 2026.10
-- Runtime: static frontend only
-- Backend: disabled in the public release; the Campaign Loom workbench runs its local demonstration flow
-- Build: compressed JavaScript/CSS and optimized H.264 video with fast start metadata
-- Source protection: source files, archives, dependencies, source maps, and build tooling are excluded from this repository
+这是由「首屏原型_句号下楼梯」构建出的静态发布目录。
 
-The public site is designed to run directly from GitHub Pages. All routes and assets use relative paths for project-site hosting.
+- 站点根目录：`dist/`
+- 在线地址：https://joooooos.github.io/
+- 运行模式：纯前端展示
+- 广告工作台：公开版使用前端模拟，不连接 localhost:8000
+- 构建版本：2026.10
+- 构建时间：2026-10-23T05:11:36.066Z
+
+源码、依赖、归档和实验目录不属于公开站点。

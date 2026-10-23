@@ -41,7 +41,7 @@ figure img{display:block;width:100%;height:auto;transform-origin:50% 100%;animat
 /* 404 可能出现在任何深度的路径下：按托管方式推出站点根目录，图和按钮都从根目录取 */
 (function () {
   var seg = location.pathname.split("/").filter(Boolean);
-  var root = "/";
+  var root = /\.github\.io$/.test(location.hostname) && seg.length ? "/" + seg[0] + "/" : "/";
   if (location.protocol === "file:") root = "./";
   document.getElementById("go").href = root;
   document.getElementById("art").src = root + "assets/gen/web/D404.webp";
