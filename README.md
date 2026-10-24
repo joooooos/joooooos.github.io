@@ -1,6 +1,6 @@
 # Forma · GitHub Pages 发布版
 
-国庆假期愉快！
+希望你玩耍过程愉快！
 
 作者是 joooooos&Claude
 
