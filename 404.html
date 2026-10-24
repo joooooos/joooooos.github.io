@@ -29,19 +29,23 @@ figure img{display:block;width:100%;height:auto;transform-origin:50% 100%;animat
     <p class="k">FORMA · 404 · 片场后台</p>
     <h1>这一页<br>还没拍<i>。</i></h1>
     <p class="s">布景只搭了一半，主角躲在后面。<br>正片在前面，我带你回去。</p>
-    <a class="go" id="go" href="./">回到片场 <span aria-hidden="true">←</span></a>
+    <a class="go" id="go" href="/">回到片场 <span aria-hidden="true">←</span></a>
   </div>
-  <figure><img id="art" src="site/assets/gen/web/D404.webp" width="1400" height="876" alt="布景板背面，句号从后面探出半个身子，比了个 OK"></figure>
+  <figure><img id="art" src="/site/assets/gen/web/D404.webp" width="1400" height="876" alt="布景板背面，句号从后面探出半个身子，比了个 OK"></figure>
 </main>
 <script>
 /* 404 可能出现在任何深度的路径下：按托管方式推出站点根目录，图和按钮都从根目录取 */
 (function () {
-  var seg = location.pathname.split("/").filter(Boolean);
-  var root = /\.github\.io$/.test(location.hostname) && seg.length ? "/" + seg[0] + "/" : "/";
+  /* 站点根目录在构建时写死（build.mjs 按 PUBLIC_BASE 替换 /）；以前按「第一段路径」猜，在 joooooos.github.io 这种用户站上会猜错，图就挂了 */
+  var root = "/".indexOf("__") === 0 ? "/" : "/", ast = "site/".indexOf("__") === 0 ? "" : "site/";
   if (location.protocol === "file:") root = "./";
+  /* 源码里直接打开（没经过 build）时 ast 为空，图在 assets/ 下；发布后图在 site/assets/ 下 */
   document.getElementById("go").href = root;
-  document.getElementById("art").src = root + "assets/gen/web/D404.webp";
-  var l = document.createElement("link"); l.rel = "icon"; l.type = "image/svg+xml"; l.href = root + "assets/icons/favicon-wake.svg?v=50"; document.head.appendChild(l);
+  var art = document.getElementById("art"), tries = [root + ast + "assets/gen/web/D404.webp", root + "site/assets/gen/web/D404.webp", root + "assets/gen/web/D404.webp"], k = 0;
+  /* 图挂了就换下一个路径再试（换过托管 / 目录层级时不至于空着），全挂了就藏掉，左边文字居中 */
+  art.onerror = function () { k++; if (k < tries.length) art.src = tries[k]; else { art.parentNode.style.display = "none"; document.querySelector("main").style.gridTemplateColumns = "1fr"; } };
+  art.src = tries[0];
+  var l = document.createElement("link"); l.rel = "icon"; l.type = "image/svg+xml"; l.href = root + ast + "assets/icons/favicon-wake.svg?v=50"; document.head.appendChild(l);
 })();
 </script>
 </body>
