@@ -223,16 +223,16 @@
 <section id="out"><div class="wrap">
   <span class="k rv">02 · 交付</span>
   <h2 class="rv">它交回了这些：<span>8 张素材、6 份文件。</span></h2>
-  <p class="lead rv">2 支视频分镜，每个平台一套独立构图和提示词。点图看大图，点文件夹看里面写了什么。</p>
+  <p class="lead rv">2 支 15 秒成片，每个平台一套独立构图和提示词。点图看大图，点文件夹看里面写了什么。</p>
   <div class="wall">
-    <figure class="pin rv" style="grid-column:span 3;transform:rotate(-1.5deg)" data-zoom="./assets/campaign/web/yy-douyin-cover-01.jpg" data-cap="抖音 9:16"><span class="tape"></span><img src="./assets/campaign/web/yy-douyin-cover-01.jpg" alt="抖音 9:16"><figcaption>抖音 · 9:16</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 3;transform:rotate(-1.5deg)" data-zoom="./assets/campaign/web/yy-douyin-15s.mp4" data-cap="抖音主片 · 15s · 9:16"><span class="tape"></span><video src="./assets/campaign/web/yy-douyin-15s.mp4" poster="./assets/campaign/web/yy-douyin-cover-01.jpg" muted loop playsinline autoplay preload="metadata" aria-label="抖音 9:16" style="display:block;width:100%;border:1px solid var(--ink)"></video><figcaption>抖音 · 9:16</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 2;transform:rotate(1.2deg)" data-zoom="./assets/campaign/web/yy-xhs-cover-01.jpg" data-cap="小红书 · 封面"><img src="./assets/campaign/web/yy-xhs-cover-01.jpg" alt="小红书封面"><figcaption>小红书 3:4 · 封面</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 2;transform:rotate(-.8deg);margin-top:30px" data-zoom="./assets/campaign/web/yy-xhs-flavors-02.jpg" data-cap="小红书 · 双口味"><img src="./assets/campaign/web/yy-xhs-flavors-02.jpg" alt="小红书双口味"><figcaption>小红书 · 双口味</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 2;transform:rotate(1.6deg)" data-zoom="./assets/campaign/web/yy-xhs-open-can-03.jpg" data-cap="小红书 · 开罐"><img src="./assets/campaign/web/yy-xhs-open-can-03.jpg" alt="小红书开罐"><figcaption>小红书 · 开罐</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 3;transform:rotate(-1deg);margin-top:16px" data-zoom="./assets/campaign/web/yy-retarget-square-01.jpg" data-cap="重定向 1:1"><span class="tape"></span><img src="./assets/campaign/web/yy-retarget-square-01.jpg" alt="重定向 1:1"><figcaption>重定向 · 1:1</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 2;transform:rotate(.8deg)" data-zoom="./assets/campaign/web/yy-xhs-bag-04.jpg" data-cap="小红书 · 随身"><img src="./assets/campaign/web/yy-xhs-bag-04.jpg" alt="小红书随身"><figcaption>小红书 · 随身</figcaption></figure>
     <figure class="pin rv" style="grid-column:span 2;transform:rotate(-1.4deg)" data-zoom="./assets/campaign/web/yy-xhs-facts-05.jpg" data-cap="小红书 · 产品事实"><img src="./assets/campaign/web/yy-xhs-facts-05.jpg" alt="小红书产品事实"><figcaption>小红书 · 产品事实</figcaption></figure>
-    <figure class="pin rv" style="grid-column:span 5;transform:rotate(.6deg);margin-top:12px" data-zoom="./assets/campaign/web/yy-wechat-cover-01.jpg" data-cap="视频号 16:9"><span class="tape"></span><img src="./assets/campaign/web/yy-wechat-cover-01.jpg" alt="视频号 16:9"><figcaption>视频号 · 16:9</figcaption></figure>
+    <figure class="pin rv" style="grid-column:span 5;transform:rotate(.6deg);margin-top:12px" data-zoom="./assets/campaign/web/yy-wechat-15s.mp4" data-cap="视频号生活方式片 · 15s · 16:9"><span class="tape"></span><video src="./assets/campaign/web/yy-wechat-15s.mp4" poster="./assets/campaign/web/yy-wechat-cover-01.jpg" muted loop playsinline autoplay preload="metadata" aria-label="视频号 16:9" style="display:block;width:100%;border:1px solid var(--ink)"></video><figcaption>视频号 · 16:9</figcaption></figure>
   </div>
   <div class="files" id="files"></div>
 </div></section>
@@ -495,5 +495,7 @@ const rio = new IntersectionObserver((es) => es.forEach((e) => {
 }), { threshold: 0.3 });
 rio.observe($("#result"));
 </script>
+<a id="toWall" href="./ad-workflow.html" style="position:fixed;right:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:#141312;color:#FFF8EE;font:600 14px/1 var(--sans,system-ui);text-decoration:none;box-shadow:3px 3px 0 #FF4D00">▦ 回到交付结果墙</a>
+<script>/* 从工作台「案例说明」过来时，回程按钮更醒目一点 */ if(/[?&]from=wall/.test(location.search)){var t=document.getElementById('toWall');t.textContent='← 回到交付结果墙';t.style.background='#FF4D00';t.style.boxShadow='3px 3px 0 #141312';}</script>
 </body>
 </html>
