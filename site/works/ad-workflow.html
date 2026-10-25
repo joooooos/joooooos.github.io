@@ -10571,7 +10571,7 @@ document.addEventListener('mousedown', function(e) { if (e.button === 1) e.preve
     var mount=function(){var node=nodes[d.id],media=node&&document.getElementById('preview-'+node.id);if(!media||media.querySelector('video'))return;var v2=document.createElement('video');v2.src=ASSET+d.video;v2.poster=ASSET+d.f;v2.controls=true;v2.playsInline=true;v2.muted=true;v2.style.cssText='width:100%;display:block';media.innerHTML='';media.appendChild(v2);};
     V2.mounts=(V2.mounts||[]).concat(mount);});
   function hideWall(){dw.hidden=true;var g=$('#guide-card');if(g)g.hidden=true;}
-  function showWall(right){if(V2.on&&typeof stopV2==='function')stopV2(true);if(right!=null)dw.querySelector('h1').textContent='交回的 9 份素材 · 你拍了 3 次板，'+right+' 次判断到位';if(V2.ran)dw.querySelector('#dw-run').textContent='再跑一次，换个选法 →';untrace();dw.hidden=false;}
+  function showWall(right){if(V2.cancelAuto)V2.cancelAuto();if(V2.on&&typeof stopV2==='function')stopV2(true);if(right!=null)dw.querySelector('h1').textContent='交回的 9 份素材 · 你拍了 3 次板，'+right+' 次判断到位';if(V2.ran)dw.querySelector('#dw-run').textContent='再跑一次，换个选法 →';untrace();dw.hidden=false;}
   $('#dw-canvas').addEventListener('click',function(){hideWall();if(typeof fitView==='function')fitView();});
   $('#dw-run').addEventListener('click',function(){hideWall();if(V2.on)stopV2(true);runV2();});
   dw.addEventListener('click',function(e){var c=e.target.closest('.dw-card');if(!c)return;hideWall();trace(+c.dataset.i);});
@@ -10648,6 +10648,13 @@ document.addEventListener('mousedown', function(e) { if (e.button === 1) e.preve
   function untrace(){wrap.classList.remove('v2-trace');trEl.hidden=true;Object.keys(nodes).forEach(function(id){var n=nodes[id];if(n&&n.el)n.el.classList.remove('v2-path');});document.querySelectorAll('.conn-path.v2-path').forEach(function(p){p.classList.remove('v2-path');});}
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!trEl.hidden)untrace();});
   if(/[?&]canvas/.test(location.search))hideWall();
+  /* 打开后 5 秒自动进入画布；期间在交付墙上点、滚、按键就取消倒计时 */
+  else (function(){var btn=$('#dw-canvas'),base=btn.textContent,left=5,timer=null;
+    function stop(){if(!timer)return;clearInterval(timer);timer=null;btn.textContent=base;}
+    function tick(){if(dw.hidden){stop();return;}if(left<=0){stop();hideWall();if(typeof fitView==='function')fitView();return;}btn.textContent=base+' · '+left+'s';left--;}
+    timer=setInterval(tick,1000);tick();
+    ['pointerdown','wheel','keydown','touchstart'].forEach(function(t){dw.addEventListener(t,stop,{passive:true});});
+    V2.cancelAuto=stop;})();
   V2.run=runV2;V2.trace=trace;V2.wall=showWall;
 })();
 </script>
