@@ -2,7 +2,7 @@
 
 希望你玩耍过程愉快！
 
-作者是 joooooos&Claude
+作者是joooooos&Claude
 
 在线地址：https://joooooos.github.io/
 源码仓库：https://github.com/joooooos/Web_PaperStyle （本仓库只放构建产物，请勿手改）
