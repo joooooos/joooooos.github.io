@@ -12,7 +12,7 @@
 <title>郭江硕的工作室 · AI 产品经理</title>
 <meta name="description" content="郭江硕（AI 产品经理）的作品集是一台游戏机：每个作品是一张卡带，插进去玩到它要解决的那个问题。">
 <link rel="icon" href="site/assets/icons/favicon.svg">
-<link rel="preload" href="bundle.js" as="fetch" crossorigin>
+<link rel="preload" href="bundle.js?v=72" as="fetch" crossorigin>
 <link rel="preload" href="assets/hand.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/poster.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -281,6 +281,58 @@ html.pl-arrive { background: var(--cream); } html.pl-arrive body > *:not(canvas)
   body[data-view=play] #bub, body[data-view=close] #bub { bottom: 64px !important; right: 190px; }
 }
 @media (max-width: 760px) { body[data-view=room] #bub { bottom: 112px !important; } }
+
+/* ═══ v6 坐下来 + 放映机 ═══ */
+body[data-view=seat] #tally, body[data-view=seat] #zones, body[data-view=play] #zones, body[data-view=close] #zones, body.film #tally, body.film #zones, body.film #hint, body.film #zoomBtn, body.film #ejectTip, body.film #vpad, body.film #bub.on ~ #tip { display: none !important; }
+body[data-view=seat]::after { content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse 62% 64% at 52% 48%, rgba(20,19,18,0) 55%, rgba(20,19,18,.14) 100%); }
+body[data-view=seat] #zoomBtn, body[data-view=play] #zoomBtn { display: inline-flex !important; align-items: center; gap: 8px; left: 50%; right: auto; bottom: 16px; translate: -50% 0; font-size: 14px; padding: 9px 18px 9px 14px; background: var(--paper); border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+body[data-view=seat] #zoomBtn::before, body[data-view=play] #zoomBtn::before { content: "⤢"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 14px; }
+body[data-view=seat] #zoomBtn kbd, body[data-view=play] #zoomBtn kbd { font: 700 11px var(--sans); color: rgba(20,19,18,.5); border: 1.5px solid rgba(20,19,18,.3); border-radius: 5px; padding: 1px 5px; }
+body[data-view=play] #zoomBtn { bottom: 76px; }
+body[data-view=seat] #hint { display: none; }
+body.night[data-view=seat] #zoomBtn { background: #2a211d; color: var(--paper); border-color: var(--paper); }
+body.film #gl { filter: none; }
+#zones .zs { background: var(--ink); color: var(--paper); }
+#zones .zs span { color: rgba(255,248,238,.7) !important; }
+#filmCard { position: fixed; z-index: 30; left: 50%; bottom: 6vh; translate: -50% 24px; width: min(560px, 92vw); padding: 18px 22px 18px 22px; background: #1f1a17; color: var(--paper); border: 2.5px solid #C9A24A; border-radius: 16px; box-shadow: 5px 5px 0 var(--ink); opacity: 0; pointer-events: none; transition: opacity .35s, translate .45s cubic-bezier(.2,.9,.3,1.2); overflow: hidden; }
+#filmCard.on { opacity: 1; translate: -50% 0; pointer-events: auto; }
+#filmCard::before { content: ""; position: absolute; right: 108px; top: 10px; bottom: 10px; border-left: 2px dashed rgba(201,162,74,.6); }
+.fc-k { margin: 0 0 6px; font-size: 12px; letter-spacing: .08em; color: #E8A838; font-weight: 800; }
+.fc-t { margin: 0 0 6px; font: 400 30px/1.15 "Sucai Shehui", var(--sans); }
+.fc-s { margin: 0 120px 14px 0; font: 400 16px/1.4 var(--hand); color: rgba(255,248,238,.78); }
+.fc-b { display: flex; gap: 10px; }
+.fc-b button { padding: 10px 18px; border-radius: 999px; border: 2.5px solid var(--paper); background: none; color: var(--paper); font: 800 15px var(--sans); cursor: pointer; }
+.fc-b [data-film=go] { background: var(--lime); color: var(--ink); border-color: var(--lime); box-shadow: 3px 3px 0 #000; animation: fcPulse 1.6s ease-in-out infinite; }
+.fc-b button:focus-visible { outline: 3px solid #E8A838; outline-offset: 3px; }
+@keyframes fcPulse { 50% { transform: translateY(-2px); box-shadow: 3px 5px 0 #000; } }
+.fc-stub { position: absolute; right: 14px; top: 50%; translate: 0 -50%; rotate: 90deg; font: 900 15px/1 var(--sans); letter-spacing: .2em; color: #C9A24A; white-space: nowrap; }
+body.film::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; box-shadow: inset 0 9vh 0 #0b0908, inset 0 -9vh 0 #0b0908; opacity: 0; animation: lbIn .9s .3s cubic-bezier(.6,0,.2,1) forwards; }
+@keyframes lbIn { from { opacity: 0; box-shadow: inset 0 0 0 #0b0908, inset 0 0 0 #0b0908; } to { opacity: 1; } }
+body.film::after { display: none; }
+#filmCard { backdrop-filter: blur(6px); background: rgba(24,19,16,.92); }
+/* v6.5 退出前端视角：大一号的按钮 */
+body[data-view=seat] #zoomBtn, body[data-view=play] #zoomBtn { gap: 12px; font-size: 17px; padding: 12px 26px 12px 12px; border-width: 3px; box-shadow: 4px 4px 0 var(--ink); bottom: 22px; border-radius: 999px; }
+body[data-view=seat] #zoomBtn b, body[data-view=play] #zoomBtn b { font-weight: 900; }
+body[data-view=seat] #zoomBtn::before, body[data-view=play] #zoomBtn::before { width: 36px; height: 36px; font-size: 20px; background: var(--ver); }
+body[data-view=seat] #zoomBtn kbd, body[data-view=play] #zoomBtn kbd { font-size: 12px; padding: 2px 7px; }
+body[data-view=seat] #zoomBtn:hover, body[data-view=play] #zoomBtn:hover { translate: -50% -2px; box-shadow: 5px 6px 0 var(--ink); }
+body[data-view=play] #zoomBtn { bottom: 80px; }
+/* v6.5 放映机提示 */
+#pjHint { position: fixed; left: 0; top: 0; z-index: 9; display: grid; grid-template-columns: auto auto; column-gap: 10px; align-items: center; padding: 9px 16px 9px 10px; margin: 0; border: 2.5px solid var(--ink); border-radius: 16px; background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 #000; cursor: pointer; text-align: left; opacity: 0; pointer-events: none; translate: -50% calc(-100% - 18px); transition: opacity .3s; will-change: transform; }
+#pjHint.on { opacity: 1; pointer-events: auto; animation: pjBob 2.2s ease-in-out infinite; }
+#pjHint i { grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; background: var(--lime); position: relative; }
+#pjHint i::after { content: ""; position: absolute; left: 11px; top: 8px; border-left: 11px solid var(--ink); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+#pjHint b { font-size: 15px; font-weight: 900; } #pjHint span { font-size: 12px; color: rgba(255,248,238,.65); }
+#pjHint::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; margin-left: -7px; background: var(--ink); border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); rotate: 45deg; }
+#pjHint:hover { background: #2a231e; }
+#pjHint.seen span { display: none; } #pjHint.seen { padding: 6px 12px 6px 7px; } #pjHint.seen i { width: 22px; height: 22px; } #pjHint.seen i::after { left: 8px; top: 5px; border-left-width: 8px; border-top-width: 6px; border-bottom-width: 6px; }
+@keyframes pjBob { 50% { margin-top: -6px; } }
+@media (prefers-reduced-motion: reduce) { #pjHint.on { animation: none; } }
+#filmOut { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0; background: #F5EDE4; display: grid; place-items: center; transition: opacity .45s ease-in; }
+#filmOut::before { content: "AI 什么都能做。"; font: 400 clamp(40px, 8vw, 120px)/1 "Sucai Shehui", var(--sans); color: var(--ink); }
+html.film-out #filmOut { opacity: 1; }
+@media (max-width: 760px) { #filmCard { bottom: 3vh; padding: 14px 16px; } .fc-t { font-size: 24px; } .fc-s { margin-right: 92px; font-size: 14px; } #filmCard::before { right: 82px; } .fc-stub { font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { .fc-b [data-film=go] { animation: none; } }
 </style>
 </head>
 <body data-view="room">
@@ -311,7 +363,9 @@ html.pl-arrive { background: var(--cream); } html.pl-arrive body > *:not(canvas)
 <div id="tally" aria-live="polite"></div>
 <button class="chip" id="zoomBtn" type="button">凑近桌面</button>
 <button type="button" id="ejectTip" aria-label="退卡，回到屋里"><span class="ej-k">B</span><span class="ej-t"><b>退卡</b>回到屋里</span><span class="ej-or">或按 Esc / 桌上蓝色 EJECT</span></button>
-<nav id="zones" aria-label="四个区"></nav>
+<nav id="zones" aria-label="站起来以后能去的地方"></nav>
+<div id="filmCard" role="dialog" aria-label="要不要进去看成片"><p class="fc-k">FORMA 影院 · 1 号厅 · 座位：郭江硕的椅子</p><p class="fc-t">《AI 什么都能做？》</p><p class="fc-s">成片 = 滚动版网站，往下滑着看。银幕会折成纸飞机带你过去，左下角小门随时飞回这张桌子。</p><div class="fc-b"><button type="button" data-film="go">✈ 坐纸飞机进去</button><button type="button" data-film="no">先不看了</button></div><span class="fc-stub" aria-hidden="true">ADMIT ONE</span></div>
+<div id="filmOut" aria-hidden="true"></div>
 <div id="pop" role="dialog" aria-live="polite"></div>
 <div id="list" aria-hidden="true"></div>
 <script>/* v36 进度从第一个字节就开始走：边下载 bundle.js 边推进度环（0 → 34%），下完再执行；file:// 或不支持流式时退回普通 <script> */
@@ -319,10 +373,10 @@ html.pl-arrive { background: var(--cream); } html.pl-arrive body > *:not(canvas)
   var fg = document.querySelector("#landing .fg"), now = document.querySelector("#landing .ld-now"), raf = 0, want = 0, shown = 0;
   function paint() { shown += (want - shown) * 0.18; if (fg) { fg.style.strokeDashoffset = (377 * (1 - shown)).toFixed(1); fg.classList.toggle("z", shown < 0.02); } window.__ld0 = shown; raf = requestAnimationFrame(paint); }
   window.__ldStop = function () { cancelAnimationFrame(raf); };
-  function plain() { var t = document.createElement("script"); t.src = "bundle.js"; document.body.appendChild(t); }
+  function plain() { var t = document.createElement("script"); t.src = "bundle.js?v=72"; document.body.appendChild(t); }
   if (location.protocol === "file:" || !window.fetch || !window.ReadableStream) return plain();
   raf = requestAnimationFrame(paint);
-  fetch("bundle.js", { credentials: "same-origin", mode: "cors" }).then(function (r) {
+  fetch("bundle.js?v=72", { credentials: "same-origin", mode: "cors" }).then(function (r) {
     if (!r.ok || !r.body) throw 0;
     var total = +r.headers.get("content-length") || 1460000, enc = r.headers.get("content-encoding"), got = 0, rd = r.body.getReader(), parts = [];
     if (enc) total = total * 2.6; /* gzip 过的：content-length 是压缩后大小，按解压后估算 */

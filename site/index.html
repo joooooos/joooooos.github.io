@@ -5,7 +5,7 @@
 <link rel="canonical" href="https://joooooos.github.io/site/">
 <meta property="og:url" content="https://joooooos.github.io/site/">
 <meta name="twitter:card" content="summary_large_image">
-<script>/* 从工作室飞来：首帧先是满屏奶油云，别闪出首屏 */ if (/[?&]from=studio/.test(location.search) && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("pl-arrive");</script>
+<script>/* 从工作室飞来：首帧先是满屏奶油云，别闪出首屏 */ if (/[?&]by=film/.test(location.search)) document.documentElement.classList.add("film-in"); else if (/[?&]from=studio/.test(location.search) && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("pl-arrive");</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Forma · 郭江硕｜AI 产品经理</title>
@@ -943,11 +943,24 @@ html.pl-fold,html.pl-fold body{overflow:hidden!important}
 body.pl-fold-b>*:not(.pl-c){visibility:hidden!important}
 
 @view-transition { navigation: auto; } ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+/* v6 从工作室的放映机走进来：首帧 = 工作室银幕最后那一帧（奶油底 + 标题），四周一圈墨色银幕边框向外散开 */
+#filmIn{display:none;position:fixed;inset:0;z-index:90;pointer-events:none;place-items:center;background:#F5EDE4;box-shadow:inset 0 0 0 18vmin #141312;transition:box-shadow .7s cubic-bezier(.5,0,.2,1),opacity .5s ease .55s}
+#filmIn b{font:400 clamp(40px,8vw,120px)/1 var(--poster);color:#141312;transition:opacity .4s ease .3s}
+html.film-in #filmIn{display:grid}html.film-in.film-open #filmIn{box-shadow:inset 0 0 0 0 #141312;opacity:0}html.film-in.film-open #filmIn b{opacity:0}
+.film-tip{position:fixed;z-index:61;left:50%;top:76px;translate:-50% 0;background:#141312;color:#FFF8EE;border-radius:999px;padding:8px 18px;font:400 16px/1.3 var(--hand,serif);box-shadow:3px 3px 0 #E8A838;transition:opacity .5s,translate .5s;white-space:nowrap}
+.film-tip.off{opacity:0;translate:-50% -10px;pointer-events:none}
+@media (max-width:520px){.film-tip{white-space:normal;width:86vw;text-align:center;font-size:14px}}
+/* 倒片回工作室：整页缩成墙上的一块投影，四周暗下来 */
+#filmBack{position:fixed;inset:0;z-index:95;pointer-events:none;opacity:0;background:radial-gradient(ellipse 40% 34% at 50% 44%,rgba(20,19,18,0) 60%,rgba(20,19,18,.92) 100%);transition:opacity .6s}
+html.film-back body>*:not(#filmBack){transition:transform .9s cubic-bezier(.6,0,.3,1),filter .9s;transform:scale(.42) translateY(-12%);filter:brightness(.9)}
+html.film-back{background:#1f1a17;overflow:hidden}html.film-back #filmBack{opacity:1}
 html.pl-arrive{background:#F5EDE4}html.pl-arrive body>*:not(.pl-c){visibility:hidden}
 </style>
 <link rel="stylesheet" href="island/contact-island.css?v=55">
 </head>
 <body>
+<div id="filmIn" aria-hidden="true"><b>AI 什么都能做。</b></div>
+<div id="filmBack" aria-hidden="true"></div>
 <!-- 开场：五张纸条（= 五个作品）摆成台阶；每次进来换一种摆法（五种按顺序轮换）；句号跟着一级一级跳下来，从最后一级跳出去的那一下，整张纸从中间撕开 -->
 <style>
 #ld{position:fixed;inset:0;z-index:300;cursor:progress}
@@ -1196,13 +1209,18 @@ window.LOADER = (() => {
 <a id="cardOpen" href="#" class="cardopen"><span><b>打开项目详情</b><small id="cardKind"></small></span><i>→</i></a>
 <div class="row2"><span class="cc" id="cardC"></span><span class="nav"><button id="cardPrev" type="button" aria-label="上一张"></button><button id="cardNext" type="button" aria-label="下一张"></button><button id="cardClose" class="shut" type="button" aria-label="关闭项目卡（Esc）">关闭 <i>✕</i></button></span></div></div></article></div>
 <div class="backtoast" id="backToast" role="status" aria-live="polite"></div>
-<a class="studio-door" id="studioDoor" href="../index.html?from=site" aria-label="回到 3D 工作室"><span class="sd-frame"><span class="sd-leaf"><i></i></span></span><b>折成纸飞机 · 回工作室</b></a>
+<a class="studio-door" id="studioDoor" href="../index.html?from=site" aria-label="回到 3D 工作室"><span class="sd-frame"><span class="sd-leaf"><i></i></span></span><b>折成纸飞机 · 回到桌前</b></a>
 <script>/* 一扇常驻在左边缘的小门：随时走回 3D 工作室。从工作室门里出来的人会先看到它推开 + 一句话 */
 (function(){var d=document.getElementById("studioDoor");if(!d)return;var from=/[?&]from=studio/.test(location.search);
 var v=document.createElement("div");v.className="studio-veil";v.innerHTML="<i>工作室</i><i>的门外</i>";document.body.appendChild(v);
 v.style.display="none"; /* v55：从工作室来，由 plane.js 放「纸飞机飞来展开」 */
-if(from){d.classList.add("hello");var t=document.createElement("div");t.className="studio-back";t.setAttribute("role","status");t.innerHTML='你从工作室飞出来了 · 左下角这扇小门随时能走回去<button type="button" aria-label="收起">×</button>';document.body.appendChild(t);t.querySelector("button").onclick=function(){t.classList.add("off")};setTimeout(function(){t.classList.add("off");d.classList.remove("hello")},7000);}
-function back(e,h){e.preventDefault();d.classList.add("go");if(window.FORMA_FOLD){window.FORMA_FOLD(h);return;}v.style.display="flex";v.classList.remove("open");v.querySelector("i").textContent="回";v.querySelectorAll("i")[1].textContent="工作室";v.classList.add("shut");setTimeout(function(){location.href=h},800);}d.addEventListener("click",function(e){back(e,d.href)});var sl=document.getElementById("studioLink");if(sl)sl.addEventListener("click",function(e){back(e,sl.href)});})();</script>
+if(from&&!/[?&]by=film/.test(location.search)){d.classList.add("hello");var t=document.createElement("div");t.className="studio-back";t.setAttribute("role","status");t.innerHTML='你从工作室飞出来了 · 左下角这扇小门随时能走回去<button type="button" aria-label="收起">×</button>';document.body.appendChild(t);t.querySelector("button").onclick=function(){t.classList.add("off")};setTimeout(function(){t.classList.add("off");d.classList.remove("hello")},7000);}
+var Wq=(location.search.match(/[?&]w=([0-4])/)||[])[1];
+window.FORMA_REWIND=function(h){var u=h+(h.indexOf("?")<0?"?":"&")+"by=film"+(Wq?"&w="+Wq:"");if(matchMedia("(prefers-reduced-motion: reduce)").matches){location.href=u;return;}document.documentElement.classList.add("film-back");setTimeout(function(){location.href=u},950);};
+addEventListener("pageshow",function(e){if(e.persisted)document.documentElement.classList.remove("film-back")});
+if(/[?&]by=film/.test(location.search)){var fo=function(){document.documentElement.classList.add("film-open");setTimeout(function(){document.documentElement.classList.remove("film-in","film-open")},1400)};if(document.readyState==="complete")setTimeout(fo,200);else addEventListener("load",function(){setTimeout(fo,200)});
+var seen=0;try{seen=localStorage.getItem("forma.film1");localStorage.setItem("forma.film1","1")}catch(_){}if(!seen){var ft=document.createElement("div");ft.className="film-tip";ft.setAttribute("role","status");ft.textContent="你从工作室的放映机飞进了成片 · 往下滑着看 · 左下角小门随时飞回桌前";document.body.appendChild(ft);setTimeout(function(){ft.classList.add("off")},5200);}}
+function back(e,h){e.preventDefault();d.classList.add("go");if(Wq)h=h+(h.indexOf("?")<0?"?":"&")+"w="+Wq;if(window.FORMA_FOLD){window.FORMA_FOLD(h);return;}v.style.display="flex";v.classList.remove("open");v.querySelector("i").textContent="回";v.querySelectorAll("i")[1].textContent="工作室";v.classList.add("shut");setTimeout(function(){location.href=h},800);}d.addEventListener("click",function(e){back(e,d.href)});var sl=document.getElementById("studioLink");if(sl)sl.addEventListener("click",function(e){back(e,sl.href)});})();</script>
 <script src="assets/vendor/three.min.js"></script>
 <script src="bundle.js?v=55"></script>
 <script src="island/contact-island.js?v=55"></script>
