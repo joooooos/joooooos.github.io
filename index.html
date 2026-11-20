@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta name="release-version" content="2026.10">
+<meta name="release-version" content="2026.11">
 <link rel="canonical" href="https://joooooos.github.io/">
 <meta property="og:url" content="https://joooooos.github.io/">
 <meta property="og:title" content="郭江硕的工作室 · AI 产品经理">
 <meta property="og:image" content="https://joooooos.github.io/site/assets/icons/og.jpg">
 <script>/* 坐纸飞机来的：首帧就是满屏奶油云（滚动版最后那一帧），别先闪一下落地页 */ if (/[?&]by=plane/.test(location.search)) document.documentElement.classList.add("byplane", "pl-arrive");</script>
 <meta charset="utf-8">
+<meta name="author" content="joooooos&amp;Claude">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>郭江硕的工作室 · AI 产品经理</title>
 <meta name="description" content="郭江硕（AI 产品经理）的作品集是一台游戏机：每个作品是一张卡带，插进去玩到它要解决的那个问题。">
 <link rel="icon" href="site/assets/icons/favicon.svg">
-<link rel="preload" href="bundle.js?v=72" as="fetch" crossorigin>
+<link rel="preload" href="bundle.js?v=93" as="fetch" crossorigin>
 <link rel="preload" href="assets/hand.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/poster.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -289,7 +290,7 @@ body[data-view=seat] #zoomBtn, body[data-view=play] #zoomBtn { display: inline-f
 body[data-view=seat] #zoomBtn::before, body[data-view=play] #zoomBtn::before { content: "⤢"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 14px; }
 body[data-view=seat] #zoomBtn kbd, body[data-view=play] #zoomBtn kbd { font: 700 11px var(--sans); color: rgba(20,19,18,.5); border: 1.5px solid rgba(20,19,18,.3); border-radius: 5px; padding: 1px 5px; }
 body[data-view=play] #zoomBtn { bottom: 76px; }
-body[data-view=seat] #hint { display: none; }
+body[data-view=seat] #hint, body[data-view=wall] #hint, body[data-view=gallery] #hint, body[data-view=gate] #hint { display: none; }
 body.night[data-view=seat] #zoomBtn { background: #2a211d; color: var(--paper); border-color: var(--paper); }
 body.film #gl { filter: none; }
 #zones .zs { background: var(--ink); color: var(--paper); }
@@ -312,7 +313,7 @@ body.film::after { display: none; }
 #filmCard { backdrop-filter: blur(6px); background: rgba(24,19,16,.92); }
 /* v6.5 退出前端视角：大一号的按钮 */
 body[data-view=seat] #zoomBtn, body[data-view=play] #zoomBtn { gap: 12px; font-size: 17px; padding: 12px 26px 12px 12px; border-width: 3px; box-shadow: 4px 4px 0 var(--ink); bottom: 22px; border-radius: 999px; }
-body[data-view=seat] #zoomBtn b, body[data-view=play] #zoomBtn b { font-weight: 900; }
+body[data-view=seat] #zoomBtn b, body[data-view=play] #zoomBtn b { font-weight: 900; white-space: nowrap; } body[data-view=seat] #zoomBtn, body[data-view=play] #zoomBtn { white-space: nowrap; }
 body[data-view=seat] #zoomBtn::before, body[data-view=play] #zoomBtn::before { width: 36px; height: 36px; font-size: 20px; background: var(--ver); }
 body[data-view=seat] #zoomBtn kbd, body[data-view=play] #zoomBtn kbd { font-size: 12px; padding: 2px 7px; }
 body[data-view=seat] #zoomBtn:hover, body[data-view=play] #zoomBtn:hover { translate: -50% -2px; box-shadow: 5px 6px 0 var(--ink); }
@@ -328,6 +329,23 @@ body[data-view=play] #zoomBtn { bottom: 80px; }
 #pjHint.seen span { display: none; } #pjHint.seen { padding: 6px 12px 6px 7px; } #pjHint.seen i { width: 22px; height: 22px; } #pjHint.seen i::after { left: 8px; top: 5px; border-left-width: 8px; border-top-width: 6px; border-bottom-width: 6px; }
 @keyframes pjBob { 50% { margin-top: -6px; } }
 @media (prefers-reduced-motion: reduce) { #pjHint.on { animation: none; } }
+/* v6.7 导览：选中 = 自己的颜色；晚上悬停不再变成一块惨白 */
+#zones button.on { background: var(--c) !important; border-color: var(--ink) !important; }
+#zones button.on b, #zones button.on span, #zones button[data-z].on b, #zones button[data-z].on span { color: var(--fc) !important; }
+#zones button.on span { opacity: .8; }
+#zones b { white-space: nowrap; }
+body.night #zones button:hover:not(.on) { background: rgba(245,237,228,.12); border-color: rgba(245,237,228,.55); }
+body.night #zones button:hover:not(.on) b { color: #FFF8EE; } body.night #zones button:hover:not(.on) span { color: rgba(245,237,228,.75); }
+body.night #zones .zs { background: #F5EDE4; } body.night #zones .zs b { color: #141312; } body.night #zones .zs span { color: rgba(20,19,18,.6); }
+body.night #zones button.on { border-color: #F5EDE4 !important; }
+#zones .zs, body.night #zones .zs { background: #141312 !important; } #zones .zs b, #zones .zs span, body.night #zones .zs b, body.night #zones .zs span { color: #FFF8EE !important; } #zones .zs span { opacity: .7; }
+#zones .zs:hover { background: #2a231e; } body.night #zones .zs:hover { background: #fff; }
+/* v6.9 质感：整屏一层很淡的纸纹颗粒 + 四角压暗，让画面像印出来的而不是屏幕渲染的 */
+#grain { position: fixed; inset: -50%; z-index: 4; pointer-events: none; opacity: .12; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grainMove 1.2s steps(6) infinite; }
+@keyframes grainMove { 0% { translate: 0 0 } 20% { translate: -3% 2% } 40% { translate: 2% -3% } 60% { translate: -2% -1% } 80% { translate: 3% 2% } 100% { translate: 0 0 } }
+#vig { position: fixed; inset: 0; z-index: 3; pointer-events: none; background: radial-gradient(ellipse 80% 75% at 50% 48%, rgba(40,26,14,0) 60%, rgba(40,26,14,.22) 100%); }
+body.lit #grain, body.lit #vig { display: none; }
+@media (prefers-reduced-motion: reduce) { #grain { animation: none; } }
 #filmOut { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0; background: #F5EDE4; display: grid; place-items: center; transition: opacity .45s ease-in; }
 #filmOut::before { content: "AI 什么都能做。"; font: 400 clamp(40px, 8vw, 120px)/1 "Sucai Shehui", var(--sans); color: var(--ink); }
 html.film-out #filmOut { opacity: 1; }
@@ -365,7 +383,7 @@ html.film-out #filmOut { opacity: 1; }
 <button type="button" id="ejectTip" aria-label="退卡，回到屋里"><span class="ej-k">B</span><span class="ej-t"><b>退卡</b>回到屋里</span><span class="ej-or">或按 Esc / 桌上蓝色 EJECT</span></button>
 <nav id="zones" aria-label="站起来以后能去的地方"></nav>
 <div id="filmCard" role="dialog" aria-label="要不要进去看成片"><p class="fc-k">FORMA 影院 · 1 号厅 · 座位：郭江硕的椅子</p><p class="fc-t">《AI 什么都能做？》</p><p class="fc-s">成片 = 滚动版网站，往下滑着看。银幕会折成纸飞机带你过去，左下角小门随时飞回这张桌子。</p><div class="fc-b"><button type="button" data-film="go">✈ 坐纸飞机进去</button><button type="button" data-film="no">先不看了</button></div><span class="fc-stub" aria-hidden="true">ADMIT ONE</span></div>
-<div id="filmOut" aria-hidden="true"></div>
+<div id="filmOut" aria-hidden="true"></div><div id="grain" aria-hidden="true"></div><div id="vig" aria-hidden="true"></div>
 <div id="pop" role="dialog" aria-live="polite"></div>
 <div id="list" aria-hidden="true"></div>
 <script>/* v36 进度从第一个字节就开始走：边下载 bundle.js 边推进度环（0 → 34%），下完再执行；file:// 或不支持流式时退回普通 <script> */
@@ -373,10 +391,10 @@ html.film-out #filmOut { opacity: 1; }
   var fg = document.querySelector("#landing .fg"), now = document.querySelector("#landing .ld-now"), raf = 0, want = 0, shown = 0;
   function paint() { shown += (want - shown) * 0.18; if (fg) { fg.style.strokeDashoffset = (377 * (1 - shown)).toFixed(1); fg.classList.toggle("z", shown < 0.02); } window.__ld0 = shown; raf = requestAnimationFrame(paint); }
   window.__ldStop = function () { cancelAnimationFrame(raf); };
-  function plain() { var t = document.createElement("script"); t.src = "bundle.js?v=72"; document.body.appendChild(t); }
+  function plain() { var t = document.createElement("script"); t.src = "bundle.js?v=93"; document.body.appendChild(t); }
   if (location.protocol === "file:" || !window.fetch || !window.ReadableStream) return plain();
   raf = requestAnimationFrame(paint);
-  fetch("bundle.js?v=72", { credentials: "same-origin", mode: "cors" }).then(function (r) {
+  fetch("bundle.js?v=93", { credentials: "same-origin", mode: "cors" }).then(function (r) {
     if (!r.ok || !r.body) throw 0;
     var total = +r.headers.get("content-length") || 1460000, enc = r.headers.get("content-encoding"), got = 0, rd = r.body.getReader(), parts = [];
     if (enc) total = total * 2.6; /* gzip 过的：content-length 是压缩后大小，按解压后估算 */
