@@ -2,7 +2,7 @@
 
 希望你玩耍过程愉快！
 
-作者是 joooooos&Claude
+作者是joooooos&Claude
 
 在线地址：https://joooooos.github.io/
 源码仓库：https://github.com/joooooos/Web_PaperStyle （本仓库只放构建产物，请勿手改）
@@ -23,4 +23,4 @@
 - 运行模式：纯前端静态站；广告工作台为前端模拟，不连接任何后端
 - 构建方式：在源码仓库执行 `npm ci && npm run build`，把 `首屏原型_句号下楼梯/dist/` 的内容覆盖到本仓库根目录
 - 构建版本：2026.11
-- 构建时间：2026-11-20T05:43:30.361Z
+- 构建时间：2026-11-27T17:16:05.586Z
